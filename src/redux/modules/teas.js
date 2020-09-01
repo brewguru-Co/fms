@@ -13,9 +13,14 @@ const UPDATE_TEA = "UPDATE_TEA";
 const UPDATE_TEA_SUCCESS = "UPDATE_TEA_SUCCESS";
 const UPDATE_TEA_ERROR = "UPDATE_TEA_ERROR";
 
+const CREATE_TEA = "CREATE_TEA";
+const CREATE_TEA_SUCCESS = "CREATE_TEA_SUCCESS";
+const CREATE_TEA_ERROR = "CREATE_TEA_ERROR";
+
 export const getTeas = () => ({ type: GET_TEAS });
 export const removeTea = (id) => ({ type: REMOVE_TEA, id });
 export const updateTea = (tea) => ({ type: UPDATE_TEA, tea });
+export const createTea = (tea) => ({ type: CREATE_TEA, tea });
 
 function* getTeasSaga() {
   try {
@@ -64,10 +69,30 @@ function* updateTeaSaga(action) {
   }
 }
 
+function* createTeaSaga(action) {
+  const tea = action.tea;
+  try {
+    const id = yield call(teasAPI.createTea, tea);
+    yield put({
+      type: CREATE_TEA_SUCCESS,
+      tea: {
+        ...tea,
+        id,
+      },
+    });
+  } catch (error) {
+    yield put({
+      type: CREATE_TEA_ERROR,
+      error,
+    });
+  }
+}
+
 export function* teasSaga() {
   yield takeEvery(GET_TEAS, getTeasSaga);
   yield takeLatest(REMOVE_TEA, removeTeaSaga);
   yield takeLatest(UPDATE_TEA, updateTeaSaga);
+  yield takeLatest(CREATE_TEA, createTeaSaga);
 }
 
 const initialState = {
@@ -90,12 +115,6 @@ export default function teas(state = initialState, action) {
         teas: action.teas,
         error: null,
       };
-    case GET_TEAS_ERROR:
-      return {
-        loading: false,
-        teas: state.teas,
-        error: action.error,
-      };
     case REMOVE_TEA:
       return {
         loading: true,
@@ -107,12 +126,6 @@ export default function teas(state = initialState, action) {
         loading: false,
         teas: state.teas.filter((tea) => tea.id !== action.id),
         error: null,
-      };
-    case REMOVE_TEA_ERROR:
-      return {
-        loading: false,
-        teas: state.teas,
-        error: action.error,
       };
     case UPDATE_TEA:
       return {
@@ -128,7 +141,22 @@ export default function teas(state = initialState, action) {
         ),
         error: null,
       };
+    case CREATE_TEA:
+      return {
+        loading: true,
+        teas: state.teas,
+        error: null,
+      };
+    case CREATE_TEA_SUCCESS:
+      return {
+        loading: false,
+        teas: state.teas.concat(action.tea),
+        error: null,
+      };
+    case GET_TEAS_ERROR:
+    case REMOVE_TEA_ERROR:
     case UPDATE_TEA_ERROR:
+    case CREATE_TEA_ERROR:
       return {
         loading: false,
         teas: state.teas,

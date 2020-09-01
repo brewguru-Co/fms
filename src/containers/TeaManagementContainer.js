@@ -3,9 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import EditableTable from "../components/EditableTable";
-import { getTeas, removeTea, updateTea } from "../redux/modules/teas";
+import {
+  getTeas,
+  removeTea,
+  updateTea,
+  createTea,
+} from "../redux/modules/teas";
+import locale from "../locale/ko_KR.json";
 
-const useStyles = makeStyles((theme) => ({
+const TEA = locale.TEA;
+
+const useStyles = makeStyles(() => ({
   progress: {
     position: "absolute",
     top: "50%",
@@ -15,24 +23,54 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = [
-  { id: "name", numeric: false, disablePadding: false, label: "품목명" },
-  { id: "phLowOp", numeric: true, disablePadding: false, label: "최저 PH" },
-  { id: "phHighOp", numeric: true, disablePadding: false, label: "최고 PH" },
-  { id: "tempLowOp", numeric: true, disablePadding: false, label: "최저 온도" },
+  { id: "name", type: "text", disablePadding: false, label: TEA.NAME },
+  {
+    id: "phLowOp",
+    type: "number",
+    disablePadding: false,
+    label: TEA.PH_LOW_OP,
+  },
+  {
+    id: "phHighOp",
+    type: "number",
+    disablePadding: false,
+    label: TEA.PH_HIGH_OP,
+  },
+  {
+    id: "tempLowOp",
+    type: "number",
+    disablePadding: false,
+    label: TEA.TEMP_LOW_OP,
+  },
   {
     id: "tempHighOp",
-    numeric: true,
+    type: "number",
     disablePadding: false,
-    label: "최고 온도",
+    label: TEA.TEMP_HIGH_OP,
   },
-  { id: "doLowOp", numeric: true, disablePadding: false, label: "최저 DO" },
-  { id: "doHighOp", numeric: true, disablePadding: false, label: "최고 DO" },
-  { id: "brixLowOp", numeric: true, disablePadding: false, label: "최저 당도" },
+  {
+    id: "doLowOp",
+    type: "number",
+    disablePadding: false,
+    label: TEA.DO_LOW_OP,
+  },
+  {
+    id: "doHighOp",
+    type: "number",
+    disablePadding: false,
+    label: TEA.DO_HIGH_OP,
+  },
+  {
+    id: "brixLowOp",
+    type: "number",
+    disablePadding: false,
+    label: TEA.BRIX_LOW_OP,
+  },
   {
     id: "brixHighOp",
-    numeric: true,
+    type: "number",
     disablePadding: false,
-    label: "최고 당도",
+    label: TEA.BRIX_HIGH_OP,
   },
 ];
 
@@ -47,6 +85,7 @@ function TeaManagementContainer() {
 
   const onRemove = (id) => dispatch(removeTea(id));
   const onUpdate = (tea) => dispatch(updateTea(tea));
+  const onCreate = (tea) => dispatch(createTea(tea));
 
   if (error) return <div>Aysnc Error 발생</div>;
   return (
@@ -57,13 +96,16 @@ function TeaManagementContainer() {
         </div>
       )}
       {data && (
-        <EditableTable
-          columns={columns}
-          rows={data}
-          title="최적값 범위 세팅"
-          onRemove={onRemove}
-          onUpdate={onUpdate}
-        />
+        <>
+          <EditableTable
+            columns={columns}
+            rows={data}
+            title="최적값 범위 세팅"
+            onRemove={onRemove}
+            onUpdate={onUpdate}
+            onCreate={onCreate}
+          />
+        </>
       )}
     </>
   );

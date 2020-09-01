@@ -13,11 +13,11 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 
 import EditableTableRow from "./EditableTableRow";
+import TeaDialog from "./TeaDialog";
+import locale from "../locale/ko_KR.json";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -54,7 +54,7 @@ function CTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell align="left">Action</TableCell>
+        <TableCell align="left">{locale.ACTION}</TableCell>
         {columns.map((column) => (
           <TableCell
             key={column.id}
@@ -67,7 +67,7 @@ function CTableHead(props) {
               direction={orderBy === column.id ? order : "asc"}
               onClick={createSortHandler(column.id)}
             >
-              {column.label}
+              <Typography variant="body2">{column.label}</Typography>
               {orderBy === column.id ? (
                 <span className={classes.visuallyHidden}>
                   {order === "desc" ? "sorted descending" : "sorted ascending"}
@@ -98,7 +98,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const CTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { title } = props;
+  const { title, handleOpen } = props;
 
   return (
     <Toolbar className={classes.root}>
@@ -111,7 +111,7 @@ const CTableToolbar = (props) => {
         {title || "Editable Table"}
       </Typography>
       <Tooltip title="추가">
-        <IconButton>
+        <IconButton onClick={handleOpen}>
           <AddBoxRoundedIcon className={classes.add} fontSize="large" />
         </IconButton>
       </Tooltip>
@@ -144,12 +144,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditableTable(props) {
-  const { rows, columns, onRemove, onUpdate, title } = props;
+  const { rows, columns, title, onRemove, onUpdate, onCreate } = props;
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("calories");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [open, setOpen] = useState(false);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -166,6 +167,14 @@ export default function EditableTable(props) {
     setPage(0);
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -173,7 +182,7 @@ export default function EditableTable(props) {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableContainer>
-          <CTableToolbar title={title} />
+          <CTableToolbar title={title} handleOpen={handleOpen} />
           <Table className={classes.table}>
             <CTableHead
               classes={classes}
@@ -190,6 +199,7 @@ export default function EditableTable(props) {
                   return (
                     <EditableTableRow
                       key={row.id}
+                      columns={columns}
                       row={row}
                       onUpdate={onUpdate}
                       onRemove={onRemove}
@@ -214,6 +224,7 @@ export default function EditableTable(props) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
+      <TeaDialog open={open} handleClose={handleClose} onCreate={onCreate} />
     </div>
   );
 }

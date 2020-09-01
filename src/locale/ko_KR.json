@@ -1,0 +1,14 @@
+{
+  "TEA": {
+    "NAME": "품목명",
+    "PH_LOW_OP": "최저 PH",
+    "PH_HIGH_OP": "최고 PH",
+    "TEMP_LOW_OP": "최저 온도",
+    "TEMP_HIGH_OP": "최고 온도",
+    "DO_LOW_OP": "최저 DO",
+    "DO_HIGH_OP": "최고 DO",
+    "BRIX_LOW_OP": "최저 당도",
+    "BRIX_HIGH_OP": "최고 당도"
+  },
+  "ACTION": "수정 | 삭제"
+}

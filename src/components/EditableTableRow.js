@@ -3,6 +3,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import DoneIcon from "@material-ui/icons/Done";
@@ -10,19 +11,19 @@ import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
 
 function EditableTableRow(props) {
-  const { row, onUpdate, onRemove } = props;
+  const { row, columns, onUpdate, onRemove } = props;
   const [state, setState] = React.useState({
     isModifiying: false,
     rowData: { ...row },
   });
 
   const onChange = (e) => {
-    const { id, value } = e.target;
+    const { id, type, value } = e.target;
     setState((prev) => ({
       ...prev,
       rowData: {
         ...prev.rowData,
-        [id]: value,
+        [id]: type === "number" ? parseFloat(value) : value,
       },
     }));
   };
@@ -30,6 +31,10 @@ function EditableTableRow(props) {
   const handleUpdate = () => {
     onUpdate(state.rowData);
     setState({ ...state, isModifiying: false });
+  };
+
+  const getType = (key) => {
+    return columns.find((e) => e.id === key).type;
   };
 
   return (
@@ -77,14 +82,17 @@ function EditableTableRow(props) {
                   value={state.rowData[key] || ""}
                   onChange={onChange}
                   color="primary"
-                  size="large"
-                  fullWidth
+                  type={getType(key)}
                 />
               </TableCell>
             ))
         : Object.keys(row)
             .filter((key) => key !== "id")
-            .map((key, index) => <TableCell key={index}>{row[key]}</TableCell>)}
+            .map((key, index) => (
+              <TableCell key={index}>
+                <Typography variant="body2">{row[key]}</Typography>
+              </TableCell>
+            ))}
     </TableRow>
   );
 }

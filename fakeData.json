@@ -15,14 +15,26 @@
     {
       "id": 2,
       "name": "lemon",
-      "tempHighOp": 30,
-      "tempLowOp": 29.5,
-      "phHighOp": 3.5,
-      "phLowOp": 3,
-      "doHighOp": 80,
-      "doLowOp": 78,
-      "brixHighOp": null,
-      "brixLowOp": null
+      "tempHighOp": 37.6,
+      "tempLowOp": 32.5,
+      "phHighOp": 2,
+      "phLowOp": -1.5,
+      "doHighOp": 32,
+      "doLowOp": 22,
+      "brixHighOp": 80,
+      "brixLowOp": 70
+    },
+    {
+      "id": 3,
+      "name": "tangerin",
+      "tempHighOp": 23.6,
+      "tempLowOp": 21.5,
+      "phHighOp": 1.5,
+      "phLowOp": -3,
+      "doHighOp": 44,
+      "doLowOp": 35,
+      "brixHighOp": 90,
+      "brixLowOp": 70
     }
   ]
 }

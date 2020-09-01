@@ -14,9 +14,9 @@ export const removeTea = (id) => {
   return id;
 };
 
-export const createTea = () => {
-  console.log("createTea ");
-  return;
+export const createTea = (tea) => {
+  console.log("createTea ", tea);
+  return 4;
 };
 
 export const updateTea = (tea) => {
