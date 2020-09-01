@@ -12,12 +12,11 @@ import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
 
 function CTableCell(props) {
-  const { isModifying, type, id, key, value, onChange } = props;
+  const { isModifying, type, id, value, onChange } = props;
 
   if (type === "checkbox") {
-    console.log(!isModifying);
     return (
-      <TableCell key={key}>
+      <TableCell padding="none">
         <Checkbox
           id={id}
           type={type}
@@ -30,7 +29,7 @@ function CTableCell(props) {
   }
 
   return (
-    <TableCell key={key}>
+    <TableCell padding="none">
       {isModifying ? (
         <TextField
           id={id}
@@ -117,19 +116,17 @@ function EditableTableRow(props) {
           </>
         )}
       </TableCell>
-      {Object.keys(row)
-        .filter((key) => key !== "id")
-        .map((key, index) => (
-          <CTableCell
-            isModifying={state.isModifying}
-            id={key}
-            key={index}
-            value={state.rowData[key] || ""}
-            onChange={onChange}
-            color="primary"
-            type={getType(key)}
-          />
-        ))}
+      {columns.map(({ id }, index) => (
+        <CTableCell
+          isModifying={state.isModifying}
+          id={id}
+          key={index}
+          value={state.rowData[id]}
+          onChange={onChange}
+          color="primary"
+          type={getType(id)}
+        />
+      ))}
     </TableRow>
   );
 }

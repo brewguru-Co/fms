@@ -17,6 +17,7 @@ import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 
 import EditableTableRow from "./EditableTableRow";
 import TeaDialog from "./TeaDialog";
+import NotificationDialog from "./NotificationDialog";
 import locale from "../locale/ko_KR.json";
 
 function descendingComparator(a, b, orderBy) {
@@ -119,6 +120,25 @@ const CTableToolbar = (props) => {
   );
 };
 
+const CDialog = ({ dialog, open, handleClose, onCreate }) => {
+  switch (dialog) {
+    case "tea":
+      return (
+        <TeaDialog open={open} handleClose={handleClose} onCreate={onCreate} />
+      );
+    case "notification":
+      return (
+        <NotificationDialog
+          open={open}
+          handleClose={handleClose}
+          onCreate={onCreate}
+        />
+      );
+    default:
+      return null;
+  }
+};
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -144,12 +164,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditableTable(props) {
-  const { rows, columns, title, onRemove, onUpdate, onCreate } = props;
+  const { rows, columns, title, onRemove, onUpdate, onCreate, dialog } = props;
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("calories");
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPage || 5);
   const [open, setOpen] = useState(false);
 
   const handleRequestSort = (event, property) => {
@@ -208,7 +228,7 @@ export default function EditableTable(props) {
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={columns.length + 1} />
                 </TableRow>
               )}
             </TableBody>
@@ -224,7 +244,12 @@ export default function EditableTable(props) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <TeaDialog open={open} handleClose={handleClose} onCreate={onCreate} />
+      <CDialog
+        dialog={dialog}
+        open={open}
+        handleClose={handleClose}
+        onCreate={onCreate}
+      />
     </div>
   );
 }

@@ -23,7 +23,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import TeaManagementPage from "../pages/TeaManagementPage";
 import NotificationPage from "../pages/NotificationPage";
 
-const drawerWidth = 200;
+const drawerWidth = 250;
 const history = createBrowserHistory();
 
 const useStyles = makeStyles((theme) => ({

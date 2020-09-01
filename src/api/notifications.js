@@ -16,7 +16,7 @@ export const removeNotification = (id) => {
 
 export const createNotification = (notification) => {
   console.log("createNotification ", notification);
-  return 4;
+  return 5;
 };
 
 export const updateNotification = (notification) => {

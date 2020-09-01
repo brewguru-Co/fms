@@ -88,6 +88,7 @@ function TeaManagementContainer() {
             onRemove={onRemove}
             onUpdate={onUpdate}
             onCreate={onCreate}
+            dialog="tea"
           />
         </>
       )}
