@@ -4,22 +4,67 @@ import TableCell from "@material-ui/core/TableCell";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
+import Checkbox from "@material-ui/core/Checkbox";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import DoneIcon from "@material-ui/icons/Done";
 import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
 
+function CTableCell(props) {
+  const { isModifying, type, id, key, value, onChange } = props;
+
+  if (type === "checkbox") {
+    console.log(!isModifying);
+    return (
+      <TableCell key={key}>
+        <Checkbox
+          id={id}
+          type={type}
+          checked={value}
+          onChange={onChange}
+          disabled={!isModifying}
+        />
+      </TableCell>
+    );
+  }
+
+  return (
+    <TableCell key={key}>
+      {isModifying ? (
+        <TextField
+          id={id}
+          value={value}
+          onChange={onChange}
+          color="primary"
+          type={type}
+        />
+      ) : (
+        <Typography variant="body2">{value}</Typography>
+      )}
+    </TableCell>
+  );
+}
+
 function EditableTableRow(props) {
   const { row, columns, onUpdate, onRemove } = props;
   const [state, setState] = React.useState({
-    isModifiying: false,
+    isModifying: false,
     rowData: { ...row },
   });
 
   const onChange = (e) => {
-    const { id, type, value } = e.target;
-    setState((prev) => ({
+    const { id, type, value, checked } = e.target;
+    if (type === "checkbox") {
+      return setState((prev) => ({
+        ...prev,
+        rowData: {
+          ...prev.rowData,
+          [id]: checked,
+        },
+      }));
+    }
+    return setState((prev) => ({
       ...prev,
       rowData: {
         ...prev.rowData,
@@ -30,7 +75,7 @@ function EditableTableRow(props) {
 
   const handleUpdate = () => {
     onUpdate(state.rowData);
-    setState({ ...state, isModifiying: false });
+    setState({ ...state, isModifying: false });
   };
 
   const getType = (key) => {
@@ -40,7 +85,7 @@ function EditableTableRow(props) {
   return (
     <TableRow key={row.id}>
       <TableCell style={{ width: "120px" }} padding="none">
-        {state.isModifiying ? (
+        {state.isModifying ? (
           <>
             <Tooltip title="저장">
               <IconButton onClick={handleUpdate}>
@@ -49,7 +94,7 @@ function EditableTableRow(props) {
             </Tooltip>
             <Tooltip title="취소">
               <IconButton
-                onClick={() => setState({ ...state, isModifiying: false })}
+                onClick={() => setState({ ...state, isModifying: false })}
               >
                 <CloseIcon />
               </IconButton>
@@ -59,7 +104,7 @@ function EditableTableRow(props) {
           <>
             <Tooltip title="수정">
               <IconButton
-                onClick={() => setState({ ...state, isModifiying: true })}
+                onClick={() => setState({ ...state, isModifying: true })}
               >
                 <CreateIcon />
               </IconButton>
@@ -72,27 +117,19 @@ function EditableTableRow(props) {
           </>
         )}
       </TableCell>
-      {state.isModifiying
-        ? Object.keys(row)
-            .filter((key) => key !== "id")
-            .map((key, index) => (
-              <TableCell key={index}>
-                <TextField
-                  id={key}
-                  value={state.rowData[key] || ""}
-                  onChange={onChange}
-                  color="primary"
-                  type={getType(key)}
-                />
-              </TableCell>
-            ))
-        : Object.keys(row)
-            .filter((key) => key !== "id")
-            .map((key, index) => (
-              <TableCell key={index}>
-                <Typography variant="body2">{row[key]}</Typography>
-              </TableCell>
-            ))}
+      {Object.keys(row)
+        .filter((key) => key !== "id")
+        .map((key, index) => (
+          <CTableCell
+            isModifying={state.isModifying}
+            id={key}
+            key={index}
+            value={state.rowData[key] || ""}
+            onChange={onChange}
+            color="primary"
+            type={getType(key)}
+          />
+        ))}
     </TableRow>
   );
 }

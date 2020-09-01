@@ -36,5 +36,35 @@
       "brixHighOp": 90,
       "brixLowOp": 70
     }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "name": "CS팀",
+      "email": "cs@brewguru.com",
+      "phone": "02-222-2222",
+      "on": true
+    },
+    {
+      "id": 2,
+      "name": "차차장",
+      "email": "mccha0407@gmail.com",
+      "phone": "01066470203",
+      "on": true
+    },
+    {
+      "id": 3,
+      "name": "차과장",
+      "email": "sccha0808@gmail.com",
+      "phone": null,
+      "on": false
+    },
+    {
+      "id": 4,
+      "name": "박이사",
+      "email": "park@gmail.com",
+      "phone": "0101231234",
+      "on": true
+    }
   ]
 }

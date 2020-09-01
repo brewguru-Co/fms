@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CIndicator from "../components/CIndicator";
 import EditableTable from "../components/EditableTable";
 import {
   getTeas,
@@ -12,16 +11,6 @@ import {
 import locale from "../locale/ko_KR.json";
 
 const TEA = locale.TEA;
-
-const useStyles = makeStyles(() => ({
-  progress: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    zIndex: 5,
-  },
-}));
-
 const columns = [
   { id: "name", type: "text", disablePadding: false, label: TEA.NAME },
   {
@@ -75,7 +64,6 @@ const columns = [
 ];
 
 function TeaManagementContainer() {
-  const classes = useStyles();
   const { loading, error, teas: data } = useSelector((state) => state.teas);
   const dispatch = useDispatch();
 
@@ -90,11 +78,7 @@ function TeaManagementContainer() {
   if (error) return <div>Aysnc Error 발생</div>;
   return (
     <>
-      {loading && (
-        <div className={classes.progress}>
-          <CircularProgress />
-        </div>
-      )}
+      {loading && <CIndicator />}
       {data && (
         <>
           <EditableTable

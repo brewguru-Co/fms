@@ -10,5 +10,12 @@
     "BRIX_LOW_OP": "최저 당도",
     "BRIX_HIGH_OP": "최고 당도"
   },
+  "NOTIFICATION": {
+    "NAME": "이름",
+    "PHONE": "전화번호",
+    "EMAIL": "이메일",
+    "ON_OFF": "알림",
+    "SENT_AT": "발송시각"
+  },
   "ACTION": "수정 | 삭제"
 }

@@ -18,8 +18,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 
-import TeakManagementPage from "../pages/TeaManagementPage";
+import TeaManagementPage from "../pages/TeaManagementPage";
+import NotificationPage from "../pages/NotificationPage";
 
 const drawerWidth = 200;
 const history = createBrowserHistory();
@@ -150,17 +152,34 @@ export default function NavigationBar() {
           </div>
           <Divider />
           <List>
-            <ListItem button component={Link} to="/" key={"Dashboard"}>
+            <ListItem
+              button
+              component={Link}
+              to="/tea_management"
+              key={"TeaManagement"}
+            >
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
-              <ListItemText primary={"Dashboard"} />
+              <ListItemText primary={"품목 최적 관리"} />
+            </ListItem>
+            <ListItem
+              button
+              component={Link}
+              to="/notification"
+              key={"Notification"}
+            >
+              <ListItemIcon>
+                <NotificationsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"알림"} />
             </ListItem>
           </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route exact path="/" component={TeakManagementPage} />
+          <Route path="/tea_management" component={TeaManagementPage} />
+          <Route exact path="/notification" component={NotificationPage} />
         </main>
       </Router>
     </div>
