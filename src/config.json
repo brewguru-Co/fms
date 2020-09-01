@@ -1,0 +1,8 @@
+{
+  "development": {
+    "api": {
+      "host": "http://localhost",
+      "port": 4000
+    }
+  }
+}

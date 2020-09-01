@@ -4,21 +4,30 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import logger from "redux-logger";
+import createSagaMiddleware from "redux-saga";
+import rootReducer, { rootSaga } from "./redux/modules";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#ea684b",
-    },
-  },
-});
+import CThemeProvider from "./components/CThemeProvider";
+
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware, logger))
+);
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <CThemeProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </CThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,0 +1,28 @@
+{
+  "teas": [
+    {
+      "id": 1,
+      "name": "original",
+      "tempHighOp": 30,
+      "tempLowOp": 29.5,
+      "phHighOp": 3.5,
+      "phLowOp": 3,
+      "doHighOp": 80,
+      "doLowOp": 78,
+      "brixHighOp": null,
+      "brixLowOp": null
+    },
+    {
+      "id": 2,
+      "name": "lemon",
+      "tempHighOp": 30,
+      "tempLowOp": 29.5,
+      "phHighOp": 3.5,
+      "phLowOp": 3,
+      "doHighOp": 80,
+      "doLowOp": 78,
+      "brixHighOp": null,
+      "brixLowOp": null
+    }
+  ]
+}
