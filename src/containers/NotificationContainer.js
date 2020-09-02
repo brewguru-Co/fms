@@ -48,26 +48,23 @@ function NotificationContainer() {
   const onCreate = (notification) => dispatch(createNotification(notification));
 
   return (
-    <div style={{ width: "100%" }}>
-      <div style={{ width: "40%" }}>
-        {loading && <CIndicator />}
-        {data && (
-          <>
-            <EditableTable
-              columns={columns}
-              rows={data}
-              rowsPerPage={10}
-              title="알림 세팅"
-              onRemove={onRemove}
-              onUpdate={onUpdate}
-              onCreate={onCreate}
-              dialog="notification"
-            />
-          </>
-        )}
-      </div>
-      <div style={{ width: "60%" }}></div>
-    </div>
+    <>
+      {loading && <CIndicator />}
+      {data && (
+        <>
+          <EditableTable
+            columns={columns}
+            rows={data}
+            rowsPerPage={10}
+            title="알림 세팅"
+            onRemove={onRemove}
+            onUpdate={onUpdate}
+            onCreate={onCreate}
+            dialog="notification"
+          />
+        </>
+      )}
+    </>
   );
 }
 

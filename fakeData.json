@@ -66,5 +66,79 @@
       "phone": "0101231234",
       "on": true
     }
+  ],
+  "notification_records": [
+    {
+      "code": "PhHighLimitOver",
+      "content": {
+        "high": 3.5,
+        "low": 2.5,
+        "value": 3.6
+      },
+      "createdAt": 1599030299
+    },
+    {
+      "code": "PhLowLimitOver",
+      "content": {
+        "high": 3.5,
+        "low": 2.5,
+        "value": 2.3
+      },
+      "createdAt": 1599031209
+    },
+    {
+      "code": "TempHighLimitOver",
+      "content": {
+        "high": 31.5,
+        "low": 29.5,
+        "value": 32.6
+      },
+      "createdAt": 1599031229
+    },
+    {
+      "code": "TempLowLimitOver",
+      "content": {
+        "high": 23.5,
+        "low": 22.5,
+        "value": 21
+      },
+      "createdAt": 1599031311
+    },
+    {
+      "code": "DoHighLimitOver",
+      "content": {
+        "high": 61,
+        "low": 55,
+        "value": 62
+      },
+      "createdAt": 1599031325
+    },
+    {
+      "code": "DoLowLimitOver",
+      "content": {
+        "high": 62,
+        "low": 52,
+        "value": 41
+      },
+      "createdAt": 1599031357
+    },
+    {
+      "code": "BrixHighLimitOver",
+      "content": {
+        "high": 88,
+        "low": 87,
+        "value": 89
+      },
+      "createdAt": 1599031413
+    },
+    {
+      "code": "BrixLowLimitOver",
+      "content": {
+        "high": 78,
+        "low": 75,
+        "value": 72
+      },
+      "createdAt": 1599031434
+    }
   ]
 }
