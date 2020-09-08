@@ -15,7 +15,15 @@
     "PHONE": "전화번호",
     "EMAIL": "이메일",
     "ON_OFF": "알림",
-    "SENT_AT": "발송시각"
+    "SENT_AT": "발송시각",
+    "PhHighLimitOver": "PH 초과",
+    "PhLowLimitOver": "PH 미달",
+    "TempHighLimitOver": "온도 초과",
+    "TempLowLimitOver": "온도 미달",
+    "DoHighLimitOver": "DO 초과",
+    "DoLowLimitOver": "DO 초과",
+    "BrixHighLimitOver": "당도 초과",
+    "BrixLowLimitOver": "당도 미달"
   },
   "ACTION": "수정 | 삭제"
 }

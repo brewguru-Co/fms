@@ -11,8 +11,6 @@ import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import rootReducer, { rootSaga } from "./redux/modules";
 
-import CThemeProvider from "./components/CThemeProvider";
-
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,
@@ -23,11 +21,9 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>
-    <CThemeProvider>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </CThemeProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

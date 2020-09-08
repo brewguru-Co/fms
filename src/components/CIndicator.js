@@ -1,15 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import styles from "../assets/jss/components/CIndicatorStyle";
 
-const useStyles = makeStyles(() => ({
-  progress: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    zIndex: 5,
-  },
-}));
+const useStyles = makeStyles(styles);
 
 function CIndicator() {
   const classes = useStyles();
