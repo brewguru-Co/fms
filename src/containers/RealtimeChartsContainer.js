@@ -3,6 +3,10 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { getTankRealtimeData } from "../redux/modules/tankDatas";
 import Grid from "@material-ui/core/Grid";
+import InvertColors from "@material-ui/icons/InvertColors";
+import Speed from "@material-ui/icons/Speed";
+import { GreasePencil, Thermometer, Water, Gauge } from "mdi-material-ui";
+import RealtimeCard from "../components/RealtimeCard";
 import RealtimeChart from "../components/Chart/RealtimeChart";
 import { realtimeData, realtimeOptions } from "../lib/chart";
 
@@ -35,6 +39,18 @@ function RealtimeChartsContainer(props) {
 
   return (
     <Grid container spacing={3}>
+      <Grid item xs={3}>
+        <RealtimeCard color={"indigo"} title={"온도"} icon={<Thermometer />} />
+      </Grid>
+      <Grid item xs={3}>
+        <RealtimeCard color={"yellow"} title={"PH"} icon={<GreasePencil />} />
+      </Grid>
+      <Grid item xs={3}>
+        <RealtimeCard color={"red"} title={"당도"} icon={<Water />} />
+      </Grid>
+      <Grid item xs={3}>
+        <RealtimeCard color={"gray"} title={"용존산소량"} icon={<Gauge />} />
+      </Grid>
       <Grid item xs={4}>
         {data && (
           <RealtimeChart
