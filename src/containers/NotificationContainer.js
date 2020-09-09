@@ -12,23 +12,23 @@ import locale from "../locale/ko_KR.json";
 
 const NOTIFICATION = locale.NOTIFICATION;
 const columns = [
-  { id: "name", type: "text", disablePadding: false, label: NOTIFICATION.NAME },
+  { id: "name", type: "text", disablePadding: true, label: NOTIFICATION.NAME },
   {
     id: "email",
     type: "email",
-    disablePadding: false,
+    disablePadding: true,
     label: NOTIFICATION.EMAIL,
   },
   {
     id: "phone",
     type: "tel",
-    disablePadding: false,
+    disablePadding: true,
     label: NOTIFICATION.PHONE,
   },
   {
     id: "on",
     type: "checkbox",
-    disablePadding: false,
+    disablePadding: true,
     label: NOTIFICATION.ON_OFF,
   },
 ];
@@ -57,10 +57,12 @@ function NotificationContainer() {
             rows={data}
             rowsPerPage={10}
             title="알림 세팅"
+            subTitle="측정값이 적정 범위를 벗어날 시 알릴 대상 설정"
             onRemove={onRemove}
             onUpdate={onUpdate}
             onCreate={onCreate}
             dialog="notification"
+            color="indigo"
           />
         </>
       )}

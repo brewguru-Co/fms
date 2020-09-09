@@ -1,14 +1,14 @@
 import { INDIGO, GRAY, WHITE } from "../";
 
-const NotificationRecordStyle = {
+const notificationRecordStyle = {
   root: {
     padding: 8,
     position: "relative",
-    background: `linear-gradient(90deg, ${INDIGO[8]} 1%, ${WHITE} 1%)`,
+    // background: `linear-gradient(90deg, ${INDIGO[8]} 1%, ${WHITE} 1%)`,
   },
   title: {
     textAlign: "center",
-    color: INDIGO[8],
+    color: GRAY[7],
     fontWeight: "Bold",
     fontSize: 16,
   },
@@ -37,4 +37,4 @@ const NotificationRecordStyle = {
   },
 };
 
-export default NotificationRecordStyle;
+export default notificationRecordStyle;

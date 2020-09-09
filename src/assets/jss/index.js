@@ -24,6 +24,33 @@ export const hexToRgb = (input) => {
   );
 };
 
+export const getColor = (color) => {
+  switch (color) {
+    case "indigo":
+      return INDIGO[8];
+    case "yellow":
+      return YELLOW[8];
+    case "orange":
+      return ORANGE[8];
+    case "gray":
+      return GRAY[8];
+    case "red":
+      return RED[8];
+    case "green":
+      return GREEN[8];
+    case "bGreen":
+      return BRAND_GREEN[1];
+    case "bYellow":
+      return BRAND_YELLOW[1];
+    case "bPink":
+      return BRAND_PINK[1];
+    case "bOrange":
+      return BRAND_ORANGE[1];
+    default:
+      return BLACK;
+  }
+};
+
 export const DRAWER_WIDTH = 250;
 
 /* Color - https://yeun.github.io/open-color/ */

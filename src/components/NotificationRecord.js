@@ -3,11 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
-import WarningIcon from "@material-ui/icons/Warning";
 import { isToday, getTimeString } from "../lib/time";
-// import { INDIGO, GRAY, WHITE, RED } from "../assets/jss";
-import styles from "../assets/jss/components/NotificationRecordStyle";
+import styles from "../assets/jss/components/notificationRecordStyle";
 import locale from "../locale/ko_KR.json";
 
 const NOTIFICATION = locale.NOTIFICATION;
@@ -29,9 +26,12 @@ function NotificationRecord(props) {
             {NOTIFICATION[code]}
           </Typography>
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={6}>
           <Typography className={classes.content}>
-            측정값: <b>{value}</b> ({low} ~ {high})
+            측정값: <b>{value}</b>
+          </Typography>
+          <Typography className={classes.content}>
+            최적 범위: {low} ~ {high}
           </Typography>
         </Grid>
         <Grid item xs>
@@ -41,7 +41,7 @@ function NotificationRecord(props) {
             </Typography>
           ) : (
             <Typography className={classes.time}>
-              {getTimeString(createdAt, "MM/DD/YYYY")}
+              {getTimeString(createdAt, "YYYY-MM-DD A hh:mm")}
             </Typography>
           )}
         </Grid>

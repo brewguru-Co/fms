@@ -10,6 +10,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import DoneIcon from "@material-ui/icons/Done";
 import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
+import { getColor } from "../assets/jss";
 
 function CTableCell(props) {
   const { isModifying, type, id, value, onChange } = props;
@@ -37,6 +38,7 @@ function CTableCell(props) {
           onChange={onChange}
           color="primary"
           type={type}
+          style={{ padding: 5, width: "100%" }}
         />
       ) : (
         <Typography variant="body2">{value}</Typography>
@@ -46,7 +48,7 @@ function CTableCell(props) {
 }
 
 function EditableTableRow(props) {
-  const { row, columns, onUpdate, onRemove } = props;
+  const { row, columns, onUpdate, onRemove, color } = props;
   const [state, setState] = React.useState({
     isModifying: false,
     rowData: { ...row },
@@ -88,14 +90,14 @@ function EditableTableRow(props) {
           <>
             <Tooltip title="저장">
               <IconButton onClick={handleUpdate}>
-                <DoneIcon />
+                <DoneIcon style={{ color: getColor("green") }} />
               </IconButton>
             </Tooltip>
             <Tooltip title="취소">
               <IconButton
                 onClick={() => setState({ ...state, isModifying: false })}
               >
-                <CloseIcon />
+                <CloseIcon style={{ color: getColor("red") }} />
               </IconButton>
             </Tooltip>
           </>
@@ -105,12 +107,12 @@ function EditableTableRow(props) {
               <IconButton
                 onClick={() => setState({ ...state, isModifying: true })}
               >
-                <CreateIcon />
+                <CreateIcon style={{ color: getColor(color) }} />
               </IconButton>
             </Tooltip>
             <Tooltip title="삭제">
               <IconButton onClick={() => onRemove(row.id)}>
-                <DeleteIcon />
+                <DeleteIcon style={{ color: getColor(color) }} />
               </IconButton>
             </Tooltip>
           </>

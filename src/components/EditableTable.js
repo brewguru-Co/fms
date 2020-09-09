@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Card from "./Card/Card";
+import CardBody from "./Card/CardBody";
+import CardHeader from "./Card/CardHeader";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,17 +11,16 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
-
 import EditableTableRow from "./EditableTableRow";
 import TeaDialog from "./TeaDialog";
 import NotificationDialog from "./NotificationDialog";
 import locale from "../locale/ko_KR.json";
+import styles from "../assets/jss/components/editableTableStyle";
+
+const useStyles = makeStyles(styles);
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -55,7 +57,9 @@ function CTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell align="left">{locale.ACTION}</TableCell>
+        <TableCell className={classes.tableHeader} align="left">
+          {locale.ACTION}
+        </TableCell>
         {columns.map((column) => (
           <TableCell
             key={column.id}
@@ -68,7 +72,9 @@ function CTableHead(props) {
               direction={orderBy === column.id ? order : "asc"}
               onClick={createSortHandler(column.id)}
             >
-              <Typography variant="body2">{column.label}</Typography>
+              <Typography className={classes.tableHeader} variant="body2">
+                {column.label}
+              </Typography>
               {orderBy === column.id ? (
                 <span className={classes.visuallyHidden}>
                   {order === "desc" ? "sorted descending" : "sorted ascending"}
@@ -81,44 +87,6 @@ function CTableHead(props) {
     </TableHead>
   );
 }
-
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-    backgroundColor: theme.palette.primary.light,
-  },
-  title: {
-    flex: "1 1 100%",
-    color: theme.palette.primary.contrastText,
-  },
-  add: {
-    color: theme.palette.primary.contrastText,
-  },
-}));
-
-const CTableToolbar = (props) => {
-  const classes = useToolbarStyles();
-  const { title, handleOpen } = props;
-
-  return (
-    <Toolbar className={classes.root}>
-      <Typography
-        className={classes.title}
-        variant="h6"
-        id="tableTitle"
-        component="div"
-      >
-        {title || "Editable Table"}
-      </Typography>
-      <Tooltip title="추가">
-        <IconButton onClick={handleOpen}>
-          <AddBoxRoundedIcon className={classes.add} fontSize="large" />
-        </IconButton>
-      </Tooltip>
-    </Toolbar>
-  );
-};
 
 const CDialog = ({ dialog, open, handleClose, onCreate }) => {
   switch (dialog) {
@@ -139,33 +107,19 @@ const CDialog = ({ dialog, open, handleClose, onCreate }) => {
   }
 };
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  paper: {
-    width: "100%",
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 750,
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: "rect(0 0 0 0)",
-    height: 1,
-    margin: -1,
-    overflow: "hidden",
-    padding: 0,
-    position: "absolute",
-    top: 20,
-    width: 1,
-  },
-}));
-
 export default function EditableTable(props) {
-  const { rows, columns, title, onRemove, onUpdate, onCreate, dialog } = props;
-  const classes = useStyles();
+  const {
+    rows,
+    columns,
+    onRemove,
+    onUpdate,
+    onCreate,
+    dialog,
+    title,
+    subTitle,
+    color,
+  } = props;
+  const classes = useStyles(props);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("calories");
   const [page, setPage] = useState(0);
@@ -199,57 +153,74 @@ export default function EditableTable(props) {
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <TableContainer>
-          <CTableToolbar title={title} handleOpen={handleOpen} />
-          <Table className={classes.table}>
-            <CTableHead
-              classes={classes}
-              columns={columns}
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  return (
-                    <EditableTableRow
-                      key={row.id}
-                      columns={columns}
-                      row={row}
-                      onUpdate={onUpdate}
-                      onRemove={onRemove}
-                    />
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={columns.length + 1} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Paper>
+    <>
+      <Card>
+        <CardHeader color={color}>
+          <div className={classes.header}>
+            <div className={classes.headerContent}>
+              <h3 className={classes.title}>{title}</h3>
+              <p className={classes.category}>{subTitle}</p>
+            </div>
+            <Tooltip title="추가">
+              <AddBoxRoundedIcon
+                className={classes.add}
+                fontSize="large"
+                onClick={handleOpen}
+              />
+            </Tooltip>
+          </div>
+        </CardHeader>
+        <CardBody>
+          <TableContainer>
+            <Table>
+              <CTableHead
+                classes={classes}
+                columns={columns}
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={handleRequestSort}
+                rowCount={rows.length}
+              />
+              <TableBody>
+                {stableSort(rows, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    return (
+                      <EditableTableRow
+                        key={row.id}
+                        columns={columns}
+                        row={row}
+                        onUpdate={onUpdate}
+                        onRemove={onRemove}
+                        color={color}
+                      />
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={columns.length + 1} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </CardBody>
+      </Card>
       <CDialog
         dialog={dialog}
         open={open}
         handleClose={handleClose}
         onCreate={onCreate}
       />
-    </div>
+    </>
   );
 }

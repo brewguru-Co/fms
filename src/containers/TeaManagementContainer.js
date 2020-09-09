@@ -12,53 +12,53 @@ import locale from "../locale/ko_KR.json";
 
 const TEA = locale.TEA;
 const columns = [
-  { id: "name", type: "text", disablePadding: false, label: TEA.NAME },
+  { id: "name", type: "text", disablePadding: true, label: TEA.NAME },
   {
     id: "phLowOp",
     type: "number",
-    disablePadding: false,
+    disablePadding: true,
     label: TEA.PH_LOW_OP,
   },
   {
     id: "phHighOp",
     type: "number",
-    disablePadding: false,
+    disablePadding: true,
     label: TEA.PH_HIGH_OP,
   },
   {
     id: "tempLowOp",
     type: "number",
-    disablePadding: false,
+    disablePadding: true,
     label: TEA.TEMP_LOW_OP,
   },
   {
     id: "tempHighOp",
     type: "number",
-    disablePadding: false,
+    disablePadding: true,
     label: TEA.TEMP_HIGH_OP,
   },
   {
     id: "doLowOp",
     type: "number",
-    disablePadding: false,
+    disablePadding: true,
     label: TEA.DO_LOW_OP,
   },
   {
     id: "doHighOp",
     type: "number",
-    disablePadding: false,
+    disablePadding: true,
     label: TEA.DO_HIGH_OP,
   },
   {
     id: "brixLowOp",
     type: "number",
-    disablePadding: false,
+    disablePadding: true,
     label: TEA.BRIX_LOW_OP,
   },
   {
     id: "brixHighOp",
     type: "number",
-    disablePadding: false,
+    disablePadding: true,
     label: TEA.BRIX_HIGH_OP,
   },
 ];
@@ -89,6 +89,7 @@ function TeaManagementContainer() {
             onUpdate={onUpdate}
             onCreate={onCreate}
             dialog="tea"
+            color="indigo"
           />
         </>
       )}
