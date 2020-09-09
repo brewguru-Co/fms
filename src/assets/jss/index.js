@@ -46,6 +46,8 @@ export const getColor = (color) => {
       return BRAND_PINK[1];
     case "bOrange":
       return BRAND_ORANGE[1];
+    case "white":
+      return WHITE;
     default:
       return BLACK;
   }

@@ -1,4 +1,4 @@
-import { DRAWER_WIDTH, BRAND, INDIGO } from "../";
+import { DRAWER_WIDTH, BRAND, GRAY, INDIGO } from "../";
 
 const navigationBarStyle = (theme) => ({
   root: {
@@ -10,7 +10,7 @@ const navigationBarStyle = (theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    background: INDIGO[6],
+    background: GRAY[8],
   },
   appBarShift: {
     marginLeft: DRAWER_WIDTH,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -18,9 +18,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import SettingsIcon from "@material-ui/icons/Settings";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 
-import TeaManagementPage from "../pages/TeaManagementPage";
+import DashboardPage from "../pages/DashboardPage";
+import ManagementPage from "../pages/ManagementPage";
 import NotificationPage from "../pages/NotificationPage";
 import styles from "../assets/jss/components/NavigationBarStyle";
 
@@ -92,14 +94,20 @@ export default function NavigationBar() {
           </div>
           <Divider />
           <List>
+            <ListItem button component={Link} to="/dashboard" key={"Dashboard"}>
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary={"대시보드"} />
+            </ListItem>
             <ListItem
               button
               component={Link}
-              to="/tea_management"
-              key={"TeaManagement"}
+              to="/management"
+              key={"Management"}
             >
               <ListItemIcon>
-                <DashboardIcon />
+                <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary={"품목 최적 관리"} />
             </ListItem>
@@ -118,8 +126,12 @@ export default function NavigationBar() {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path="/tea_management" component={TeaManagementPage} />
-          <Route exact path="/notification" component={NotificationPage} />
+          <Switch>
+            <Route exact path="/" component={DashboardPage} />
+            <Route exact path="/dashboard" component={DashboardPage} />
+            <Route exact path="/management" component={ManagementPage} />
+            <Route exact path="/notification" component={NotificationPage} />
+          </Switch>
         </main>
       </Router>
     </div>

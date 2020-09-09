@@ -9,6 +9,7 @@ const editableTableStyle = () => ({
     flex: "1 1 100%",
   },
   add: {
+    cursor: "pointer",
     color: "#fff",
   },
   tableHeader: {
