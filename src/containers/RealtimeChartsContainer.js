@@ -3,8 +3,6 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { getTankRealtimeData } from "../redux/modules/tankDatas";
 import Grid from "@material-ui/core/Grid";
-import InvertColors from "@material-ui/icons/InvertColors";
-import Speed from "@material-ui/icons/Speed";
 import { GreasePencil, Thermometer, Water, Gauge } from "mdi-material-ui";
 import RealtimeCard from "../components/RealtimeCard";
 import RealtimeChart from "../components/Chart/RealtimeChart";

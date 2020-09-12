@@ -20,7 +20,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import SettingsIcon from "@material-ui/icons/Settings";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-
+import NotificationPopperContainer from "../containers/NotificationPopperContainer";
 import DashboardPage from "../pages/DashboardPage";
 import ManagementPage from "../pages/ManagementPage";
 import NotificationPage from "../pages/NotificationPage";
@@ -64,9 +64,10 @@ export default function NavigationBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography style={{ flex: "1 1 90% " }} variant="h6" noWrap>
             Brewguru
           </Typography>
+          <NotificationPopperContainer />
         </Toolbar>
       </AppBar>
       <Router history={history}>
