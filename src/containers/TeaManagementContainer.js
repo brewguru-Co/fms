@@ -84,7 +84,8 @@ function TeaManagementContainer() {
           <EditableTable
             columns={columns}
             rows={data}
-            title="최적값 범위 세팅"
+            title="품목 설정"
+            subTitle="품목 별 최적 범위 기록"
             onRemove={onRemove}
             onUpdate={onUpdate}
             onCreate={onCreate}

@@ -16,6 +16,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 import EditableTableRow from "./EditableTableRow";
 import TeaDialog from "./TeaDialog";
+import TankDialog from "./TankDialog";
 import NotificationDialog from "./NotificationDialog";
 import locale from "../locale/ko_KR.json";
 import styles from "../assets/jss/components/editableTableStyle";
@@ -93,6 +94,10 @@ const CDialog = ({ dialog, open, handleClose, onCreate }) => {
     case "tea":
       return (
         <TeaDialog open={open} handleClose={handleClose} onCreate={onCreate} />
+      );
+    case "tank":
+      return (
+        <TankDialog open={open} handleClose={handleClose} onCreate={onCreate} />
       );
     case "notification":
       return (

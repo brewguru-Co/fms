@@ -10,6 +10,18 @@
     "BRIX_LOW_OP": "최저 당도",
     "BRIX_HIGH_OP": "최고 당도"
   },
+  "TANK": {
+    "NAME": "탱크명",
+    "TEA_NAME": "품목명",
+    "PH_LOW": "최저 PH",
+    "PH_HIGH": "최고 PH",
+    "TEMP_LOW": "최저 온도",
+    "TEMP_HIGH": "최고 온도",
+    "DO_LOW": "최저 DO",
+    "DO_HIGH": "최고 DO",
+    "BRIX_LOW": "최저 당도",
+    "BRIX_HIGH": "최고 당도"
+  },
   "NOTIFICATION": {
     "NAME": "이름",
     "PHONE": "전화번호",

@@ -10,16 +10,13 @@ export const getNotifications = async () => {
 };
 
 export const removeNotification = (id) => {
-  console.log("removeNotification ", id);
   return id;
 };
 
 export const createNotification = (notification) => {
-  console.log("createNotification ", notification);
   return 5;
 };
 
 export const updateNotification = (notification) => {
-  console.log("updateNotification ", notification);
   return notification;
 };

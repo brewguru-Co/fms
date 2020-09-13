@@ -37,6 +37,22 @@
       "brixLowOp": 70
     }
   ],
+  "tanks": [
+    {
+      "id": 1,
+      "teaId": 1,
+      "teaName": "original",
+      "name": "탱크 1",
+      "tempHigh": 30,
+      "tempLow": 29.5,
+      "phHigh": 3.5,
+      "phLow": 3,
+      "doHigh": 80,
+      "doLow": 78,
+      "brixHigh": null,
+      "brixLow": null
+    }
+  ],
   "notifications": [
     {
       "id": 1,

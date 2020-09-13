@@ -10,16 +10,13 @@ export const getTeas = async () => {
 };
 
 export const removeTea = (id) => {
-  console.log("removeTea ", id);
   return id;
 };
 
 export const createTea = (tea) => {
-  console.log("createTea ", tea);
   return 4;
 };
 
 export const updateTea = (tea) => {
-  console.log("updateTea ", tea);
   return tea;
 };
