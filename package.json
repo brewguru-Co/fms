@@ -13,6 +13,7 @@
     "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
     "clsx": "^1.1.1",
+    "formik": "^2.1.5",
     "lodash": "^4.17.20",
     "material-table": "^1.69.0",
     "mdi-material-ui": "^6.18.0",
