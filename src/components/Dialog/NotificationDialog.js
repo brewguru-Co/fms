@@ -1,5 +1,7 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form } from "formik";
+import * as Yup from "yup";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -8,12 +10,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
-import styles from "../../assets/jss/components/dialogStyle";
+import { NotificationSchema } from "../../lib/formSchema";
+import styles from "../../assets/jss/components/notificationDialogStyle";
 import locale from "../../locale/ko_KR.json";
 
 const useStyles = makeStyles(styles);
-
 const NOTIFICATION = locale.NOTIFICATION;
 
 export default function NotificationDialog(props) {
@@ -37,36 +38,51 @@ export default function NotificationDialog(props) {
             phone: "",
             on: true,
           }}
+          validationSchema={NotificationSchema}
           onSubmit={handleSave}
         >
-          {({ handleChange, submitForm, isSubmitting, values, errors }) => (
+          {({
+            handleChange,
+            submitForm,
+            isSubmitting,
+            values,
+            touched,
+            errors,
+          }) => (
             <Form>
               <Box className={classes.box} margin={1}>
                 <TextField
                   autoFocus
                   required
                   margin="dense"
-                  id="name"
+                  name="name"
                   label={NOTIFICATION.NAME}
                   type="text"
-                  helperText=" "
                   onChange={handleChange}
-                />
+                  error={touched.name && Boolean(errors.name)}
+                  helperText={touched.name ? errors.name : ""}
+                >
+                  {errors.name}
+                </TextField>
                 <TextField
                   margin="dense"
-                  id="email"
+                  name="email"
                   label={NOTIFICATION.EMAIL}
                   type="email"
-                  helperText=" "
                   onChange={handleChange}
-                />
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email ? errors.email : ""}
+                >
+                  {errors.email}
+                </TextField>
                 <TextField
                   margin="dense"
-                  id="phone"
+                  name="phone"
                   label={NOTIFICATION.PHONE}
                   type="tel"
-                  helperText="010-0000-0000"
                   onChange={handleChange}
+                  error={touched.phone && Boolean(errors.phone)}
+                  helperText={touched.phone ? errors.phone : "-없이 입력"}
                 />
                 <FormControlLabel
                   control={

@@ -80,6 +80,7 @@ export default function TankDialog(props) {
             brixLow: null,
             brixHigh: null,
           }}
+          validate={(values) => {}}
           onSubmit={handleSave}
         >
           {({ handleChange, submitForm, isSubmitting, values, errors }) => (

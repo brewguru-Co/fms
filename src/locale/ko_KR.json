@@ -8,7 +8,8 @@
     "DO_LOW_OP": "최저 DO",
     "DO_HIGH_OP": "최고 DO",
     "BRIX_LOW_OP": "최저 당도",
-    "BRIX_HIGH_OP": "최고 당도"
+    "BRIX_HIGH_OP": "최고 당도",
+    "DUPLICATED": "중복된 품목명"
   },
   "TANK": {
     "NAME": "탱크명",
@@ -36,6 +37,26 @@
     "DoLowLimitOver": "DO 초과",
     "BrixHighLimitOver": "당도 초과",
     "BrixLowLimitOver": "당도 미달"
+  },
+  "FORM": {
+    "REQUIRED": "필수항목",
+    "NEED_PHONE_OR_EMAIL": "전화번호 또는 이메일 필수 입력",
+    "WRONG_EMAIL": "잘못된 이메일",
+    "WRONG_PHONE": "잘못된 전화번호 (-없이 입력)",
+    "WRONG_PH": "0 ~ 14",
+    "WRONG_DO": "0 ~ ",
+    "WRONG_TEMP": "-100 ~ 100",
+    "WRONG_BRIX": "0 ~ 100",
+    "MORE_THAN_LOW_PH": "최저 PH 보다 커야함",
+    "MORE_THAN_LOW_DO": "최저 DO 보다 커야함",
+    "MORE_THAN_LOW_TEMP": "최저 온도 보다 커야함",
+    "MORE_THAN_LOW_BRIX": "최저 당도 보다 커야함"
+  },
+  "UNIT": {
+    "DO": "mg/L",
+    "TEMP": "C",
+    "BRIX": "%",
+    "PH": "pH"
   },
   "ACTION": "수정 | 삭제"
 }

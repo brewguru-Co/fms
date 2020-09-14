@@ -89,11 +89,16 @@ function CTableHead(props) {
   );
 }
 
-const CDialog = ({ dialog, open, handleClose, onCreate }) => {
+const CDialog = ({ dialog, data, open, handleClose, onCreate }) => {
   switch (dialog) {
     case "tea":
       return (
-        <TeaDialog open={open} handleClose={handleClose} onCreate={onCreate} />
+        <TeaDialog
+          open={open}
+          handleClose={handleClose}
+          onCreate={onCreate}
+          teas={data}
+        />
       );
     case "tank":
       return (
@@ -221,6 +226,7 @@ export default function EditableTable(props) {
         </CardBody>
       </Card>
       <CDialog
+        data={rows}
         dialog={dialog}
         open={open}
         handleClose={handleClose}
