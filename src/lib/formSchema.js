@@ -49,6 +49,53 @@ export const TeaSchema = Yup.object().shape({
     .required(FORM.REQUIRED),
 });
 
+export const TankSchema = Yup.object().shape({
+  name: Yup.string().min(1).required(FORM.REQUIRED),
+  teaName: Yup.string().required(FORM.REQUIRED),
+  phLow: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_PH)
+    .max(14, FORM.WRONG_PH)
+    .required(FORM.REQUIRED),
+  phHigh: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_PH)
+    .max(14, FORM.WRONG_PH)
+    .moreThan(Yup.ref("phLow"), FORM.MORE_THAN_LOW_PH)
+    .required(FORM.REQUIRED),
+  tempLow: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_TEMP)
+    .max(100, FORM.WRONG_TEMP)
+    .required(FORM.REQUIRED),
+  tempHigh: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_TEM)
+    .max(100, FORM.WRONG_TEMP)
+    .moreThan(Yup.ref("tempLow"), FORM.MORE_THAN_LOW_TEMP)
+    .required(FORM.REQUIRED),
+  doLow: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_DO)
+    .required(FORM.REQUIRED),
+  doHigh: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_DO)
+    .moreThan(Yup.ref("doLow"), FORM.MORE_THAN_LOW_DO)
+    .required(FORM.REQUIRED),
+  brixLow: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_BRIX)
+    .max(100, FORM.WRONG_BRIX)
+    .required(FORM.REQUIRED),
+  brixHigh: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_BRIX)
+    .max(100, FORM.WRONG_BRIX)
+    .moreThan(Yup.ref("brixLow"), FORM.MORE_THAN_LOW_BRIX)
+    .required(FORM.REQUIRED),
+});
+
 export const NotificationSchema = Yup.object().shape({
   name: Yup.string().min(1).required(FORM.REQUIRED),
   email: Yup.string().email(FORM.WRONG_EMAIL),

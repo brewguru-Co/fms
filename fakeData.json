@@ -9,8 +9,8 @@
       "phLowOp": 3,
       "doHighOp": 80,
       "doLowOp": 78,
-      "brixHighOp": null,
-      "brixLowOp": null
+      "brixHighOp": 100,
+      "brixLowOp": 0
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "tempHighOp": 37.6,
       "tempLowOp": 32.5,
       "phHighOp": 2,
-      "phLowOp": -1.5,
+      "phLowOp": 1,
       "doHighOp": 32,
       "doLowOp": 22,
       "brixHighOp": 80,
@@ -30,7 +30,7 @@
       "tempHighOp": 23.6,
       "tempLowOp": 21.5,
       "phHighOp": 1.5,
-      "phLowOp": -3,
+      "phLowOp": 0.5,
       "doHighOp": 44,
       "doLowOp": 35,
       "brixHighOp": 90,
@@ -49,8 +49,8 @@
       "phLow": 3,
       "doHigh": 80,
       "doLow": 78,
-      "brixHigh": null,
-      "brixLow": null
+      "brixHigh": 100,
+      "brixLow": 0
     }
   ],
   "notifications": [

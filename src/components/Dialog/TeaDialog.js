@@ -72,7 +72,11 @@ export default function TeaDialog(props) {
                     touched.name &&
                     (Boolean(errors.name) || isDuplicated(values.name))
                   }
-                  helperText={touched.name ? errors.name || TEA.DUPLICATED : ""}
+                  helperText={
+                    touched.name && errors.name
+                      ? errors.name || TEA.DUPLICATED
+                      : ""
+                  }
                 />
                 <TextField
                   required
@@ -82,7 +86,9 @@ export default function TeaDialog(props) {
                   type="number"
                   onChange={handleChange}
                   error={touched.phLowOp && Boolean(errors.phLowOp)}
-                  helperText={touched.phLowOp ? errors.phLowOp : ""}
+                  helperText={
+                    touched.phLowOp && errors.phLowOp ? errors.phLowOp : ""
+                  }
                 />
                 <TextField
                   required
@@ -92,7 +98,9 @@ export default function TeaDialog(props) {
                   type="number"
                   onChange={handleChange}
                   error={touched.phHighOp && Boolean(errors.phHighOp)}
-                  helperText={touched.phHighOp ? errors.phHighOp : ""}
+                  helperText={
+                    touched.phHighOp && errors.phHighOp ? errors.phHighOp : ""
+                  }
                 />
                 <TextField
                   required
@@ -102,7 +110,11 @@ export default function TeaDialog(props) {
                   type="number"
                   onChange={handleChange}
                   error={touched.tempLowOp && Boolean(errors.tempLowOp)}
-                  helperText={touched.tempLowOp ? errors.tempLowOp : ""}
+                  helperText={
+                    touched.tempLowOp && errors.tempLowOp
+                      ? errors.tempLowOp
+                      : ""
+                  }
                 />
                 <TextField
                   required
@@ -112,7 +124,11 @@ export default function TeaDialog(props) {
                   type="number"
                   onChange={handleChange}
                   error={touched.tempHighOp && Boolean(errors.tempHighOp)}
-                  helperText={touched.tempHighOp ? errors.tempHighOp : ""}
+                  helperText={
+                    touched.tempHighOp && errors.tempHighOp
+                      ? errors.tempHighOp
+                      : ""
+                  }
                 />
                 <TextField
                   required
@@ -122,7 +138,9 @@ export default function TeaDialog(props) {
                   type="number"
                   onChange={handleChange}
                   error={touched.doLowOp && Boolean(errors.doLowOp)}
-                  helperText={touched.doLowOp ? errors.doLowOp : ""}
+                  helperText={
+                    touched.doLowOp && errors.doLowOp ? errors.doLowOp : ""
+                  }
                 />
                 <TextField
                   required
@@ -132,7 +150,9 @@ export default function TeaDialog(props) {
                   type="number"
                   onChange={handleChange}
                   error={touched.doHighOp && Boolean(errors.doHighOp)}
-                  helperText={touched.doHighOp ? errors.doHighOp : ""}
+                  helperText={
+                    touched.doHighOp && errors.doHighOp ? errors.doHighOp : ""
+                  }
                 />
                 <TextField
                   required
@@ -142,7 +162,11 @@ export default function TeaDialog(props) {
                   type="number"
                   onChange={handleChange}
                   error={touched.brixLowOp && Boolean(errors.brixLowOp)}
-                  helperText={touched.brixLowOp ? errors.brixLowOp : ""}
+                  helperText={
+                    touched.brixLowOp && errors.brixLowOp
+                      ? errors.brixLowOp
+                      : ""
+                  }
                 />
                 <TextField
                   required
@@ -152,7 +176,11 @@ export default function TeaDialog(props) {
                   type="number"
                   onChange={handleChange}
                   error={touched.brixHighOp && Boolean(errors.brixHighOp)}
-                  helperText={touched.brixHighOp ? errors.brixHighOp : ""}
+                  helperText={
+                    touched.brixHighOp && errors.brixHighOp
+                      ? errors.brixHighOp
+                      : ""
+                  }
                 />
               </Box>
               <Box className={classes.box} margin={1}>

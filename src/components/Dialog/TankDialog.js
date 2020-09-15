@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Formik, Form } from "formik";
+import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -11,7 +12,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
+import { TankSchema } from "../../lib/formSchema";
 import locale from "../../locale/ko_KR.json";
 import styles from "../../assets/jss/components/dialogStyle";
 
@@ -20,32 +21,43 @@ const useStyles = makeStyles(styles);
 const TANK = locale.TANK;
 
 export default function TankDialog(props) {
-  const { teas } = useSelector((state) => state.teas);
+  const { teas, tanks } = useSelector((state) => ({
+    teas: state.teas.teas,
+    tanks: state.tanks.tanks,
+  }));
   const classes = useStyles();
   const { open, handleClose, onCreate } = props;
   const [equal, setEqual] = useState(true);
 
   const handleSave = (values, { setSubmitting }) => {
     let tank = values;
-    setSubmitting(false);
-    if (equal) {
-      const selectedTea = teas.find((tea) => tea.name === values.teaName);
-      tank = {
-        name: values.name,
-        teaName: values.teaName,
-        phLow: selectedTea.phLowOp,
-        phHigh: selectedTea.phHighOp,
-        tempLow: selectedTea.tempLowOp,
-        tempHigh: selectedTea.tempHighOp,
-        doLow: selectedTea.doLowOp,
-        doHigh: selectedTea.doHighOp,
-        brixLow: selectedTea.brixLowOp,
-        brixHigh: selectedTea.brixHighOp,
-      };
+    if (!isDuplicated(values.name)) {
+      setSubmitting(false);
+      onCreate(tank);
+      setEqual(true);
+      handleClose();
     }
-    onCreate(tank);
-    setEqual(true);
-    handleClose();
+  };
+
+  const handleChangeTeaName = (e, setFieldValue) => {
+    const { name, value } = e.target;
+    setFieldValue(name, value);
+    if (equal) {
+      const selectedTea = teas.find((tea) => tea.name === value);
+      setFieldValue("phLow", selectedTea.phLowOp);
+      setFieldValue("tempLow", selectedTea.tempLowOp);
+      setFieldValue("doLow", selectedTea.doLowOp);
+      setFieldValue("brixLow", selectedTea.brixLowOp);
+
+      setFieldValue("phHigh", selectedTea.phHighOp);
+      setFieldValue("tempHigh", selectedTea.tempHighOp);
+      setFieldValue("doHigh", selectedTea.doHighOp);
+      setFieldValue("brixHigh", selectedTea.brixHighOp);
+    }
+  };
+
+  const isDuplicated = (name) => {
+    return tanks.filter((tank) => tank.name === name).length === 1;
   };
 
   if (!teas || teas.length < 1) {
@@ -71,19 +83,27 @@ export default function TankDialog(props) {
           initialValues={{
             name: "",
             teaName: teas[0].name,
-            phLow: null,
-            phHigh: null,
-            tempLow: null,
-            tempHigh: null,
-            doLow: null,
-            doHigh: null,
-            brixLow: null,
-            brixHigh: null,
+            phLow: teas[0].phLowOp,
+            phHigh: teas[0].phHighOp,
+            tempLow: teas[0].tempLowOp,
+            tempHigh: teas[0].tempHighOp,
+            doLow: teas[0].doLowOp,
+            doHigh: teas[0].doHighOp,
+            brixLow: teas[0].brixLowOp,
+            brixHigh: teas[0].brixHighOp,
           }}
-          validate={(values) => {}}
+          validationSchema={TankSchema}
           onSubmit={handleSave}
         >
-          {({ handleChange, submitForm, isSubmitting, values, errors }) => (
+          {({
+            handleChange,
+            submitForm,
+            setFieldValue,
+            isSubmitting,
+            values,
+            touched,
+            errors,
+          }) => (
             <Form>
               <Box className={classes.box} margin={1}>
                 <TextField
@@ -92,18 +112,30 @@ export default function TankDialog(props) {
                   name="name"
                   value={values.name}
                   onChange={handleChange}
+                  error={
+                    touched.name &&
+                    (Boolean(errors.name) || isDuplicated(values.name))
+                  }
+                  helperText={
+                    touched.name && (errors.name || isDuplicated(values.name))
+                      ? errors.name || "중복 이름"
+                      : ""
+                  }
                 />
                 <TextField
                   select
                   name="teaName"
                   label="품목명"
-                  onChange={handleChange}
+                  onChange={(e) => handleChangeTeaName(e, setFieldValue)}
                   variant="standard"
                   value={values.teaName}
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  style={{ width: 120 }}
+                  error={touched.teaName && Boolean(errors.teaName)}
+                  helperText={
+                    touched.teaName && errors.teaName ? errors.teaName : ""
+                  }
                 >
                   {teas.map(({ name }) => (
                     <MenuItem key={name} value={name}>
@@ -132,6 +164,10 @@ export default function TankDialog(props) {
                     label={TANK.PH_LOW}
                     type="number"
                     onChange={handleChange}
+                    error={touched.phLow && Boolean(errors.phLow)}
+                    helperText={
+                      touched.phLow && errors.phLow ? errors.phLow : ""
+                    }
                   />
                   <TextField
                     required
@@ -140,6 +176,10 @@ export default function TankDialog(props) {
                     label={TANK.PH_HIGH}
                     type="number"
                     onChange={handleChange}
+                    error={touched.phHigh && Boolean(errors.phHigh)}
+                    helperText={
+                      touched.phHigh && errors.phHigh ? errors.phHigh : ""
+                    }
                   />
                   <TextField
                     required
@@ -148,6 +188,10 @@ export default function TankDialog(props) {
                     label={TANK.TEMP_LOW}
                     type="number"
                     onChange={handleChange}
+                    error={touched.tempLow && Boolean(errors.tempLow)}
+                    helperText={
+                      touched.tempLow && errors.tempLow ? errors.tempLow : ""
+                    }
                   />
                   <TextField
                     required
@@ -156,6 +200,10 @@ export default function TankDialog(props) {
                     label={TANK.TEMP_HIGH}
                     type="number"
                     onChange={handleChange}
+                    error={touched.tempHigh && Boolean(errors.tempHigh)}
+                    helperText={
+                      touched.tempHigh && errors.tempHigh ? errors.tempHigh : ""
+                    }
                   />
                   <TextField
                     required
@@ -164,6 +212,10 @@ export default function TankDialog(props) {
                     label={TANK.DO_LOW}
                     type="number"
                     onChange={handleChange}
+                    error={touched.doLow && Boolean(errors.doLow)}
+                    helperText={
+                      touched.doLow && errors.doLow ? errors.doLow : ""
+                    }
                   />
                   <TextField
                     required
@@ -172,6 +224,10 @@ export default function TankDialog(props) {
                     label={TANK.DO_HIGH}
                     type="number"
                     onChange={handleChange}
+                    error={touched.doHigh && Boolean(errors.doHigh)}
+                    helperText={
+                      touched.doHigh && errors.doHigh ? errors.doHigh : ""
+                    }
                   />
                   <TextField
                     required
@@ -180,6 +236,10 @@ export default function TankDialog(props) {
                     label={TANK.BRIX_LOW}
                     type="number"
                     onChange={handleChange}
+                    error={touched.brixLow && Boolean(errors.brixLow)}
+                    helperText={
+                      touched.brixLow && errors.brixLow ? errors.brixLow : ""
+                    }
                   />
                   <TextField
                     required
@@ -188,6 +248,10 @@ export default function TankDialog(props) {
                     label={TANK.BRIX_HIGH}
                     type="number"
                     onChange={handleChange}
+                    error={touched.brixHigh && Boolean(errors.brixHigh)}
+                    helperText={
+                      touched.brixHigh && errors.brixHigh ? errors.brixHigh : ""
+                    }
                   />
                 </Box>
               )}
@@ -195,7 +259,6 @@ export default function TankDialog(props) {
                 <Button
                   variant="contained"
                   color="primary"
-                  disabled={isSubmitting}
                   onClick={submitForm}
                 >
                   저장
