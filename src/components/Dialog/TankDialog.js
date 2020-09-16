@@ -56,6 +56,22 @@ export default function TankDialog(props) {
     }
   };
 
+  const handleEqual = (e, setFieldValue) => {
+    const { checked } = e.target;
+    if (!checked) {
+      setFieldValue("phLow", null);
+      setFieldValue("tempLow", null);
+      setFieldValue("doLow", null);
+      setFieldValue("brixLow", null);
+
+      setFieldValue("phHigh", null);
+      setFieldValue("tempHigh", null);
+      setFieldValue("doHigh", null);
+      setFieldValue("brixHigh", null);
+    }
+    setEqual(checked);
+  };
+
   const isDuplicated = (name) => {
     return tanks.filter((tank) => tank.name === name).length === 1;
   };
@@ -148,7 +164,7 @@ export default function TankDialog(props) {
                   control={
                     <Checkbox
                       checked={equal}
-                      onChange={() => setEqual(!equal)}
+                      onChange={(e) => handleEqual(e, setFieldValue)}
                       name="equal"
                     />
                   }

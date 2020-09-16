@@ -8,6 +8,7 @@ import {
   updateTea,
   createTea,
 } from "../redux/modules/teas";
+import { teaValidator } from "../lib/formSchema";
 import locale from "../locale/ko_KR.json";
 
 const TEA = locale.TEA;
@@ -90,6 +91,7 @@ function TeaManagementContainer() {
             onUpdate={onUpdate}
             onCreate={onCreate}
             dialog="tea"
+            validator={teaValidator}
             color="indigo"
           />
         </>

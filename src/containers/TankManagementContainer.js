@@ -8,6 +8,7 @@ import {
   updateTank,
   createTank,
 } from "../redux/modules/tanks";
+import { tankValidator } from "../lib/formSchema";
 import locale from "../locale/ko_KR.json";
 
 const TANK = locale.TANK;
@@ -91,6 +92,7 @@ function TankManagementContainer() {
             onUpdate={onUpdate}
             onCreate={onCreate}
             dialog="tank"
+            validator={tankValidator}
             color="orange"
           />
         </>
