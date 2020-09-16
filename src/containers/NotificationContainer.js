@@ -8,6 +8,7 @@ import {
   removeNotification,
   updateNotification,
 } from "../redux/modules/notifications";
+import { notificationValidator } from "../lib/formSchema";
 import locale from "../locale/ko_KR.json";
 
 const NOTIFICATION = locale.NOTIFICATION;
@@ -62,6 +63,7 @@ function NotificationContainer() {
             onUpdate={onUpdate}
             onCreate={onCreate}
             dialog="notification"
+            validator={notificationValidator}
             color="indigo"
           />
         </>

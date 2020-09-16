@@ -107,3 +107,31 @@ export const NotificationSchema = Yup.object().shape({
       then: Yup.string().required(FORM.NEED_PHONE_OR_EMAIL),
     }),
 });
+
+function validator(schema, target) {
+  try {
+    schema.validateSync(target, { abortEarly: false });
+    return null;
+  } catch (err) {
+    const { inner } = err;
+    return inner.reduce(
+      (obj, error) => ({
+        ...obj,
+        [error.path]: error.message,
+      }),
+      {}
+    );
+  }
+}
+
+export const notificationValidator = (notification) => {
+  return validator(NotificationSchema, notification);
+};
+
+export const teaValidator = (tea) => {
+  return validator(TeaSchema, tea);
+};
+
+export const tankValidator = (tank) => {
+  return validator(TankSchema, tank);
+};

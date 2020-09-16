@@ -127,6 +127,7 @@ export default function EditableTable(props) {
     dialog,
     title,
     subTitle,
+    validator,
     color,
   } = props;
   const classes = useStyles(props);
@@ -202,6 +203,7 @@ export default function EditableTable(props) {
                         row={row}
                         onUpdate={onUpdate}
                         onRemove={onRemove}
+                        validator={validator}
                         color={color}
                       />
                     );
