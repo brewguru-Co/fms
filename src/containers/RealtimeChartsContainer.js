@@ -37,7 +37,7 @@ function RealtimeChartsContainer(props) {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={3}>
+      {/* <Grid item xs={3}>
         <RealtimeCard color={"indigo"} title={"온도"} icon={<Thermometer />} />
       </Grid>
       <Grid item xs={3}>
@@ -48,7 +48,7 @@ function RealtimeChartsContainer(props) {
       </Grid>
       <Grid item xs={3}>
         <RealtimeCard color={"gray"} title={"용존산소량"} icon={<Gauge />} />
-      </Grid>
+      </Grid> */}
       <Grid item xs={4}>
         {data && (
           <RealtimeChart
@@ -78,12 +78,25 @@ function RealtimeChartsContainer(props) {
       <Grid item xs={4}>
         {data && (
           <RealtimeChart
-            color={"gray"}
+            color={"red"}
             data={realtimeData(createData(data, "dox"), "white")}
             options={realtimeOptions(0, 100, 20, "white")}
             title={"DO"}
             content={`정상 범위: 28 ~ 32  측정값: ${
               data.length > 0 && data[data.length - 1].dox
+            }`}
+          />
+        )}
+      </Grid>
+      <Grid item xs={4}>
+        {data && (
+          <RealtimeChart
+            color={"gray"}
+            data={realtimeData(createData(data, "brix"), "white")}
+            options={realtimeOptions(0, 100, 20, "white")}
+            title={"당도"}
+            content={`정상 범위: 28 ~ 32  측정값: ${
+              data.length > 0 && data[data.length - 1].brix
             }`}
           />
         )}
