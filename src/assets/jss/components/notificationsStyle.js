@@ -6,7 +6,6 @@ const notificationsStyle = {
     marginTop: "0px",
     minHeight: "auto",
     fontWeight: "500",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
     textDecoration: "none",
   },
