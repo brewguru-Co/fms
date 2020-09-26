@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
+import { GreasePencil, Thermometer, Water, Gauge } from "mdi-material-ui";
+import OptimalCard from "../components/OptimalCard";
 import InfoCard from "../components/InfoCard";
 
 function formatTime(time) {
@@ -7,7 +9,7 @@ function formatTime(time) {
 }
 
 function InfoContainer() {
-  // const startedAt = new Date("2020-09-17 00:00");
+  /* (@TODO) API 연동 필요 (startedAt, finishedAt) */
   const [startedAt, setStartedAt] = useState(new Date("2020-09-17 00:00"));
   const [finishedAt, setFinishedAt] = useState(null);
   const [time, setTime] = useState({
@@ -16,6 +18,12 @@ function InfoContainer() {
     minute: 0,
     second: 0,
   });
+  const optimalValues = {
+    temp: 24,
+    ph: 2.6,
+    dox: 60,
+    brix: 0.4,
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,8 +52,8 @@ function InfoContainer() {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={3}>
+    <Grid container spacing={3}>
+      <Grid item xs={12} xl={4}>
         <InfoCard
           tank="Tank 1"
           tea="Original"
@@ -58,6 +66,40 @@ function InfoContainer() {
           onStart={onStart}
           onFinish={onFinish}
         />
+      </Grid>
+      <Grid item xs={12} xl={8} container spacing={3}>
+        <Grid item xs={6} md={3}>
+          <OptimalCard
+            color={"green"}
+            category={"온도 최적값"}
+            title={optimalValues.temp}
+            icon={<Thermometer />}
+          />
+        </Grid>
+        <Grid item xs={6} md={3}>
+          <OptimalCard
+            color={"yellow"}
+            category={"PH 최적값"}
+            title={optimalValues.ph}
+            icon={<GreasePencil />}
+          />
+        </Grid>
+        <Grid item xs={6} md={3}>
+          <OptimalCard
+            color={"red"}
+            category={"당도 최적값"}
+            title={optimalValues.brix}
+            icon={<Water />}
+          />
+        </Grid>
+        <Grid item xs={6} md={3}>
+          <OptimalCard
+            color={"gray"}
+            category={"용존산소량 최적값"}
+            title={optimalValues.dox}
+            icon={<Gauge />}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );

@@ -7,17 +7,17 @@ export async function getTankDatas() {
   return response.data;
 }
 
-function createRandomValue(from, to) {
-  return _.random(from, to);
+function createRandomValue(from, to, float = false) {
+  return _.random(from, to, float);
 }
 
 export async function getTankRealtimeData() {
   return {
     name: "tank1",
-    temp: parseFloat(createRandomValue(28, 30).toFixed(1)),
-    ph: parseFloat(createRandomValue(1.5, 2).toFixed(2)),
+    temp: parseFloat(createRandomValue(28, 30, true).toFixed(1)),
+    ph: parseFloat(createRandomValue(3.2, 3.6, true).toFixed(2)),
     dox: createRandomValue(40, 50),
-    brix: createRandomValue(60, 90),
+    brix: createRandomValue(0.2, 0.8, true).toFixed(1),
     createdAt: moment().unix(),
   };
 }

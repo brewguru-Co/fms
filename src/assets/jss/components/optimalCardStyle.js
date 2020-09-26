@@ -1,13 +1,14 @@
-import { GRAY } from "../";
-const realtimeCardStyle = {
+import { GRAY } from "..";
+const optimalCardStyle = {
   title: {
     color: GRAY[6],
     marginTop: "0px",
     minHeight: "auto",
-    fontWeight: "300",
+    fontWeight: "500",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
     textDecoration: "none",
+    fontSize: "2rem",
   },
   category: {
     color: GRAY[5],
@@ -40,4 +41,4 @@ const realtimeCardStyle = {
   },
 };
 
-export default realtimeCardStyle;
+export default optimalCardStyle;

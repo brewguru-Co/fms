@@ -86,6 +86,7 @@
   "notification_records": [
     {
       "tankId": 1,
+      "series": "original",
       "code": "PhHighLimitOver",
       "content": {
         "high": 3.5,
@@ -96,6 +97,7 @@
     },
     {
       "tankId": 2,
+      "series": "lemon",
       "code": "PhLowLimitOver",
       "content": {
         "high": 3.5,
@@ -106,6 +108,7 @@
     },
     {
       "tankId": 1,
+      "series": "original",
       "code": "TempHighLimitOver",
       "content": {
         "high": 31.5,
@@ -116,6 +119,7 @@
     },
     {
       "tankId": 1,
+      "series": "original",
       "code": "TempLowLimitOver",
       "content": {
         "high": 23.5,
@@ -126,6 +130,7 @@
     },
     {
       "tankId": 1,
+      "series": "original",
       "code": "DoHighLimitOver",
       "content": {
         "high": 61,
@@ -136,6 +141,7 @@
     },
     {
       "tankId": 2,
+      "series": "lemon",
       "code": "DoLowLimitOver",
       "content": {
         "high": 62,
@@ -146,6 +152,7 @@
     },
     {
       "tankId": 1,
+      "series": "original",
       "code": "BrixHighLimitOver",
       "content": {
         "high": 88,
@@ -156,6 +163,7 @@
     },
     {
       "tankId": 1,
+      "series": "original",
       "code": "BrixLowLimitOver",
       "content": {
         "high": 78,
@@ -163,6 +171,35 @@
         "value": 72
       },
       "createdAt": 1599031434
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "series": "original",
+      "createdAt": 1599030299,
+      "ph": 2.51,
+      "dox": 70,
+      "temp": 24.2,
+      "brix": 0.2
+    },
+    {
+      "id": 2,
+      "series": "lemon",
+      "createdAt": 1600582227,
+      "ph": 2.4,
+      "dox": 71,
+      "temp": 24,
+      "brix": 0.3
+    },
+    {
+      "id": 3,
+      "series": "original",
+      "createdAt": 1600960227,
+      "ph": 2.45,
+      "dox": 69,
+      "temp": 25,
+      "brix": 0.2
     }
   ]
 }

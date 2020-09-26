@@ -56,7 +56,13 @@ export const realtimeOptions = (ymin, ymax, step, color) => ({
     xAxes: [
       {
         type: "time",
-        distribution: "series",
+        // distribution: "linear",
+        time: {
+          displayFormats: {
+            second: "HH:mm:ss",
+          },
+          stepSize: 2,
+        },
         gridLines: {
           color: `rgba(${hexToRgb(getColor(color))}, 0.3)`,
           borderDash: [5, 10],

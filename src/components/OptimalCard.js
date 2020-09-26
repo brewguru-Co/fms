@@ -1,16 +1,15 @@
 import React from "react";
-import Store from "@material-ui/icons/Store";
 import DateRange from "@material-ui/icons/DateRange";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "./Card/Card";
 import CardIcon from "./Card/CardIcon";
 import CardHeader from "./Card/CardHeader";
 import CardFooter from "./Card/CardFooter";
-import styles from "../assets/jss/components/realtimeCardStyle";
+import styles from "../assets/jss/components/optimalCardStyle";
 
 const useStyles = makeStyles(styles);
 
-function RealtimeCard(props) {
+function OptimalCard(props) {
   const { color, title, category, content, icon } = props;
   const classes = useStyles();
   return (
@@ -30,4 +29,4 @@ function RealtimeCard(props) {
   );
 }
 
-export default RealtimeCard;
+export default OptimalCard;

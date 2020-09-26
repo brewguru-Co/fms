@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import teas, { teasSaga } from "./teas";
 import tanks, { tanksSaga } from "./tanks";
+import products, { productsSaga } from "./products";
 import notifications, { notificationsSaga } from "./notifications";
 import tankDatas, { tankDatasSaga } from "./tankDatas";
 import notificationRecords, {
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   notifications,
   notificationRecords,
   tankDatas,
+  products,
 });
 export function* rootSaga() {
   yield all([
@@ -22,6 +24,7 @@ export function* rootSaga() {
     notificationsSaga(),
     notificationRecordsSaga(),
     tankDatasSaga(),
+    productsSaga(),
   ]);
 }
 

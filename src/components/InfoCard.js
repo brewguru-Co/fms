@@ -42,8 +42,8 @@ function InfoCard(props) {
 
   return (
     <Card>
-      <CardHeader color="yellow" stats icon>
-        <CardIcon color="yellow">
+      <CardHeader color="indigo" stats icon>
+        <CardIcon color="indigo">
           <AccessAlarms />
         </CardIcon>
         <p className={classes.category}>{`${tank} (${tea})`}</p>
