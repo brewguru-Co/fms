@@ -1,6 +1,6 @@
-import { WHITE, hexToRgb } from "../";
+import { WHITE, hexToRgb } from "..";
 
-const notificationRecordsStyle = {
+const notificationsStyle = {
   title: {
     color: WHITE,
     marginTop: "0px",
@@ -19,4 +19,4 @@ const notificationRecordsStyle = {
   },
 };
 
-export default notificationRecordsStyle;
+export default notificationsStyle;

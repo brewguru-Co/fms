@@ -3,17 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import CIndicator from "../components/CIndicator";
 import EditableTable from "../components/EditableTable";
 import {
-  getNotifications,
-  createNotification,
-  removeNotification,
-  updateNotification,
-} from "../redux/modules/notifications";
-import { notificationValidator } from "../lib/formSchema";
+  getNotificationTargets,
+  createNotificationTarget,
+  removeNotificationTarget,
+  updateNotificationTarget,
+} from "../redux/modules/notificationTargets";
+import { notificationTargetValidator } from "../lib/formSchema";
 import locale from "../locale/ko_KR.json";
 
 const NOTIFICATION = locale.NOTIFICATION;
 const columns = [
-  { id: "name", type: "text", disablePadding: true, label: NOTIFICATION.NAME },
+  {
+    id: "name",
+    type: "text",
+    disablePadding: true,
+    label: NOTIFICATION.NAME,
+  },
   {
     id: "email",
     type: "email",
@@ -34,19 +39,21 @@ const columns = [
   },
 ];
 
-function NotificationContainer() {
-  const { loading, error, notifications: data } = useSelector(
-    (state) => state.notifications
+function NotificationTargetContainer() {
+  const { loading, error, notificationTargets: data } = useSelector(
+    (state) => state.notificationTargets
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getNotifications());
+    dispatch(getNotificationTargets());
   }, [dispatch]);
 
-  const onRemove = (id) => dispatch(removeNotification(id));
-  const onUpdate = (notification) => dispatch(updateNotification(notification));
-  const onCreate = (notification) => dispatch(createNotification(notification));
+  const onRemove = (id) => dispatch(removeNotificationTarget(id));
+  const onUpdate = (notificationTarget) =>
+    dispatch(updateNotificationTarget(notificationTarget));
+  const onCreate = (notificationTarget) =>
+    dispatch(createNotificationTarget(notificationTarget));
 
   return (
     <>
@@ -62,8 +69,8 @@ function NotificationContainer() {
             onRemove={onRemove}
             onUpdate={onUpdate}
             onCreate={onCreate}
-            dialog="notification"
-            validator={notificationValidator}
+            dialog="notificationTarget"
+            validator={notificationTargetValidator}
             color="indigo"
           />
         </>
@@ -72,4 +79,4 @@ function NotificationContainer() {
   );
 }
 
-export default NotificationContainer;
+export default NotificationTargetContainer;

@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import RealtimeChartsContainer from "../containers/RealtimeChartsContainer";
 import InfoContainer from "../containers/InfoContainer";
-import ProductHistoryContainer from "../containers/ProductHistoryContainer";
+import BatchHistoryContainer from "../containers/BatchHistoryContainer";
 import NotificationHistoryContainer from "../containers/NotificationHistoryContainer";
 
 function DashboardPage() {
@@ -15,7 +15,7 @@ function DashboardPage() {
         <RealtimeChartsContainer />
       </Grid>
       <Grid item xs={12} md={6}>
-        <ProductHistoryContainer />
+        <BatchHistoryContainer />
       </Grid>
       <Grid item xs={12} md={6}>
         <NotificationHistoryContainer />

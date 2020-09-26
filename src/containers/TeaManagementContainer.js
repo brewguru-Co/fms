@@ -39,13 +39,13 @@ const columns = [
     label: TEA.TEMP_HIGH_OP,
   },
   {
-    id: "doLowOp",
+    id: "doxLowOp",
     type: "number",
     disablePadding: true,
     label: TEA.DO_LOW_OP,
   },
   {
-    id: "doHighOp",
+    id: "doxHighOp",
     type: "number",
     disablePadding: true,
     label: TEA.DO_HIGH_OP,

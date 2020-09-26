@@ -27,14 +27,14 @@ export const TeaSchema = Yup.object().shape({
     .max(100, FORM.WRONG_TEMP)
     .moreThan(Yup.ref("tempLowOp"), FORM.MORE_THAN_LOW_TEMP)
     .required(FORM.REQUIRED),
-  doLowOp: Yup.number()
+  doxLowOp: Yup.number()
     .typeError(FORM.REQUIRED)
     .min(0, FORM.WRONG_DO)
     .required(FORM.REQUIRED),
-  doHighOp: Yup.number()
+  doxHighOp: Yup.number()
     .typeError(FORM.REQUIRED)
     .min(0, FORM.WRONG_DO)
-    .moreThan(Yup.ref("doLowOp"), FORM.MORE_THAN_LOW_DO)
+    .moreThan(Yup.ref("doxLowOp"), FORM.MORE_THAN_LOW_DO)
     .required(FORM.REQUIRED),
   brixLowOp: Yup.number()
     .typeError(FORM.REQUIRED)
@@ -74,14 +74,14 @@ export const TankSchema = Yup.object().shape({
     .max(100, FORM.WRONG_TEMP)
     .moreThan(Yup.ref("tempLow"), FORM.MORE_THAN_LOW_TEMP)
     .required(FORM.REQUIRED),
-  doLow: Yup.number()
+  doxLow: Yup.number()
     .typeError(FORM.REQUIRED)
     .min(0, FORM.WRONG_DO)
     .required(FORM.REQUIRED),
-  doHigh: Yup.number()
+  doxHigh: Yup.number()
     .typeError(FORM.REQUIRED)
     .min(0, FORM.WRONG_DO)
-    .moreThan(Yup.ref("doLow"), FORM.MORE_THAN_LOW_DO)
+    .moreThan(Yup.ref("doxLow"), FORM.MORE_THAN_LOW_DO)
     .required(FORM.REQUIRED),
   brixLow: Yup.number()
     .typeError(FORM.REQUIRED)
@@ -96,7 +96,7 @@ export const TankSchema = Yup.object().shape({
     .required(FORM.REQUIRED),
 });
 
-export const NotificationSchema = Yup.object().shape({
+export const NotificationTargetSchema = Yup.object().shape({
   name: Yup.string().min(1).required(FORM.REQUIRED),
   email: Yup.string().email(FORM.WRONG_EMAIL),
   phone: Yup.string()
@@ -124,8 +124,8 @@ function validator(schema, target) {
   }
 }
 
-export const notificationValidator = (notification) => {
-  return validator(NotificationSchema, notification);
+export const notificationTargetValidator = (notificationTarget) => {
+  return validator(NotificationTargetSchema, notificationTarget);
 };
 
 export const teaValidator = (tea) => {

@@ -42,8 +42,8 @@ export default function TeaDialog(props) {
             phHighOp: null,
             tempLowOp: null,
             tempHighOp: null,
-            doLowOp: null,
-            doHighOp: null,
+            doxLowOp: null,
+            doxHighOp: null,
             brixLowOp: null,
             brixHighOp: null,
           }}
@@ -133,25 +133,27 @@ export default function TeaDialog(props) {
                 <TextField
                   required
                   margin="dense"
-                  id="doLowOp"
+                  id="doxLowOp"
                   label={TEA.DO_LOW_OP}
                   type="number"
                   onChange={handleChange}
-                  error={touched.doLowOp && Boolean(errors.doLowOp)}
+                  error={touched.doxLowOp && Boolean(errors.doxLowOp)}
                   helperText={
-                    touched.doLowOp && errors.doLowOp ? errors.doLowOp : ""
+                    touched.doxLowOp && errors.doxLowOp ? errors.doxLowOp : ""
                   }
                 />
                 <TextField
                   required
                   margin="dense"
-                  id="doHighOp"
+                  id="doxHighOp"
                   label={TEA.DO_HIGH_OP}
                   type="number"
                   onChange={handleChange}
-                  error={touched.doHighOp && Boolean(errors.doHighOp)}
+                  error={touched.doxHighOp && Boolean(errors.doxHighOp)}
                   helperText={
-                    touched.doHighOp && errors.doHighOp ? errors.doHighOp : ""
+                    touched.doxHighOp && errors.doxHighOp
+                      ? errors.doxHighOp
+                      : ""
                   }
                 />
                 <TextField

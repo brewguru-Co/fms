@@ -17,7 +17,7 @@ import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 import EditableTableRow from "./EditableTableRow";
 import TeaDialog from "./Dialog/TeaDialog";
 import TankDialog from "./Dialog/TankDialog";
-import NotificationDialog from "./Dialog/NotificationDialog";
+import NotificationTargetDialog from "./Dialog/NotificationTargetDialog";
 import locale from "../locale/ko_KR.json";
 import styles from "../assets/jss/components/editableTableStyle";
 
@@ -104,9 +104,9 @@ const CDialog = ({ dialog, data, open, handleClose, onCreate }) => {
       return (
         <TankDialog open={open} handleClose={handleClose} onCreate={onCreate} />
       );
-    case "notification":
+    case "notificationTarget":
       return (
-        <NotificationDialog
+        <NotificationTargetDialog
           open={open}
           handleClose={handleClose}
           onCreate={onCreate}

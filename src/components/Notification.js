@@ -4,17 +4,16 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { isToday, getTimeString } from "../lib/time";
-import styles from "../assets/jss/components/notificationRecordStyle";
+import styles from "../assets/jss/components/notificationStyle";
 import locale from "../locale/ko_KR.json";
 
 const NOTIFICATION = locale.NOTIFICATION;
 
 const useStyles = makeStyles(styles);
 
-function NotificationRecord(props) {
+function Notification(props) {
   const { record } = props;
-  const { code, content, createdAt } = record;
-  const { high, low, value } = content;
+  const { code, max, min, value, createdAt } = record;
 
   const classes = useStyles();
 
@@ -31,7 +30,7 @@ function NotificationRecord(props) {
             측정값: <b>{value}</b>
           </Typography>
           <Typography className={classes.content}>
-            최적 범위: {low} ~ {high}
+            최적 범위: {min} ~ {max}
           </Typography>
         </Grid>
         <Grid item xs>
@@ -50,4 +49,4 @@ function NotificationRecord(props) {
   );
 }
 
-export default NotificationRecord;
+export default Notification;

@@ -1,30 +1,30 @@
 import { combineReducers } from "redux";
 import teas, { teasSaga } from "./teas";
 import tanks, { tanksSaga } from "./tanks";
-import products, { productsSaga } from "./products";
-import notifications, { notificationsSaga } from "./notifications";
+import batchs, { batchsSaga } from "./batchs";
+import notificationTargets, {
+  notificationTargetsSaga,
+} from "./notificationTargets";
 import tankDatas, { tankDatasSaga } from "./tankDatas";
-import notificationRecords, {
-  notificationRecordsSaga,
-} from "./notificationRecords";
+import notifications, { notificationsSaga } from "./notifications";
 import { all } from "redux-saga/effects";
 
 const rootReducer = combineReducers({
   teas,
   tanks,
   notifications,
-  notificationRecords,
+  notificationTargets,
   tankDatas,
-  products,
+  batchs,
 });
 export function* rootSaga() {
   yield all([
     teasSaga(),
     tanksSaga(),
     notificationsSaga(),
-    notificationRecordsSaga(),
+    notificationTargetsSaga(),
     tankDatasSaga(),
-    productsSaga(),
+    batchsSaga(),
   ]);
 }
 

@@ -1,6 +1,6 @@
-import { INDIGO, GRAY, WHITE } from "../";
+import { INDIGO, GRAY, WHITE } from "..";
 
-const notificationRecordStyle = {
+const notificationStyle = {
   root: {
     padding: 8,
     position: "relative",
@@ -37,4 +37,4 @@ const notificationRecordStyle = {
   },
 };
 
-export default notificationRecordStyle;
+export default notificationStyle;

@@ -46,12 +46,12 @@ export default function TankDialog(props) {
       const selectedTea = teas.find((tea) => tea.name === value);
       setFieldValue("phLow", selectedTea.phLowOp);
       setFieldValue("tempLow", selectedTea.tempLowOp);
-      setFieldValue("doLow", selectedTea.doLowOp);
+      setFieldValue("doxLow", selectedTea.doxLowOp);
       setFieldValue("brixLow", selectedTea.brixLowOp);
 
       setFieldValue("phHigh", selectedTea.phHighOp);
       setFieldValue("tempHigh", selectedTea.tempHighOp);
-      setFieldValue("doHigh", selectedTea.doHighOp);
+      setFieldValue("doxHigh", selectedTea.doxHighOp);
       setFieldValue("brixHigh", selectedTea.brixHighOp);
     }
   };
@@ -61,12 +61,12 @@ export default function TankDialog(props) {
     if (!checked) {
       setFieldValue("phLow", null);
       setFieldValue("tempLow", null);
-      setFieldValue("doLow", null);
+      setFieldValue("doxLow", null);
       setFieldValue("brixLow", null);
 
       setFieldValue("phHigh", null);
       setFieldValue("tempHigh", null);
-      setFieldValue("doHigh", null);
+      setFieldValue("doxHigh", null);
       setFieldValue("brixHigh", null);
     }
     setEqual(checked);
@@ -103,8 +103,8 @@ export default function TankDialog(props) {
             phHigh: teas[0].phHighOp,
             tempLow: teas[0].tempLowOp,
             tempHigh: teas[0].tempHighOp,
-            doLow: teas[0].doLowOp,
-            doHigh: teas[0].doHighOp,
+            doxLow: teas[0].doxLowOp,
+            doxHigh: teas[0].doxHighOp,
             brixLow: teas[0].brixLowOp,
             brixHigh: teas[0].brixHighOp,
           }}
@@ -224,25 +224,25 @@ export default function TankDialog(props) {
                   <TextField
                     required
                     margin="dense"
-                    name="doLow"
+                    name="doxLow"
                     label={TANK.DO_LOW}
                     type="number"
                     onChange={handleChange}
-                    error={touched.doLow && Boolean(errors.doLow)}
+                    error={touched.doxLow && Boolean(errors.doxLow)}
                     helperText={
-                      touched.doLow && errors.doLow ? errors.doLow : ""
+                      touched.doxLow && errors.doxLow ? errors.doxLow : ""
                     }
                   />
                   <TextField
                     required
                     margin="dense"
-                    name="doHigh"
+                    name="doxHigh"
                     label={TANK.DO_HIGH}
                     type="number"
                     onChange={handleChange}
-                    error={touched.doHigh && Boolean(errors.doHigh)}
+                    error={touched.doxHigh && Boolean(errors.doxHigh)}
                     helperText={
-                      touched.doHigh && errors.doHigh ? errors.doHigh : ""
+                      touched.doxHigh && errors.doxHigh ? errors.doxHigh : ""
                     }
                   />
                   <TextField

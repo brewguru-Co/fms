@@ -1,4 +1,4 @@
-const notificationDialogStyle = {
+const notificationTargetDialogStyle = {
   box: {
     display: "flex",
     alignItems: "flex-start",
@@ -13,4 +13,4 @@ const notificationDialogStyle = {
   },
 };
 
-export default notificationDialogStyle;
+export default notificationTargetDialogStyle;

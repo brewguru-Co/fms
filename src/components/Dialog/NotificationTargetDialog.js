@@ -10,8 +10,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { NotificationSchema } from "../../lib/formSchema";
-import styles from "../../assets/jss/components/notificationDialogStyle";
+import { NotificationTargetSchema } from "../../lib/formSchema";
+import styles from "../../assets/jss/components/notificationTargetDialogStyle";
 import locale from "../../locale/ko_KR.json";
 
 const useStyles = makeStyles(styles);
@@ -38,7 +38,7 @@ export default function NotificationDialog(props) {
             phone: "",
             on: true,
           }}
-          validationSchema={NotificationSchema}
+          validationSchema={NotificationTargetSchema}
           onSubmit={handleSave}
         >
           {({

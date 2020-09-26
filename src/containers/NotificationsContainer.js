@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Notifications from "../components/Notifications";
 import { getNotifications } from "../redux/modules/notifications";
-import NotificationPopper from "../components/NotificationPopper";
 
-function NotificationPopperContainer() {
+function NotificationsContainer() {
   const { loading, error, notifications: data } = useSelector(
     (state) => state.notifications
   );
@@ -13,7 +13,7 @@ function NotificationPopperContainer() {
     dispatch(getNotifications());
   }, [dispatch]);
 
-  return <>{data && <NotificationPopper records={data} />}</>;
+  return <>{data && <Notifications records={data} />}</>;
 }
 
-export default NotificationPopperContainer;
+export default NotificationsContainer;

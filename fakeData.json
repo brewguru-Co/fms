@@ -7,8 +7,8 @@
       "tempLowOp": 29.5,
       "phHighOp": 3.5,
       "phLowOp": 3,
-      "doHighOp": 80,
-      "doLowOp": 78,
+      "doxHighOp": 80,
+      "doxLowOp": 78,
       "brixHighOp": 100,
       "brixLowOp": 0
     },
@@ -19,8 +19,8 @@
       "tempLowOp": 32.5,
       "phHighOp": 2,
       "phLowOp": 1,
-      "doHighOp": 32,
-      "doLowOp": 22,
+      "doxHighOp": 32,
+      "doxLowOp": 22,
       "brixHighOp": 80,
       "brixLowOp": 70
     },
@@ -31,8 +31,8 @@
       "tempLowOp": 21.5,
       "phHighOp": 1.5,
       "phLowOp": 0.5,
-      "doHighOp": 44,
-      "doLowOp": 35,
+      "doxHighOp": 44,
+      "doxLowOp": 35,
       "brixHighOp": 90,
       "brixLowOp": 70
     }
@@ -47,13 +47,13 @@
       "tempLow": 29.5,
       "phHigh": 3.5,
       "phLow": 3,
-      "doHigh": 80,
-      "doLow": 78,
+      "doxHigh": 80,
+      "doxLow": 78,
       "brixHigh": 100,
       "brixLow": 0
     }
   ],
-  "notifications": [
+  "notification_targets": [
     {
       "id": 1,
       "name": "CS팀",
@@ -83,100 +83,85 @@
       "on": true
     }
   ],
-  "notification_records": [
+  "notifications": [
     {
-      "tankId": 1,
-      "series": "original",
+      "batchId": 1,
+      "teaName": "original",
       "code": "PhHighLimitOver",
-      "content": {
-        "high": 3.5,
-        "low": 2.5,
-        "value": 3.6
-      },
+      "max": 3.5,
+      "min": 2.5,
+      "value": 3.6,
       "createdAt": 1599892370
     },
     {
-      "tankId": 2,
-      "series": "lemon",
+      "batchId": 2,
+      "teaName": "lemon",
       "code": "PhLowLimitOver",
-      "content": {
-        "high": 3.5,
-        "low": 2.5,
-        "value": 2.3
-      },
+      "max": 3.5,
+      "min": 2.5,
+      "value": 2.3,
       "createdAt": 1599895970
     },
     {
-      "tankId": 1,
-      "series": "original",
+      "batchId": 1,
+      "teaName": "original",
       "code": "TempHighLimitOver",
-      "content": {
-        "high": 31.5,
-        "low": 29.5,
-        "value": 32.6
-      },
+      "max": 31.5,
+      "min": 29.5,
+      "value": 32.6,
       "createdAt": 1599031229
     },
     {
-      "tankId": 1,
-      "series": "original",
+      "batchId": 1,
+      "teaName": "original",
       "code": "TempLowLimitOver",
-      "content": {
-        "high": 23.5,
-        "low": 22.5,
-        "value": 21
-      },
+      "max": 23.5,
+      "min": 22.5,
+      "value": 21,
       "createdAt": 1599031311
     },
     {
-      "tankId": 1,
-      "series": "original",
+      "batchId": 1,
+      "teaName": "original",
       "code": "DoHighLimitOver",
-      "content": {
-        "high": 61,
-        "low": 55,
-        "value": 62
-      },
+      "max": 61,
+      "min": 55,
+      "value": 62,
       "createdAt": 1599031325
     },
     {
-      "tankId": 2,
-      "series": "lemon",
+      "batchId": 2,
+      "teaName": "lemon",
       "code": "DoLowLimitOver",
-      "content": {
-        "high": 62,
-        "low": 52,
-        "value": 41
-      },
+      "max": 62,
+      "min": 52,
+      "value": 41,
       "createdAt": 1599031357
     },
     {
-      "tankId": 1,
-      "series": "original",
+      "batchId": 1,
+      "teaName": "original",
       "code": "BrixHighLimitOver",
-      "content": {
-        "high": 88,
-        "low": 87,
-        "value": 89
-      },
+      "max": 88,
+      "min": 87,
+      "value": 89,
       "createdAt": 1599031413
     },
     {
-      "tankId": 1,
-      "series": "original",
+      "batchId": 1,
+      "teaName": "original",
       "code": "BrixLowLimitOver",
-      "content": {
-        "high": 78,
-        "low": 75,
-        "value": 72
-      },
+      "max": 78,
+      "min": 75,
+      "value": 72,
       "createdAt": 1599031434
     }
   ],
-  "products": [
+  "batchs": [
     {
       "id": 1,
-      "series": "original",
+      "teaName": "original",
+      "tankName": "tank1",
       "createdAt": 1599030299,
       "ph": 2.51,
       "dox": 70,
@@ -185,7 +170,8 @@
     },
     {
       "id": 2,
-      "series": "lemon",
+      "teaName": "lemon",
+      "tankName": "tank1",
       "createdAt": 1600582227,
       "ph": 2.4,
       "dox": 71,
@@ -194,12 +180,19 @@
     },
     {
       "id": 3,
-      "series": "original",
+      "teaName": "original",
+      "tankName": "tank1",
       "createdAt": 1600960227,
       "ph": 2.45,
       "dox": 69,
       "temp": 25,
       "brix": 0.2
     }
-  ]
+  ],
+  "tea_offset": {
+    "temp": 0.5,
+    "ph": 0.25,
+    "dox": 0.1,
+    "br": 1
+  }
 }

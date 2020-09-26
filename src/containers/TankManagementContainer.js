@@ -40,13 +40,13 @@ const columns = [
     label: TANK.TEMP_HIGH,
   },
   {
-    id: "doLow",
+    id: "doxLow",
     type: "number",
     disablePadding: true,
     label: TANK.DO_LOW,
   },
   {
-    id: "doHigh",
+    id: "doxHigh",
     type: "number",
     disablePadding: true,
     label: TANK.DO_HIGH,
