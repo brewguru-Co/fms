@@ -86,7 +86,6 @@
   "notifications": [
     {
       "batchId": 1,
-      "teaName": "original",
       "code": "PhHighLimitOver",
       "max": 3.5,
       "min": 2.5,
@@ -95,7 +94,6 @@
     },
     {
       "batchId": 2,
-      "teaName": "lemon",
       "code": "PhLowLimitOver",
       "max": 3.5,
       "min": 2.5,
@@ -104,7 +102,6 @@
     },
     {
       "batchId": 1,
-      "teaName": "original",
       "code": "TempHighLimitOver",
       "max": 31.5,
       "min": 29.5,
@@ -113,7 +110,6 @@
     },
     {
       "batchId": 1,
-      "teaName": "original",
       "code": "TempLowLimitOver",
       "max": 23.5,
       "min": 22.5,
@@ -122,7 +118,6 @@
     },
     {
       "batchId": 1,
-      "teaName": "original",
       "code": "DoHighLimitOver",
       "max": 61,
       "min": 55,
@@ -131,7 +126,6 @@
     },
     {
       "batchId": 2,
-      "teaName": "lemon",
       "code": "DoLowLimitOver",
       "max": 62,
       "min": 52,
@@ -140,7 +134,6 @@
     },
     {
       "batchId": 1,
-      "teaName": "original",
       "code": "BrixHighLimitOver",
       "max": 88,
       "min": 87,
@@ -149,7 +142,6 @@
     },
     {
       "batchId": 1,
-      "teaName": "original",
       "code": "BrixLowLimitOver",
       "max": 78,
       "min": 75,

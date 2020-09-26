@@ -61,7 +61,7 @@ export const realtimeOptions = (ymin, ymax, step, color) => ({
           displayFormats: {
             second: "HH:mm:ss",
           },
-          stepSize: 2,
+          stepSize: 5,
         },
         gridLines: {
           color: `rgba(${hexToRgb(getColor(color))}, 0.3)`,

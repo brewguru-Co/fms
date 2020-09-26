@@ -27,7 +27,7 @@ function RealtimeChartsContainer(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(getTankRealtimeData());
-    }, 2000);
+    }, 5000);
     return () => {
       clearInterval(interval);
     };
@@ -41,10 +41,7 @@ function RealtimeChartsContainer(props) {
             color={"green"}
             data={realtimeData(createData(data, "temp"), "white")}
             options={realtimeOptions(24, 32, 2, "white")}
-            title={"온도"}
-            content={`정상 범위: 28 ~ 32  측정값: ${
-              data.length > 0 && data[data.length - 1].temp
-            }`}
+            title={"온도 (Temperature)"}
           />
         )}
       </Grid>
@@ -54,10 +51,7 @@ function RealtimeChartsContainer(props) {
             color={"yellow"}
             data={realtimeData(createData(data, "ph"), "white")}
             options={realtimeOptions(2.4, 4.2, 0.3, "white")}
-            title={"PH"}
-            content={`정상 범위: 28 ~ 32  측정값: ${
-              data.length > 0 && data[data.length - 1].ph
-            }`}
+            title={"산도 (PH)"}
           />
         )}
       </Grid>
@@ -67,10 +61,7 @@ function RealtimeChartsContainer(props) {
             color={"red"}
             data={realtimeData(createData(data, "dox"), "white")}
             options={realtimeOptions(0, 100, 20, "white")}
-            title={"DO"}
-            content={`정상 범위: 28 ~ 32  측정값: ${
-              data.length > 0 && data[data.length - 1].dox
-            }`}
+            title={"용존산소량 (DO)"}
           />
         )}
       </Grid>
@@ -80,10 +71,7 @@ function RealtimeChartsContainer(props) {
             color={"gray"}
             data={realtimeData(createData(data, "brix"), "white")}
             options={realtimeOptions(0, 1, 0.2, "white")}
-            title={"당도"}
-            content={`정상 범위: 28 ~ 32  측정값: ${
-              data.length > 0 && data[data.length - 1].brix
-            }`}
+            title={"당도 (BR)"}
           />
         )}
       </Grid>
