@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import { GreasePencil, Thermometer, Water, Gauge } from "mdi-material-ui";
 import OptimalCard from "../components/OptimalCard";
 import InfoCard from "../components/InfoCard";
+import { getTanks } from "../redux/modules/tanks";
 
 function formatTime(time) {
   return time < 10 ? `0${time}` : time;
 }
 
 function InfoContainer() {
+  const dispatch = useDispatch();
   /* (@TODO) API 연동 필요 (startedAt, finishedAt) */
-  const [startedAt, setStartedAt] = useState(new Date("2020-09-17 00:00"));
+  const [startedAt, setStartedAt] = useState(new Date());
   const [finishedAt, setFinishedAt] = useState(null);
   const [time, setTime] = useState({
     day: 0,
@@ -18,12 +21,14 @@ function InfoContainer() {
     minute: 0,
     second: 0,
   });
-  const optimalValues = {
-    temp: 24,
-    ph: 2.6,
-    dox: 60,
-    brix: 0.4,
-  };
+  const { tanks, tankDatas } = useSelector((state) => ({
+    tanks: state.tanks,
+    tankDatas: state.tankDatas,
+  }));
+
+  useEffect(() => {
+    dispatch(getTanks());
+  }, [dispatch]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -51,12 +56,18 @@ function InfoContainer() {
     setFinishedAt(new Date());
   };
 
+  const realtimeData =
+    tankDatas.loading || tankDatas.realtimeTankData.length < 1
+      ? {}
+      : tankDatas.realtimeTankData[tankDatas.realtimeTankData.length - 1];
+  const currentTank = tanks.loading || !tanks.tanks ? {} : tanks.tanks[0];
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} xl={4}>
         <InfoCard
-          tank="Tank 1"
-          tea="Original"
+          tank={currentTank.name}
+          tea={currentTank.teaName}
           startedAt={startedAt}
           finishedAt={finishedAt}
           day={time.day}
@@ -70,33 +81,37 @@ function InfoContainer() {
       <Grid item xs={12} xl={8} container spacing={3}>
         <Grid item xs={6} md={3}>
           <OptimalCard
-            color={"green"}
-            category={"온도 최적값"}
-            title={optimalValues.temp}
+            color="green"
+            category="온도 (Temperature)"
+            title={realtimeData.temp}
+            content={`${currentTank.tempLow} ~ ${currentTank.tempHigh}`}
             icon={<Thermometer />}
           />
         </Grid>
         <Grid item xs={6} md={3}>
           <OptimalCard
-            color={"yellow"}
-            category={"PH 최적값"}
-            title={optimalValues.ph}
+            color="yellow"
+            category="산도 (PH)"
+            title={realtimeData.ph}
+            content={`${currentTank.phLow} ~ ${currentTank.phHigh}`}
             icon={<GreasePencil />}
           />
         </Grid>
         <Grid item xs={6} md={3}>
           <OptimalCard
-            color={"red"}
-            category={"당도 최적값"}
-            title={optimalValues.brix}
+            color="red"
+            category="당도 (BR)"
+            title={realtimeData.brix}
+            content={`${currentTank.brixLow} ~ ${currentTank.brixHigh}`}
             icon={<Water />}
           />
         </Grid>
         <Grid item xs={6} md={3}>
           <OptimalCard
-            color={"gray"}
-            category={"용존산소량 최적값"}
-            title={optimalValues.dox}
+            color="gray"
+            category="용존산소량 (DO)"
+            title={realtimeData.dox}
+            content={`${currentTank.doxLow} ~ ${currentTank.doxHigh}`}
             icon={<Gauge />}
           />
         </Grid>
@@ -105,4 +120,4 @@ function InfoContainer() {
   );
 }
 
-export default InfoContainer;
+export default React.memo(InfoContainer);

@@ -11,6 +11,13 @@ const infoCardStyle = {
     display: "flex",
     justifyContent: "flex-end",
   },
+  skeleton: {
+    margin: 0,
+    marginTop: 10,
+    marginBottom: 0,
+    width: 100,
+    height: 14,
+  },
   count: {
     margin: "0 0.4rem",
     textAlign: "center",
@@ -45,13 +52,13 @@ const infoCardStyle = {
   },
   stats: {
     color: GRAY[5],
-    display: "inline-flex",
+    display: "flex",
     width: "100%",
     justifyContent: "space-between",
-    fontSize: "12px",
+    alignItems: "center",
     lineHeight: "22px",
     "& svg": {
-      top: "4px",
+      top: "2px",
       width: "16px",
       height: "16px",
       position: "relative",
@@ -59,12 +66,16 @@ const infoCardStyle = {
       marginLeft: "3px",
     },
     "& .fab,& .fas,& .far,& .fal,& .material-icons": {
-      top: "4px",
+      top: "2px",
       fontSize: "16px",
       position: "relative",
       marginRight: "3px",
       marginLeft: "3px",
     },
+  },
+  text: {
+    color: GRAY[7],
+    fontSize: 14,
   },
 };
 export default infoCardStyle;

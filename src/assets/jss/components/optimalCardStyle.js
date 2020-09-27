@@ -17,10 +17,22 @@ const optimalCardStyle = {
     marginBottom: "0",
     paddingTop: "10px",
   },
+  container: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  skeleton: {
+    width: 60,
+    height: 40,
+  },
+  statsTitle: {
+    color: GRAY[6],
+    fontSize: "14px",
+  },
   stats: {
     color: GRAY[5],
     display: "inline-flex",
-    fontSize: "12px",
+    fontSize: "18px",
     lineHeight: "22px",
     "& svg": {
       top: "4px",

@@ -59,9 +59,9 @@ function RealtimeChartsContainer(props) {
         {data && (
           <RealtimeChart
             color={"red"}
-            data={realtimeData(createData(data, "dox"), "white")}
-            options={realtimeOptions(0, 100, 20, "white")}
-            title={"용존산소량 (DO)"}
+            data={realtimeData(createData(data, "brix"), "white")}
+            options={realtimeOptions(0, 1, 0.2, "white")}
+            title={"당도 (BR)"}
           />
         )}
       </Grid>
@@ -69,9 +69,9 @@ function RealtimeChartsContainer(props) {
         {data && (
           <RealtimeChart
             color={"gray"}
-            data={realtimeData(createData(data, "brix"), "white")}
-            options={realtimeOptions(0, 1, 0.2, "white")}
-            title={"당도 (BR)"}
+            data={realtimeData(createData(data, "dox"), "white")}
+            options={realtimeOptions(0, 100, 20, "white")}
+            title={"용존산소량 (DO)"}
           />
         )}
       </Grid>
