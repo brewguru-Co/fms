@@ -63,7 +63,7 @@ function NotificationTargetContainer() {
           <EditableTable
             columns={columns}
             rows={data}
-            rowsPerPage={10}
+            rowsPerPage={5}
             title="알림 세팅"
             subTitle="측정값이 적정 범위를 벗어날 시 알릴 대상 설정"
             onRemove={onRemove}
@@ -71,7 +71,7 @@ function NotificationTargetContainer() {
             onCreate={onCreate}
             dialog="notificationTarget"
             validator={notificationTargetValidator}
-            color="indigo"
+            color="yellow"
           />
         </>
       )}

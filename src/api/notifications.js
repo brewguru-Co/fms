@@ -4,7 +4,7 @@ import config from "../config.json";
 const env = process.env.NODE_ENV || "development";
 const { host, port } = config[env].api;
 
-export const getNotifications = async () => {
+export async function getNotifications() {
   const response = await axios.get(`${host}:${port}/notifications`);
   return response.data;
-};
+}

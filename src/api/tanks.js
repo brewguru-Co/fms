@@ -4,19 +4,19 @@ import config from "../config.json";
 const env = process.env.NODE_ENV || "development";
 const { host, port } = config[env].api;
 
-export const getTanks = async () => {
+export async function getTanks() {
   const response = await axios.get(`${host}:${port}/tanks`);
   return response.data;
-};
+}
 
-export const removeTank = (id) => {
+export async function deleteTank(id) {
   return id;
-};
+}
 
-export const createTank = (tank) => {
+export async function postTank(tank) {
   return 2;
-};
+}
 
-export const updateTank = (tank) => {
+export async function patchTank(tank) {
   return tank;
-};
+}

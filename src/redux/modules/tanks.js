@@ -40,7 +40,7 @@ function* getTanksSaga() {
 function* removeTankSaga(action) {
   const id = action.id;
   try {
-    const removedTankId = yield call(tanksAPI.removeTank, id);
+    const removedTankId = yield call(tanksAPI.deleteTank, id);
     yield put({
       type: REMOVE_TANK_SUCCESS,
       id: removedTankId,
@@ -56,7 +56,7 @@ function* removeTankSaga(action) {
 function* updateTankSaga(action) {
   const tank = action.tank;
   try {
-    const updatedTank = yield call(tanksAPI.updateTank, tank);
+    const updatedTank = yield call(tanksAPI.patchTank, tank);
     yield put({
       type: UPDATE_TANK_SUCCESS,
       tank: updatedTank,
@@ -72,7 +72,7 @@ function* updateTankSaga(action) {
 function* createTankSaga(action) {
   const tank = action.tank;
   try {
-    const id = yield call(tanksAPI.createTank, tank);
+    const id = yield call(tanksAPI.postTank, tank);
     yield put({
       type: CREATE_TANK_SUCCESS,
       tank: {

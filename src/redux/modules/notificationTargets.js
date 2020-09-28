@@ -54,7 +54,7 @@ function* removeNotificationTargetSaga(action) {
   const id = action.id;
   try {
     const removedNotificationTargetId = yield call(
-      notificationTargetsAPI.removeNotificationTarget,
+      notificationTargetsAPI.deleteNotificationTarget,
       id
     );
     yield put({
@@ -73,7 +73,7 @@ function* updateNotificationTargetSaga(action) {
   const notificationTarget = action.notificationTarget;
   try {
     const updatedNotificationTarget = yield call(
-      notificationTargetsAPI.updateNotificationTarget,
+      notificationTargetsAPI.patchNotificationTarget,
       notificationTarget
     );
     yield put({
@@ -92,7 +92,7 @@ function* createNotificationTargetSaga(action) {
   const notificationTarget = action.notificationTarget;
   try {
     const id = yield call(
-      notificationTargetsAPI.createNotificationTarget,
+      notificationTargetsAPI.postNotificationTarget,
       notificationTarget
     );
     yield put({

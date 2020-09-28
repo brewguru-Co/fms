@@ -181,10 +181,22 @@
       "brix": 0.2
     }
   ],
-  "tea_offset": {
-    "temp": 0.5,
-    "ph": 0.25,
-    "dox": 0.1,
-    "br": 1
-  }
+  "tea_offsets": [
+    {
+      "id": 1,
+      "teaName": "original",
+      "temp": 0.5,
+      "ph": 0.25,
+      "dox": 0.1,
+      "brix": 1
+    },
+    {
+      "id": 2,
+      "teaName": "lemon",
+      "temp": 0.6,
+      "ph": 0.21,
+      "dox": 0.11,
+      "brix": 2
+    }
+  ]
 }

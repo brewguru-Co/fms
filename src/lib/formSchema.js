@@ -108,6 +108,29 @@ export const NotificationTargetSchema = Yup.object().shape({
     }),
 });
 
+export const TeaOffsetSchema = Yup.object().shape({
+  teaName: Yup.string().required(FORM.REQUIRED),
+  ph: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_PH)
+    .max(14, FORM.WRONG_PH)
+    .required(FORM.REQUIRED),
+  temp: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_TEMP)
+    .max(100, FORM.WRONG_TEMP)
+    .required(FORM.REQUIRED),
+  dox: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_DO)
+    .required(FORM.REQUIRED),
+  brix: Yup.number()
+    .typeError(FORM.REQUIRED)
+    .min(0, FORM.WRONG_BRIX)
+    .max(100, FORM.WRONG_BRIX)
+    .required(FORM.REQUIRED),
+});
+
 function validator(schema, target) {
   try {
     schema.validateSync(target, { abortEarly: false });
@@ -134,4 +157,8 @@ export const teaValidator = (tea) => {
 
 export const tankValidator = (tank) => {
   return validator(TankSchema, tank);
+};
+
+export const teaOffsetValidator = (teaOffset) => {
+  return validator(TeaOffsetSchema, teaOffset);
 };

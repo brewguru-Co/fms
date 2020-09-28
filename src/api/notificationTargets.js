@@ -4,19 +4,19 @@ import config from "../config.json";
 const env = process.env.NODE_ENV || "development";
 const { host, port } = config[env].api;
 
-export const getNotificationTargets = async () => {
+export async function getNotificationTargets() {
   const response = await axios.get(`${host}:${port}/notification_targets`);
   return response.data;
-};
+}
 
-export const removeNotificationTarget = (id) => {
+export async function deleteNotificationTarget(id) {
   return id;
-};
+}
 
-export const createNotificationTarget = (notificationTarget) => {
+export async function postNotificationTarget(notificationTarget) {
   return 5;
-};
+}
 
-export const updateNotificationTarget = (notificationTarget) => {
+export async function patchNotificationTarget(notificationTarget) {
   return notificationTarget;
-};
+}

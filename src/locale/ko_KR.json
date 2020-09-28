@@ -11,6 +11,13 @@
     "BRIX_HIGH_OP": "최고 당도",
     "DUPLICATED": "중복된 품목명"
   },
+  "TEA_OFFSET": {
+    "TEA_NAME": "품목명",
+    "PH": "PH",
+    "TEMP": "온도",
+    "DOX": "DO",
+    "BRIX": "BR"
+  },
   "TANK": {
     "NAME": "탱크명",
     "TEA_NAME": "품목명",

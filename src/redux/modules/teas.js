@@ -40,7 +40,7 @@ function* getTeasSaga() {
 function* removeTeaSaga(action) {
   const id = action.id;
   try {
-    const removedTeaId = yield call(teasAPI.removeTea, id);
+    const removedTeaId = yield call(teasAPI.deleteTea, id);
     yield put({
       type: REMOVE_TEA_SUCCESS,
       id: removedTeaId,
@@ -56,7 +56,7 @@ function* removeTeaSaga(action) {
 function* updateTeaSaga(action) {
   const tea = action.tea;
   try {
-    const updatedTea = yield call(teasAPI.updateTea, tea);
+    const updatedTea = yield call(teasAPI.patchTea, tea);
     yield put({
       type: UPDATE_TEA_SUCCESS,
       tea: updatedTea,
@@ -72,7 +72,7 @@ function* updateTeaSaga(action) {
 function* createTeaSaga(action) {
   const tea = action.tea;
   try {
-    const id = yield call(teasAPI.createTea, tea);
+    const id = yield call(teasAPI.postTea, tea);
     yield put({
       type: CREATE_TEA_SUCCESS,
       tea: {

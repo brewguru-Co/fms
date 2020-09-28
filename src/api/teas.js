@@ -4,19 +4,19 @@ import config from "../config.json";
 const env = process.env.NODE_ENV || "development";
 const { host, port } = config[env].api;
 
-export const getTeas = async () => {
+export async function getTeas() {
   const response = await axios.get(`${host}:${port}/teas`);
   return response.data;
-};
+}
 
-export const removeTea = (id) => {
+export async function deleteTea(id) {
   return id;
-};
+}
 
-export const createTea = (tea) => {
+export async function postTea(tea) {
   return 4;
-};
+}
 
-export const updateTea = (tea) => {
+export async function patchTea(tea) {
   return tea;
-};
+}
