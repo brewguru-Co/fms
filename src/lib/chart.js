@@ -1,5 +1,5 @@
-import moment from "moment";
-import { hexToRgb, getColor } from "../assets/jss";
+import moment from 'moment';
+import { hexToRgb, getColor } from '../assets/jss';
 
 export const realtimeData = (data, color) => ({
   datasets: [
@@ -41,25 +41,25 @@ export const realtimeOptions = (ymin, ymax, step, color) => ({
     display: false,
   },
   hover: {
-    mode: "dataset",
+    mode: 'dataset',
     intersect: true,
   },
   tooltips: {
     displayColors: false,
     callbacks: {
       title: (item) =>
-        moment(new Date(item[0].xLabel)).format("MMM D YYYY, hh:mm A"),
+        moment(new Date(item[0].xLabel)).format('MMM D YYYY, hh:mm A'),
     },
   },
   scales: {
     maintainAspectRatio: false,
     xAxes: [
       {
-        type: "time",
+        type: 'time',
         // distribution: "linear",
         time: {
           displayFormats: {
-            second: "HH:mm:ss",
+            second: 'HH:mm:ss',
           },
           stepSize: 5,
         },
@@ -81,7 +81,7 @@ export const realtimeOptions = (ymin, ymax, step, color) => ({
     ],
     yAxes: [
       {
-        position: "left",
+        position: 'left',
         gridLines: {
           color: `rgba(${hexToRgb(getColor(color))}, 0.3)`,
           borderDash: [5, 10],
@@ -103,3 +103,10 @@ export const realtimeOptions = (ymin, ymax, step, color) => ({
     ],
   },
 });
+
+export const filterData = (datas, unit) => {
+  const HOUR = 60 * 60;
+  const DAY = 24 * HOUR;
+  const divider = unit === 'hour' ? HOUR : DAY;
+  return datas.filter((data) => data.timestamp % divider === 0);
+};

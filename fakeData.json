@@ -85,27 +85,33 @@
   ],
   "notifications": [
     {
+      "id": 1,
       "batchId": 1,
       "code": "PhHighLimitOver",
       "max": 3.5,
       "min": 2.5,
       "value": 3.6,
+      "action": null,
       "createdAt": 1599892370
     },
     {
+      "id": 2,
       "batchId": 2,
       "code": "PhLowLimitOver",
       "max": 3.5,
       "min": 2.5,
       "value": 2.3,
+      "action": null,
       "createdAt": 1599895970
     },
     {
+      "id": 3,
       "batchId": 1,
       "code": "TempHighLimitOver",
       "max": 31.5,
       "min": 29.5,
       "value": 32.6,
+      "action": null,
       "createdAt": 1599031229
     },
     {
@@ -114,76 +120,98 @@
       "max": 23.5,
       "min": 22.5,
       "value": 21,
+      "action": null,
       "createdAt": 1599031311
     },
     {
+      "id": 4,
       "batchId": 1,
       "code": "DoHighLimitOver",
       "max": 61,
       "min": 55,
       "value": 62,
+      "action": null,
       "createdAt": 1599031325
     },
     {
+      "id": 5,
       "batchId": 2,
       "code": "DoLowLimitOver",
       "max": 62,
       "min": 52,
       "value": 41,
+      "action": null,
       "createdAt": 1599031357
     },
     {
+      "id": 6,
       "batchId": 1,
       "code": "BrixHighLimitOver",
       "max": 88,
       "min": 87,
       "value": 89,
+      "action": null,
       "createdAt": 1599031413
     },
     {
+      "id": 7,
       "batchId": 1,
       "code": "BrixLowLimitOver",
       "max": 78,
       "min": 75,
       "value": 72,
+      "action": null,
       "createdAt": 1599031434
     }
   ],
   "batchs": [
     {
       "id": 1,
+      "teaId": 1,
+      "tankId": 1,
       "teaName": "original",
       "tankName": "tank1",
-      "createdAt": 1599030299,
+      "startedAt": 1599030299,
+      "finishedAt": 1599030299,
       "ph": 2.51,
       "dox": 70,
       "temp": 24.2,
-      "brix": 0.2
+      "brix": 0.2,
+      "hasError": false
     },
     {
       "id": 2,
+      "teaId": 2,
+      "tankId": 1,
       "teaName": "lemon",
       "tankName": "tank1",
-      "createdAt": 1600582227,
+      "startedAt": 1600582227,
+      "finishedAt": 1600582227,
       "ph": 2.4,
       "dox": 71,
       "temp": 24,
-      "brix": 0.3
+      "brix": 0.3,
+      "hasError": false
     },
     {
       "id": 3,
+      "teaId": 1,
+      "tankId": 1,
       "teaName": "original",
       "tankName": "tank1",
-      "createdAt": 1600960227,
+      "startedAt": 1600960227,
+      "finishedAt": 1600960227,
       "ph": 2.45,
       "dox": 69,
       "temp": 25,
-      "brix": 0.2
+      "brix": 0.2,
+      "hasError": false
     }
   ],
   "tea_offsets": [
     {
       "id": 1,
+      "teaId": 1,
       "teaName": "original",
       "temp": 0.5,
       "ph": 0.25,
@@ -192,6 +220,7 @@
     },
     {
       "id": 2,
+      "teaId": 2,
       "teaName": "lemon",
       "temp": 0.6,
       "ph": 0.21,
