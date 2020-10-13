@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import MultipleSelect from '../components/MultipleSelect';
 import PhHistoryChart from '../components/Chart/PhHistoryChart';
 import DoHistoryChart from '../components/Chart/DoHistoryChart';
 import TempHistoryChart from '../components/Chart/TempHistoryChart';
 import BrHistoryChart from '../components/Chart/BrHistoryChart';
 import { getBatchDatas } from '../redux/modules/batchDatas';
-import { filterData, addAvg } from '../lib/chart';
-import { Typography } from '@material-ui/core';
+import { getTeas } from '../redux/modules/teas';
+import { filterData, getOptimalData } from '../lib/chart';
 import styles from '../assets/jss/components/historyDataContainerStyle';
 
 const useStyles = makeStyles(styles)
@@ -24,90 +26,117 @@ const formatData = (data, key) => {
   );
 };
 
-const convert = (batchDatas, selected) => {
-  return addAvg(selected.map((e) => batchDatas[e]));
+const getSelectedData = (batchDatas, items) => {
+  const selected = items.map(e => e.split(' ')[1]);
+  return batchDatas.filter(batchData => {
+    const startedAt = moment(batchData.startedAt * 1000).format('YYYY-MM-DD');
+    return selected.includes(startedAt);
+  }).map(batchData => batchData.data);
 };
 
-const fakeSelected = (length) => {
-  return Array(length)
-    .fill(1)
-    .map((e, index) => index + 1);
-};
+const buildItems = (batchDatas) => {
+  return batchDatas.reduce((acc, batchData) => {
+    const { startedAt, teaName } = batchData;
+    acc.push(`${teaName} ${moment(startedAt * 1000).format('YYYY-MM-DD')}`)
+    return acc;
+  }, []);
+}
 
 function HistoryDataContainer() {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { batchDatas } = useSelector((state) => state.batchDatas);
+  const { teas, batchDatas } = useSelector((state) => ({
+    batchDatas: state.batchDatas.batchDatas,
+    teas: state.teas.teas,
+  }));
+  const [unit, setUnit] = useState();
+  const [items, setItems] = useState([]);
   const [selectedBatchs, setSelectedBatchs] = useState([]);
+
+  const [seriesData, setSeriesData] = useState();
+  const [selectedSeriesData, setSelectedSeriesData] = useState();
+  const [optimalData, setOptimalData] = useState();
+  const [isOptimal, setIsOptimal] = useState(false);
   const [data, setData] = useState();
 
   useEffect(() => {
     dispatch(getBatchDatas());
+    dispatch(getTeas());
   }, [dispatch]);
 
   const handleSelectedBatchs = (e) => {
     const { value } = e.target;
     setSelectedBatchs(value);
+    setSelectedSeriesData(getSelectedData(seriesData, value))
     setData();
   };
 
+  const handleSeries = (name) => {
+    setData();
+    setSelectedBatchs([]);
+
+    const filtered = batchDatas.filter(batchData => batchData.teaName === name)
+
+    setSeriesData(filtered);
+    setItems(buildItems(filtered))
+  }
+
   const handleData = (unit) => {
     if (!batchDatas || selectedBatchs.length < 1) return;
+    const optimal = getOptimalData(selectedSeriesData);
+    const viewData = [...selectedSeriesData, optimal];
+
+    setOptimalData(optimal)
+    setUnit(unit)
+    setIsOptimal(false);
+
     switch (unit) {
-      case 'hour':
-        setData(
-          convert(batchDatas, fakeSelected(selectedBatchs.length)).map((e) =>
-            filterData(e, 'hour')
-          )
-        );
-        break;
       case 'day':
-        setData(
-          convert(batchDatas, fakeSelected(selectedBatchs.length)).map((e) =>
-            filterData(e, 'day')
-          )
-        );
+        setData(viewData.map((e) => filterData(e, 'day')));
         break;
       default:
-        setData(convert(batchDatas, fakeSelected(selectedBatchs.length)));
+        setData(viewData);
     }
   };
+
+  const handleOptimalData = () => {
+    setData([filterData(optimalData, unit)])
+    setIsOptimal(true);
+  }
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
+        {teas && teas.map((tea) => (
+          <Button onClick={() => handleSeries(tea.name)} variant='contained' size="small">
+            {tea.name}
+          </Button>
+        ))}
+      </Grid>
+      <Grid item xs={12}>
         <MultipleSelect
           onChange={handleSelectedBatchs}
           values={selectedBatchs}
-          items={[
-            '2020.08.21 ~ 2020.09.13',
-            '2020.07.21 ~ 2020.08.13',
-            '2020.06.21 ~ 2020.07.13',
-            '2020.05.21 ~ 2020.06.13',
-            '2020.04.21 ~ 2020.05.13',
-            '2020.03.21 ~ 2020.04.13',
-            '2020.02.21 ~ 2020.03.13',
-            '2020.01.21 ~ 2020.02.13',
-          ]}
+          items={items}
           label='제품 선택'
         />
       </Grid>
       <Grid item xs={12}>
-        <Button onClick={() => handleData()} variant='contained' size="small">
-          15분
-        </Button>
         <Button onClick={() => handleData('hour')} variant='contained' size="small">
           60분
         </Button>
         <Button onClick={() => handleData('day')} variant='contained' size="small">
           일
         </Button>
+        <Button onClick={() => handleOptimalData()} variant='contained' size="small" color="primary">
+          최적값
+        </Button>
       </Grid>
       <Grid item xs={12}>
         {data && (
           <>
             <Typography className={classes.title} variant='h5'>온도 (Temperature)</Typography>
-            <TempHistoryChart datas={formatData(data, 'temp')} />
+            <TempHistoryChart datas={formatData(data, 'temp')} isOptimal={isOptimal} />
           </>
         )}
       </Grid>
@@ -115,7 +144,7 @@ function HistoryDataContainer() {
         {data && (
           <>
             <Typography className={classes.title} variant='h5'>산도 (PH)</Typography>
-            <PhHistoryChart datas={formatData(data, 'ph')} />
+            <PhHistoryChart datas={formatData(data, 'ph')} isOptimal={isOptimal} />
           </>
         )}
       </Grid>
@@ -123,7 +152,7 @@ function HistoryDataContainer() {
         {data && (
           <>
             <Typography className={classes.title} variant='h5'>용존산소량 (DO)</Typography>
-            <DoHistoryChart datas={formatData(data, 'dox')} />
+            <DoHistoryChart datas={formatData(data, 'dox')} isOptimal={isOptimal} />
           </>
         )}
       </Grid>
@@ -131,7 +160,7 @@ function HistoryDataContainer() {
         {data && (
           <>
             <Typography className={classes.title} variant='h5'>당도 (BR)</Typography>
-            <BrHistoryChart datas={formatData(data, 'brix')} />
+            <BrHistoryChart datas={formatData(data, 'brix')} isOptimal={isOptimal} />
           </>
         )}
       </Grid>

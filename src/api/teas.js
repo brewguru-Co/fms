@@ -5,7 +5,8 @@ const env = process.env.NODE_ENV || "development";
 const { host, port } = config[env].api;
 
 export async function getTeas() {
-  const response = await axios.get(`${host}:${port}/teas`);
+  // const response = await axios.get(`${host}:${port}/teas`);
+  const response = await axios.get(`http://localhost:5000/teas`);
   return response.data;
 }
 

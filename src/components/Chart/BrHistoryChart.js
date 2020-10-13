@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { GRAY, RED } from '../../assets/jss';
+import { GRAY, ORANGE } from '../../assets/jss';
 import Chart from 'chart.js';
 import styles from '../../assets/jss/components/historyChartStyle';
 
@@ -28,37 +28,38 @@ const avgDatasetOptions = {
   fill: false,
   lineTension: 0,
 
-  backgroundColor: RED[5],
-  borderColor: RED[5],
+  backgroundColor: ORANGE[5],
+  borderColor: ORANGE[5],
   borderWidth: 1,
 
-  pointBackgroundColor: RED[5],
+  pointBackgroundColor: ORANGE[5],
   pointBorderWidth: 1,
   pointRadius: 1,
 
   pointHoverRadius: 1,
-  pointHoverBackgroundColor: RED[7],
-  pointHoverBorderColor: RED[7],
+  pointHoverBackgroundColor: ORANGE[7],
+  pointHoverBorderColor: ORANGE[7],
   pointHoverBorderWidth: 1,
 };
 
 let myChart;
 
 function BrHistoryChart(props) {
-  const { datas } = props;
+  const { datas, isOptimal } = props;
   const length = datas[0].length;
   const classes = useStyles({ length });
   const chartRef = useRef();
   const yAxisRef = useRef();
 
+  const isOptimalData = (index) => (datas.length > 1 && index === datas.length - 1) || isOptimal;
   const gData = {
-    datasets: datas.map((data, index) => (index === datas.length - 1 ? {
+    datasets: datas.map((data, index) => (isOptimalData(index) ? {
       ...avgDatasetOptions,
       data,
     } : {
-      ...datasetOptions,
-      data,
-    })),
+        ...datasetOptions,
+        data,
+      })),
   };
 
   useEffect(() => {
@@ -118,10 +119,19 @@ function BrHistoryChart(props) {
             {
               type: 'linear',
               ticks: {
-                stepSize: length > 1000 ? 25 : 10,
+                stepSize: length > 1000 ? 25 : 5,
               },
             },
           ],
+          yAxes: [
+            {
+              ticks: {
+                min: 6,
+                max: 8,
+                stepSize: 0.2,
+              }
+            }
+          ]
         },
       },
     });

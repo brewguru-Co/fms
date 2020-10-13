@@ -111,11 +111,23 @@ export const filterData = (datas, unit) => {
   return datas.filter((data) => data.timestamp % divider === 0);
 };
 
-export const addAvg = (datas) => {
-  const itemNumbers = datas.length;
-  const lengths = datas.map(data => data.length);
-  const maxLengthOfItems = Math.max(...lengths)
-  const indexOfMax = lengths.indexOf(Math.max(...lengths))
+export const getOptimalData = (datas) => {
+  const counts = datas.length;
+  const maxLengthOfItems = Math.max(...datas.map(data => data.length));
+  const paddArr = [];
+
+  for (let i = 0; i < counts; i += 1) {
+    const arr = [];
+    for(let j=0; j < maxLengthOfItems; j+=1) {
+      let value = datas[i][j];
+      if (!value && j > 0) {
+        value = arr[j-1];
+        value.timestamp += 60 * 15;
+      }
+      arr.push(value);
+    }
+    paddArr.push(arr);
+  }
 
   const avgArr = [];
   for(let i = 0; i < maxLengthOfItems; i += 1 ) {
@@ -124,28 +136,24 @@ export const addAvg = (datas) => {
       ph: 0,
       dox: 0,
       brix: 0,
+      timestamp: 0,
     };
-    for(let j=0; j < itemNumbers; j+=1) {
-      const value = datas[j][i] || {
-        temp: 0,
-        ph: 0,
-        dox: 0,
-        brix: 0,
-      };
+    for(let j=0; j < counts; j+=1) {
+      const value = paddArr[j][i]
       sum.temp += value.temp;
       sum.ph += value.ph;
       sum.dox += value.dox;
       sum.brix += value.brix;
+      sum.timestamp = value.timestamp;
     }
     avgArr.push({
-      temp: parseFloat((sum.temp / itemNumbers).toFixed(2)),
-      ph: parseFloat((sum.ph / itemNumbers).toFixed(2)),
-      dox: parseFloat((sum.dox / itemNumbers).toFixed(2)),
-      brix: parseFloat((sum.brix / itemNumbers).toFixed(2)),
-      timestamp: datas[indexOfMax][i].timestamp,
+      temp: parseFloat((sum.temp / counts).toFixed(2)),
+      ph: parseFloat((sum.ph / counts).toFixed(2)),
+      dox: parseFloat((sum.dox / counts).toFixed(2)),
+      brix: parseFloat((sum.brix / counts).toFixed(2)),
+      timestamp: sum.timestamp,
     })
   }
 
-  datas.push(avgArr)
-  return datas;
+  return avgArr;
 }

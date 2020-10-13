@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { GRAY } from '../../assets/jss';
+import { GRAY, RED } from '../../assets/jss';
 import Chart from 'chart.js';
 import styles from '../../assets/jss/components/historyChartStyle';
 
@@ -24,19 +24,42 @@ const datasetOptions = {
   pointHoverBorderWidth: 1,
 };
 
+const avgDatasetOptions = {
+  fill: false,
+  lineTension: 0,
+
+  backgroundColor: RED[5],
+  borderColor: RED[5],
+  borderWidth: 1,
+
+  pointBackgroundColor: RED[5],
+  pointBorderWidth: 1,
+  pointRadius: 1,
+
+  pointHoverRadius: 1,
+  pointHoverBackgroundColor: RED[7],
+  pointHoverBorderColor: RED[7],
+  pointHoverBorderWidth: 1,
+};
+
 let myChart;
 
 function DoHistoryChart(props) {
-  const { datas } = props;
-  const classes = useStyles({ length: datas[0].length });
+  const { datas, isOptimal } = props;
+  const length = datas[0].length;
+  const classes = useStyles({ length });
   const chartRef = useRef();
   const yAxisRef = useRef();
 
+  const isOptimalData = (index) => (datas.length > 1 && index === datas.length - 1) || isOptimal;
   const gData = {
-    datasets: datas.map((data, index) => ({
-      ...datasetOptions,
+    datasets: datas.map((data, index) => (isOptimalData(index) ? {
+      ...avgDatasetOptions,
       data,
-    })),
+    } : {
+        ...datasetOptions,
+        data,
+      })),
   };
 
   useEffect(() => {
@@ -96,14 +119,14 @@ function DoHistoryChart(props) {
             {
               type: 'linear',
               ticks: {
-                stepSize: datas[0].length > 1000 ? 25 : 10,
+                stepSize: length > 1000 ? 25 : 5,
               },
             },
           ],
         },
       },
     });
-  }, [gData, datas]);
+  }, [gData, length]);
 
   return (
     <div style={{ position: 'relative' }}>

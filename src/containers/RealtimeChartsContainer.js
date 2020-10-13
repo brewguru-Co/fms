@@ -35,9 +35,6 @@ function RealtimeChartsContainer(props) {
     } else {
       clearInterval(interval);
     }
-    // const interval = setInterval(() => {
-    //   dispatch(getTankRealtimeData());
-    // }, 5000);
     return () => {
       if (interval) clearInterval(interval);
     };

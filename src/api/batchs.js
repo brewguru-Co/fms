@@ -5,7 +5,8 @@ const env = process.env.NODE_ENV || "development";
 const { host, port } = config[env].api;
 
 export async function getBatchs() {
-  const response = await axios.get(`${host}:${port}/batchs`);
+  // const response = await axios.get(`${host}:${port}/batchs`);
+  const response = await axios.get(`http://localhost:5000/batchs`);
   return response.data;
 }
 
