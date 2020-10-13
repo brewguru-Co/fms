@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import AccessAlarms from "@material-ui/icons/AccessAlarms";
 import DateRange from "@material-ui/icons/DateRange";
 import Button from "@material-ui/core/Button";
-import Switch from "@material-ui/core/Switch";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Card from "./Card/Card";
 import CardIcon from "./Card/CardIcon";
@@ -19,7 +18,6 @@ const useStyles = makeStyles(styles);
 function InfoCard(props) {
   const [sDisabled, setSDisabled] = useState(false);
   const [fDisabled, setFDisabled] = useState(false);
-  const [use, setUse] = useState(false);
   const {
     startedAt,
     finishedAt,
@@ -41,9 +39,6 @@ function InfoCard(props) {
   const handleFinish = () => {
     onFinish();
     setFDisabled(true);
-  };
-  const onUse = (e) => {
-    setUse(e.target.checked);
   };
 
   return (
@@ -113,15 +108,6 @@ function InfoCard(props) {
             >
               종료
             </Button>
-            <Switch
-              onChange={onUse}
-              checked={use}
-              color="primary"
-              size="small"
-            />
-            <Typography className={classes.text} component="span">
-              사용
-            </Typography>
           </div>
         </div>
       </CardFooter>

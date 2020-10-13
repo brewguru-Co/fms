@@ -110,3 +110,42 @@ export const filterData = (datas, unit) => {
   const divider = unit === 'hour' ? HOUR : DAY;
   return datas.filter((data) => data.timestamp % divider === 0);
 };
+
+export const addAvg = (datas) => {
+  const itemNumbers = datas.length;
+  const lengths = datas.map(data => data.length);
+  const maxLengthOfItems = Math.max(...lengths)
+  const indexOfMax = lengths.indexOf(Math.max(...lengths))
+
+  const avgArr = [];
+  for(let i = 0; i < maxLengthOfItems; i += 1 ) {
+    let sum = {
+      temp: 0,
+      ph: 0,
+      dox: 0,
+      brix: 0,
+    };
+    for(let j=0; j < itemNumbers; j+=1) {
+      const value = datas[j][i] || {
+        temp: 0,
+        ph: 0,
+        dox: 0,
+        brix: 0,
+      };
+      sum.temp += value.temp;
+      sum.ph += value.ph;
+      sum.dox += value.dox;
+      sum.brix += value.brix;
+    }
+    avgArr.push({
+      temp: parseFloat((sum.temp / itemNumbers).toFixed(2)),
+      ph: parseFloat((sum.ph / itemNumbers).toFixed(2)),
+      dox: parseFloat((sum.dox / itemNumbers).toFixed(2)),
+      brix: parseFloat((sum.brix / itemNumbers).toFixed(2)),
+      timestamp: datas[indexOfMax][i].timestamp,
+    })
+  }
+
+  datas.push(avgArr)
+  return datas;
+}

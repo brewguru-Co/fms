@@ -9,7 +9,7 @@ import DoHistoryChart from '../components/Chart/DoHistoryChart';
 import TempHistoryChart from '../components/Chart/TempHistoryChart';
 import BrHistoryChart from '../components/Chart/BrHistoryChart';
 import { getBatchDatas } from '../redux/modules/batchDatas';
-import { filterData } from '../lib/chart';
+import { filterData, addAvg } from '../lib/chart';
 import { Typography } from '@material-ui/core';
 import styles from '../assets/jss/components/historyDataContainerStyle';
 
@@ -25,7 +25,7 @@ const formatData = (data, key) => {
 };
 
 const convert = (batchDatas, selected) => {
-  return selected.map((e) => batchDatas[e]);
+  return addAvg(selected.map((e) => batchDatas[e]));
 };
 
 const fakeSelected = (length) => {
@@ -83,7 +83,11 @@ function HistoryDataContainer() {
             '2020.08.21 ~ 2020.09.13',
             '2020.07.21 ~ 2020.08.13',
             '2020.06.21 ~ 2020.07.13',
-            '2020.05.21 ~ 2020.08.13',
+            '2020.05.21 ~ 2020.06.13',
+            '2020.04.21 ~ 2020.05.13',
+            '2020.03.21 ~ 2020.04.13',
+            '2020.02.21 ~ 2020.03.13',
+            '2020.01.21 ~ 2020.02.13',
           ]}
           label='제품 선택'
         />

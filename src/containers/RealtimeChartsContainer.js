@@ -18,20 +18,30 @@ function createData(tankDatas, key) {
     .slice(n, n + yCount);
 }
 
+let interval;
+
 function RealtimeChartsContainer(props) {
+  const { isFinished } = props;
   const { loading, error, realtimeTankData: data } = useSelector(
     (state) => state.tankDatas
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(getTankRealtimeData());
-    }, 5000);
-    return () => {
+    if (!isFinished) {
+      interval = setInterval(() => {
+        dispatch(getTankRealtimeData());
+      }, 5000);
+    } else {
       clearInterval(interval);
+    }
+    // const interval = setInterval(() => {
+    //   dispatch(getTankRealtimeData());
+    // }, 5000);
+    return () => {
+      if (interval) clearInterval(interval);
     };
-  }, [dispatch]);
+  }, [dispatch, isFinished]);
 
   return (
     <Grid container spacing={3}>

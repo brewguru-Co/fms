@@ -4,13 +4,15 @@ import Grid from "@material-ui/core/Grid";
 import { GreasePencil, Thermometer, Water, Gauge } from "mdi-material-ui";
 import OptimalCard from "../components/OptimalCard";
 import InfoCard from "../components/InfoCard";
+import BatchUsageDialog from "../components/Dialog/BatchUsageDialog";
 import { getTanks } from "../redux/modules/tanks";
 
 function formatTime(time) {
   return time < 10 ? `0${time}` : time;
 }
 
-function InfoContainer() {
+function InfoContainer(props) {
+  const { handleFinish } = props;
   const dispatch = useDispatch();
   /* (@TODO) API 연동 필요 (startedAt, finishedAt) */
   const [startedAt, setStartedAt] = useState(new Date());
@@ -21,6 +23,8 @@ function InfoContainer() {
     minute: 0,
     second: 0,
   });
+  const [open, setOpen] = useState(false);
+  const [useBatchData, setUseBatchData] = useState(false);
   const { tanks, tankDatas } = useSelector((state) => ({
     tanks: state.tanks,
     tankDatas: state.tankDatas,
@@ -54,7 +58,14 @@ function InfoContainer() {
 
   const onFinish = () => {
     setFinishedAt(new Date());
+    setOpen(true);
+    handleFinish();
   };
+
+  const onClose = (use) => {
+    setUseBatchData(use);
+    setOpen(false);
+  }
 
   const realtimeData =
     tankDatas.loading || tankDatas.realtimeTankData.length < 1
@@ -77,6 +88,7 @@ function InfoContainer() {
           onStart={onStart}
           onFinish={onFinish}
         />
+        <BatchUsageDialog open={open} handleClose={onClose} />
       </Grid>
       <Grid item xs={12} xl={8} container spacing={3}>
         <Grid item xs={6} md={3}>
