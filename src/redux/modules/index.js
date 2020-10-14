@@ -9,6 +9,7 @@ import notificationTargets, {
 import tankDatas, { tankDatasSaga } from './tankDatas';
 import notifications, { notificationsSaga } from './notifications';
 import teaOffsets, { teaOffsetsSaga } from './teaOffsets';
+import materials, { materialsSaga } from './materials';
 import { all } from 'redux-saga/effects';
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   batchs,
   batchDatas,
   teaOffsets,
+  materials,
 });
 export function* rootSaga() {
   yield all([
@@ -31,6 +33,7 @@ export function* rootSaga() {
     batchsSaga(),
     batchDatasSaga(),
     teaOffsetsSaga(),
+    materialsSaga(),
   ]);
 }
 

@@ -228,5 +228,78 @@
       "dox": 0.11,
       "brix": 2
     }
+  ],
+  "materials": [
+    {
+      "batchId": 1,
+      "sugar": {
+        "name": "백설탕",
+        "value": 10
+      },
+      "tea": {
+        "name": "홍차",
+        "value": 5
+      },
+      "spawn": {
+        "name": "사과농축액",
+        "value": 9
+      },
+      "subMaterials": [
+        {
+          "name": "레몬농축액",
+          "value": 20.1
+        },
+        {
+          "name": "레몬향",
+          "value": 10.5
+        }
+      ]
+    },
+    {
+      "batchId": 2,
+      "sugar": {
+        "name": "유기농사탕수수원당",
+        "value": 9
+      },
+      "tea": {
+        "name": "녹차",
+        "value": 5.1
+      },
+      "spawn": {
+        "name": "감귤농축액",
+        "value": 9.2
+      },
+      "subMaterials": [
+        {
+          "name": "감귤향",
+          "value": 20.1
+        }
+      ]
+    },
+    {
+      "batchId": 3,
+      "sugar": {
+        "name": "백설탕",
+        "value": 9
+      },
+      "tea": {
+        "name": "우롱차",
+        "value": 5.1
+      },
+      "spawn": {
+        "name": "레몬농축액",
+        "value": 9.2
+      },
+      "subMaterials": [
+        {
+          "name": "감귤농축액",
+          "value": 20.1
+        },
+        {
+          "name": "사과향",
+          "value": 11.1
+        }
+      ]
+    }
   ]
 }

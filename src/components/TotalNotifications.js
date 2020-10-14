@@ -23,7 +23,7 @@ function TotalNotifications(props) {
     <SortTable
       rows={formatTime(data)}
       columns={columns}
-      title='생산완료품 별 총 오류 히스토리'
+      title='생산완료품 오류 히스토리 (종합)'
       color='orange'
       perPage={10}
     />
