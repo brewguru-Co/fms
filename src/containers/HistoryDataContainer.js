@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CIndicator from '../components/CIndicator';
@@ -114,11 +115,13 @@ function HistoryDataContainer() {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        {teas.map((tea) => (
-          <Button onClick={() => handleSeries(tea.name)} variant='contained' size='small'>
-            {tea.name}
-          </Button>
-        ))}
+        <Box className={classes.box}>
+          {teas.map((tea) => (
+            <Button onClick={() => handleSeries(tea.name)} variant='contained' size='small'>
+              {tea.name}
+            </Button>
+          ))}
+        </Box>
       </Grid>
       <Grid item xs={12}>
         <MultipleSelect
@@ -129,20 +132,22 @@ function HistoryDataContainer() {
         />
       </Grid>
       <Grid item xs={12}>
-        <Button onClick={() => handleData('hour')} variant='contained' size='small'>
-          60분
-        </Button>
-        <Button onClick={() => handleData('day')} variant='contained' size='small'>
-          일
-        </Button>
-        <Button
-          onClick={() => handleOptimalData()}
-          variant='contained'
-          size='small'
-          color='primary'
-        >
-          최적값
-        </Button>
+        <Box className={classes.box}>
+          <Button onClick={() => handleData('hour')} variant='contained' size='small'>
+            60분
+          </Button>
+          <Button onClick={() => handleData('day')} variant='contained' size='small'>
+            일
+          </Button>
+          <Button
+            onClick={() => handleOptimalData()}
+            variant='contained'
+            size='small'
+            color='primary'
+          >
+            최적값
+          </Button>
+        </Box>
       </Grid>
       {data && (
         <Grid item container xs={12}>

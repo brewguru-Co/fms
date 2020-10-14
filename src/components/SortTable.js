@@ -79,7 +79,7 @@ export default function SortTable(props) {
   const { rows, columns, title, subTitle, color, perPage = 5 } = props;
   const classes = useStyles();
   const [order, setOrder] = React.useState('desc');
-  const [orderBy, setOrderBy] = React.useState('startedAt');
+  const [orderBy, setOrderBy] = React.useState('createdAt');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(perPage);
 

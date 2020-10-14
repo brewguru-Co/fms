@@ -21,11 +21,13 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import SettingsIcon from '@material-ui/icons/Settings';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 import NotificationPopperContainer from '../containers/NotificationPopperContainer';
 import DashboardPage from '../pages/DashboardPage';
 import ManagementPage from '../pages/ManagementPage';
 import NotificationPage from '../pages/NotificationPage';
 import HistoryDataPage from '../pages/HistoryDataPage';
+import MaterialPage from '../pages/MaterialPage';
 import styles from '../assets/jss/components/NavigationBarStyle';
 
 const history = createBrowserHistory();
@@ -120,6 +122,12 @@ export default function NavigationBar() {
               </ListItemIcon>
               <ListItemText primary={'히스토리 데이터'} />
             </ListItem>
+            <ListItem button component={Link} to='/material' key={'Material'}>
+              <ListItemIcon>
+                <BubbleChartIcon />
+              </ListItemIcon>
+              <ListItemText primary={'원료 투입 기록'} />
+            </ListItem>
             <ListItem
               button
               component={Link}
@@ -129,7 +137,7 @@ export default function NavigationBar() {
               <ListItemIcon>
                 <NotificationsIcon />
               </ListItemIcon>
-              <ListItemText primary={'알림'} />
+              <ListItemText primary={'알림 기록'} />
             </ListItem>
           </List>
         </Drawer>
@@ -141,6 +149,7 @@ export default function NavigationBar() {
             <Route exact path='/management' component={ManagementPage} />
             <Route exact path='/history' component={HistoryDataPage} />
             <Route exact path='/notification' component={NotificationPage} />
+            <Route exact path='/material' component={MaterialPage} />
           </Switch>
         </main>
       </Router>

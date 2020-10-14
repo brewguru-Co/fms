@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 export const sortByKeyDesc = (objArr, key) => {
   const newObjArr = _.cloneDeep(objArr);
@@ -7,9 +7,14 @@ export const sortByKeyDesc = (objArr, key) => {
 };
 
 export const toPhoneString = (s) => {
-  return s.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, "$1-$2-$3");
+  return s.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, '$1-$2-$3');
 };
 
 export const getTeaNameById = (batchs, id) => {
-  return batchs.find(batch => batch.id === Number(id)).teaName;
-}
+  return batchs.find((batch) => batch.id === Number(id)).teaName;
+};
+
+export const getCurrentBatch = (batchs) => {
+  const now = Date.now() / 1000;
+  return batchs.find(({ startedAt, finishedAt }) => startedAt <= now && now < finishedAt);
+};

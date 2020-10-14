@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Grid from "@material-ui/core/Grid";
-import { GreasePencil, Thermometer, Water, Gauge } from "mdi-material-ui";
-import OptimalCard from "../components/OptimalCard";
-import InfoCard from "../components/InfoCard";
-import BatchUsageDialog from "../components/Dialog/BatchUsageDialog";
-import { getTanks } from "../redux/modules/tanks";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
+import { GreasePencil, Thermometer, Water, Gauge } from 'mdi-material-ui';
+import OptimalCard from '../components/OptimalCard';
+import InfoCard from '../components/InfoCard';
+import BatchUsageDialog from '../components/Dialog/BatchUsageDialog';
+import { getTanks } from '../redux/modules/tanks';
 
 function formatTime(time) {
   return time < 10 ? `0${time}` : time;
 }
 
 function InfoContainer(props) {
-  const { handleFinish } = props;
+  const { handleFinish, handleStart } = props;
   const dispatch = useDispatch();
   /* (@TODO) API 연동 필요 (startedAt, finishedAt) */
   const [startedAt, setStartedAt] = useState(new Date());
@@ -54,6 +54,7 @@ function InfoContainer(props) {
   const onStart = () => {
     setFinishedAt(null);
     setStartedAt(new Date());
+    handleStart();
   };
 
   const onFinish = () => {
@@ -65,7 +66,7 @@ function InfoContainer(props) {
   const onClose = (use) => {
     setUseBatchData(use);
     setOpen(false);
-  }
+  };
 
   const realtimeData =
     tankDatas.loading || tankDatas.realtimeTankData.length < 1
@@ -93,8 +94,8 @@ function InfoContainer(props) {
       <Grid item xs={12} xl={8} container spacing={3}>
         <Grid item xs={6} md={3}>
           <OptimalCard
-            color="green"
-            category="온도 (Temperature)"
+            color='green'
+            category='온도 (Temperature)'
             title={realtimeData.temp}
             content={`${currentTank.tempLow} ~ ${currentTank.tempHigh}`}
             icon={<Thermometer />}
@@ -102,8 +103,8 @@ function InfoContainer(props) {
         </Grid>
         <Grid item xs={6} md={3}>
           <OptimalCard
-            color="yellow"
-            category="산도 (PH)"
+            color='yellow'
+            category='산도 (PH)'
             title={realtimeData.ph}
             content={`${currentTank.phLow} ~ ${currentTank.phHigh}`}
             icon={<GreasePencil />}
@@ -111,8 +112,8 @@ function InfoContainer(props) {
         </Grid>
         <Grid item xs={6} md={3}>
           <OptimalCard
-            color="red"
-            category="당도 (BR)"
+            color='red'
+            category='당도 (BR)'
             title={realtimeData.brix}
             content={`${currentTank.brixLow} ~ ${currentTank.brixHigh}`}
             icon={<Water />}
@@ -120,8 +121,8 @@ function InfoContainer(props) {
         </Grid>
         <Grid item xs={6} md={3}>
           <OptimalCard
-            color="gray"
-            category="용존산소량 (DO)"
+            color='gray'
+            category='용존산소량 (DO)'
             title={realtimeData.dox}
             content={`${currentTank.doxLow} ~ ${currentTank.doxHigh}`}
             icon={<Gauge />}
