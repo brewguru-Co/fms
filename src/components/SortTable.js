@@ -1,17 +1,17 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Card from "./Card/Card";
-import CardHeader from "./Card/CardHeader";
-import CardBody from "./Card/CardBody";
-import styles from "../assets/jss/components/sortTableStyle";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Card from './Card/Card';
+import CardHeader from './Card/CardHeader';
+import CardBody from './Card/CardBody';
+import styles from '../assets/jss/components/sortTableStyle';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -24,7 +24,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === "desc"
+  return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -51,18 +51,18 @@ function CTableHead(props) {
         {columns.map((column) => (
           <TableCell
             key={column.id}
-            align="left"
+            align='left'
             sortDirection={orderBy === column.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === column.id}
-              direction={orderBy === column.id ? order : "asc"}
+              direction={orderBy === column.id ? order : 'asc'}
               onClick={createSortHandler(column.id)}
             >
               {column.label}
               {orderBy === column.id ? (
                 <span className={classes.visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
             </TableSortLabel>
@@ -76,16 +76,16 @@ function CTableHead(props) {
 const useStyles = makeStyles(styles);
 
 export default function SortTable(props) {
-  const { rows, columns, title, subTitle, color } = props;
+  const { rows, columns, title, subTitle, color, perPage = 5 } = props;
   const classes = useStyles();
-  const [order, setOrder] = React.useState("desc");
-  const [orderBy, setOrderBy] = React.useState("createdAt");
+  const [order, setOrder] = React.useState('desc');
+  const [orderBy, setOrderBy] = React.useState('startedAt');
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(perPage);
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
@@ -98,8 +98,7 @@ export default function SortTable(props) {
     setPage(0);
   };
 
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <Card>
@@ -109,7 +108,7 @@ export default function SortTable(props) {
       </CardHeader>
       <CardBody>
         <TableContainer>
-          <Table className={classes.table} size="small">
+          <Table className={classes.table} size='small'>
             <CTableHead
               classes={classes}
               columns={columns}
@@ -124,7 +123,7 @@ export default function SortTable(props) {
                 .map((row, index) => (
                   <TableRow hover tabIndex={-1} key={row.id}>
                     {columns.map((columns, index) => (
-                      <TableCell key={index} align="left">
+                      <TableCell key={index} align='left'>
                         {row[columns.id]}
                       </TableCell>
                     ))}
@@ -140,7 +139,7 @@ export default function SortTable(props) {
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
-          component="div"
+          component='div'
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}

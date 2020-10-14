@@ -1,16 +1,17 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import styles from "../assets/jss/components/CIndicatorStyle";
+import React from 'react';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+import styles from '../assets/jss/components/CIndicatorStyle';
 
 const useStyles = makeStyles(styles);
 
 function CIndicator() {
   const classes = useStyles();
   return (
-    <div className={classes.progress}>
-      <CircularProgress />
-    </div>
+    <Backdrop className={classes.backdrop} open={true}>
+      <CircularProgress color='inherit' />
+    </Backdrop>
   );
 }
 

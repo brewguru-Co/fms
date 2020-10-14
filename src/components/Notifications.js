@@ -1,32 +1,30 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Card from "./Card/Card";
-import CardBody from "./Card/CardBody";
-import CardHeader from "./Card/CardHeader";
-import Notification from "./Notification";
-import { sortByKeyDesc } from "../lib/utils";
-import styles from "../assets/jss/components/notificationsStyle";
+import React from 'react';
+import SortTable from '../components/SortTable';
+import { getTimeString } from '../lib/time';
 
-const useStyles = makeStyles(styles);
+const formatTime = (rows) =>
+  rows.map((row) => ({
+    ...row,
+    createdAt: getTimeString(row.createdAt, 'YYYY-MM-DD HH:MM:ss'),
+  }));
 
-export default function Notifications(props) {
-  const { records } = props;
-  const classes = useStyles();
+const columns = [
+  { id: 'createdAt', numeric: true, label: '오류일 (년월일)' },
+  { id: 'message', numeric: false, label: '내용' },
+  { id: 'action', numeric: false, label: '조치 내용' },
+];
+
+function Notifications(props) {
+  const { data } = props;
   return (
-    <Card>
-      <CardHeader color="red">
-        <h3 className={classes.title}>알림 히스토리</h3>
-      </CardHeader>
-      <CardBody>
-        <Grid container spacing={1}>
-          {sortByKeyDesc(records, "createdAt").map((record, index) => (
-            <Grid key={index} item xs={12}>
-              <Notification record={record} />
-            </Grid>
-          ))}
-        </Grid>
-      </CardBody>
-    </Card>
+    <SortTable
+      rows={formatTime(data)}
+      columns={columns}
+      title='생산완료품 오류 히스토리'
+      color='red'
+      perPage={10}
+    />
   );
 }
+
+export default Notifications;

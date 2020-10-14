@@ -5,7 +5,8 @@ const env = process.env.NODE_ENV || "development";
 const { host, port } = config[env].api;
 
 export async function getTanks() {
-  const response = await axios.get(`${host}:${port}/tanks`);
+  // const response = await axios.get(`${host}:${port}/tanks`);
+  const response = await axios.get(`http://localhost:5000/tanks`);
   return response.data;
 }
 

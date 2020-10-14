@@ -115,6 +115,7 @@
       "createdAt": 1599031229
     },
     {
+      "id": 4,
       "batchId": 1,
       "code": "TempLowLimitOver",
       "max": 23.5,
@@ -124,9 +125,9 @@
       "createdAt": 1599031311
     },
     {
-      "id": 4,
+      "id": 5,
       "batchId": 1,
-      "code": "DoHighLimitOver",
+      "code": "DoxHighLimitOver",
       "max": 61,
       "min": 55,
       "value": 62,
@@ -134,9 +135,9 @@
       "createdAt": 1599031325
     },
     {
-      "id": 5,
+      "id": 6,
       "batchId": 2,
-      "code": "DoLowLimitOver",
+      "code": "DoxLowLimitOver",
       "max": 62,
       "min": 52,
       "value": 41,
@@ -144,7 +145,7 @@
       "createdAt": 1599031357
     },
     {
-      "id": 6,
+      "id": 7,
       "batchId": 1,
       "code": "BrixHighLimitOver",
       "max": 88,
@@ -154,7 +155,7 @@
       "createdAt": 1599031413
     },
     {
-      "id": 7,
+      "id": 8,
       "batchId": 1,
       "code": "BrixLowLimitOver",
       "max": 78,

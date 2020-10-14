@@ -8,11 +8,11 @@ import { getTimeString } from "../lib/time";
 const formatTime = (rows) =>
   rows.map((row) => ({
     ...row,
-    createdAt: getTimeString(row.createdAt, "YYYY-MM-DD"),
+    startedAt: getTimeString(row.startedAt, "YYYY-MM-DD"),
   }));
 
 const columns = [
-  { id: "createdAt", numeric: true, label: "제조일 (년월일)" },
+  { id: "startedAt", numeric: true, label: "제조일 (년월일)" },
   { id: "teaName", numeric: false, label: "품목명" },
   { id: "ph", numeric: true, label: "PH" },
   { id: "dox", numeric: true, label: "용존산소량" },
