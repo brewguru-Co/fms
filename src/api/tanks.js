@@ -1,8 +1,35 @@
-import axios from "axios";
-import config from "../config.json";
+import axios from 'axios';
+import config from '../config.json';
 
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || 'development';
 const { host, port } = config[env].api;
+
+function toTankBody(tank) {
+  const {
+    name,
+    teaId,
+    tempHigh,
+    tempLow,
+    phHigh,
+    phLow,
+    doxHigh,
+    doxLow,
+    brixHigh,
+    brixLow,
+  } = tank;
+  return {
+    name,
+    teaId,
+    tempHigh,
+    tempLow,
+    phHigh,
+    phLow,
+    doxHigh,
+    doxLow,
+    brixHigh,
+    brixLow,
+  };
+}
 
 export async function getTanks() {
   // const response = await axios.get(`${host}:${port}/tanks`);
@@ -11,13 +38,20 @@ export async function getTanks() {
 }
 
 export async function deleteTank(id) {
-  return id;
+  const response = await axios({
+    url: 'http://localhost:5000/tanks',
+    method: 'delete',
+    data: { id },
+  });
+  return response.data.id;
 }
 
 export async function postTank(tank) {
-  return 2;
+  const response = await axios.post(`http://localhost:5000/tanks`, toTankBody(tank));
+  return response.data.id;
 }
 
 export async function patchTank(tank) {
-  return tank;
+  const response = await axios.patch(`http://localhost:5000/tanks/${tank.id}`, toTankBody(tank));
+  return response.data;
 }
