@@ -1,18 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Formik, Form } from "formik";
-import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { TeaOffsetSchema } from "../../lib/formSchema";
-import locale from "../../locale/ko_KR.json";
-import styles from "../../assets/jss/components/dialogStyle";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Formik, Form } from 'formik';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { TeaOffsetSchema } from '../../lib/formSchema';
+import { getTeaIdByName } from '../../lib/utils';
+import locale from '../../locale/ko_KR.json';
+import styles from '../../assets/jss/components/dialogStyle';
 
 const useStyles = makeStyles(styles);
 
@@ -26,18 +27,18 @@ export default function TeaOffsetDialog(props) {
   const handleSave = (values, { setSubmitting }) => {
     let teaOffset = values;
     setSubmitting(false);
-    onCreate(teaOffset);
     handleClose();
+    onCreate({ ...teaOffset, teaId: getTeaIdByName(teas, teaOffset.teaName) });
   };
 
   if (!teas || teas.length < 1) {
     return (
-      <Dialog open={open} onClose={handleClose} maxWidth="xl">
+      <Dialog open={open} onClose={handleClose} maxWidth='xl'>
         <DialogContent>
           먼저 <b>품목</b>을 1개 이상 등록해주세요.
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color='primary'>
             확인
           </Button>
         </DialogActions>
@@ -46,8 +47,8 @@ export default function TeaOffsetDialog(props) {
   }
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="xl">
-      <DialogTitle id="form-dialog-title">품목 오프셋 추가</DialogTitle>
+    <Dialog open={open} onClose={handleClose} maxWidth='xl'>
+      <DialogTitle id='form-dialog-title'>품목 오프셋 추가</DialogTitle>
       <DialogContent>
         <Formik
           initialValues={{
@@ -65,18 +66,16 @@ export default function TeaOffsetDialog(props) {
               <Box className={classes.box} margin={1}>
                 <TextField
                   select
-                  name="teaName"
+                  name='teaName'
                   label={TEA_OFFSET.TEA_NAME}
                   onChange={handleChange}
-                  variant="standard"
+                  variant='standard'
                   value={values.teaName}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   error={touched.teaName && Boolean(errors.teaName)}
-                  helperText={
-                    touched.teaName && errors.teaName ? errors.teaName : ""
-                  }
+                  helperText={touched.teaName && errors.teaName ? errors.teaName : ''}
                 >
                   {teas.map(({ name }) => (
                     <MenuItem key={name} value={name}>
@@ -86,58 +85,50 @@ export default function TeaOffsetDialog(props) {
                 </TextField>
                 <TextField
                   required
-                  margin="dense"
-                  name="ph"
+                  margin='dense'
+                  name='ph'
                   label={TEA_OFFSET.PH}
-                  type="number"
+                  type='number'
                   onChange={handleChange}
                   error={touched.ph && Boolean(errors.ph)}
-                  helperText={touched.ph && errors.ph ? errors.ph : ""}
+                  helperText={touched.ph && errors.ph ? errors.ph : ''}
                 />
                 <TextField
                   required
-                  margin="dense"
-                  name="temp"
+                  margin='dense'
+                  name='temp'
                   label={TEA_OFFSET.TEMP}
-                  type="number"
+                  type='number'
                   onChange={handleChange}
                   error={touched.temp && Boolean(errors.temp)}
-                  helperText={touched.temp && errors.temp ? errors.temp : ""}
+                  helperText={touched.temp && errors.temp ? errors.temp : ''}
                 />
                 <TextField
                   required
-                  margin="dense"
-                  name="dox"
+                  margin='dense'
+                  name='dox'
                   label={TEA_OFFSET.DOX}
-                  type="number"
+                  type='number'
                   onChange={handleChange}
                   error={touched.dox && Boolean(errors.dox)}
-                  helperText={touched.dox && errors.dox ? errors.dox : ""}
+                  helperText={touched.dox && errors.dox ? errors.dox : ''}
                 />
                 <TextField
                   required
-                  margin="dense"
-                  name="brix"
+                  margin='dense'
+                  name='brix'
                   label={TEA_OFFSET.BRIX}
-                  type="number"
+                  type='number'
                   onChange={handleChange}
                   error={touched.brix && Boolean(errors.brix)}
-                  helperText={touched.brix && errors.brix ? errors.brix : ""}
+                  helperText={touched.brix && errors.brix ? errors.brix : ''}
                 />
               </Box>
               <Box className={classes.box} margin={1}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={submitForm}
-                >
+                <Button variant='contained' color='primary' onClick={submitForm}>
                   저장
                 </Button>
-                <Button
-                  onClick={handleClose}
-                  variant="contained"
-                  color="secondary"
-                >
+                <Button onClick={handleClose} variant='contained' color='secondary'>
                   취소
                 </Button>
               </Box>

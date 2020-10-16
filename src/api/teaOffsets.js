@@ -1,28 +1,44 @@
-import axios from "axios";
-import config from "../config.json";
+import axios from 'axios';
+import config from '../config.json';
 
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || 'development';
 const { host, port } = config[env].api;
 
+function toTeaOffsetBody(tank) {
+  const { teaId, temp, ph, dox, brix } = tank;
+  return {
+    teaId,
+    temp,
+    ph,
+    dox,
+    brix,
+  };
+}
+
 export async function getTeaOffsets() {
-  const response = await axios.get(`${host}:${port}/tea_offsets`);
+  // const response = await axios.get(`${host}:${port}/tea-offsets`);
+  const response = await axios.get(`http://localhost:5000/tea-offsets`);
   return response.data;
 }
 
 export async function postTeaOffset(data) {
-  console.log("postTeaOffset ", data);
-  return {
-    id: data.id,
-  };
+  const response = await axios.post(`http://localhost:5000/tea-offsets`, toTeaOffsetBody(data));
+  return response.data.id;
 }
 
 export async function patchTeaOffset(data) {
-  console.log("patchTeaOffset ", data);
-  return {
-    id: data.id,
-  };
+  const response = await axios.patch(
+    `http://localhost:5000/tea-offsets/${data.id}`,
+    toTeaOffsetBody(data),
+  );
+  return response.data;
 }
 
 export async function deleteTeaOffset(id) {
-  return id;
+  const response = await axios({
+    url: 'http://localhost:5000/tea-offsets',
+    method: 'delete',
+    data: { id },
+  });
+  return response.data.id;
 }
