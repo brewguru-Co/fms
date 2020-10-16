@@ -121,7 +121,7 @@ export default function SortTable(props) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => (
-                  <TableRow hover tabIndex={-1} key={row.id}>
+                  <TableRow hover tabIndex={-1} key={index}>
                     {columns.map((columns, index) => (
                       <TableCell key={index} align='left'>
                         {row[columns.id]}

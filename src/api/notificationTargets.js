@@ -15,6 +15,7 @@ export async function deleteNotificationTarget(id) {
     url: 'http://localhost:5000/notification-targets',
     method: 'delete',
     data: { id },
+  });
   return response.data.id;
 }
 
