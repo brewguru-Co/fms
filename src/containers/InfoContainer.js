@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { GreasePencil, Thermometer, Water, Gauge } from 'mdi-material-ui';
 import OptimalCard from '../components/OptimalCard';
@@ -25,10 +25,13 @@ function InfoContainer(props) {
   });
   const [open, setOpen] = useState(false);
   const [useBatchData, setUseBatchData] = useState(false);
-  const { tanks, tankDatas } = useSelector((state) => ({
-    tanks: state.tanks,
-    tankDatas: state.tankDatas,
-  }));
+  const { tanks, tankDatas } = useSelector(
+    (state) => ({
+      tanks: state.tanks,
+      tankDatas: state.tankDatas,
+    }),
+    shallowEqual,
+  );
 
   useEffect(() => {
     dispatch(getTanks());
@@ -69,10 +72,10 @@ function InfoContainer(props) {
   };
 
   const realtimeData =
-    tankDatas.loading || tankDatas.realtimeTankData.length < 1
+    tankDatas.realtimeTankData.length < 1
       ? {}
       : tankDatas.realtimeTankData[tankDatas.realtimeTankData.length - 1];
-  const currentTank = tanks.loading || !tanks.tanks ? {} : tanks.tanks[0];
+  const currentTank = !tanks.tanks ? {} : tanks.tanks[0];
 
   return (
     <Grid container spacing={3}>

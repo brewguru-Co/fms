@@ -29,7 +29,6 @@ const columns = [
 
 function MaterialHistory(props) {
   const { data } = props;
-  console.log(data);
   return (
     <SortTable
       rows={formatTime(data)}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import MaterialForm from '../components/MaterialForm';
 import MaterialHistory from '../components/MaterialHistory';
@@ -21,10 +21,13 @@ function merge(materials, batchs) {
 }
 
 function MaterialsContainer() {
-  const { batchs, materials } = useSelector((state) => ({
-    batchs: state.batchs.batchs,
-    materials: state.materials.materials,
-  }));
+  const { batchs, materials } = useSelector(
+    (state) => ({
+      batchs: state.batchs.batchs,
+      materials: state.materials.materials,
+    }),
+    shallowEqual,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {

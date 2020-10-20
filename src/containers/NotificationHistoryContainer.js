@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import SortTable from '../components/SortTable';
 import { getTimeString } from '../lib/time';
 import { sortByKeyDesc } from '../lib/utils';
@@ -44,10 +44,13 @@ const columns = [
 ];
 
 function NotificationTargetHistoryContainer() {
-  const { batchs, notifications } = useSelector((state) => ({
-    batchs: state.batchs.batchs,
-    notifications: state.notifications.notifications,
-  }));
+  const { batchs, notifications } = useSelector(
+    (state) => ({
+      batchs: state.batchs.batchs,
+      notifications: state.notifications.notifications,
+    }),
+    shallowEqual,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {

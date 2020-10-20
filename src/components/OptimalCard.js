@@ -1,11 +1,11 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Skeleton from "@material-ui/lab/Skeleton";
-import Card from "./Card/Card";
-import CardIcon from "./Card/CardIcon";
-import CardHeader from "./Card/CardHeader";
-import CardFooter from "./Card/CardFooter";
-import styles from "../assets/jss/components/optimalCardStyle";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Skeleton from '@material-ui/lab/Skeleton';
+import Card from './Card/Card';
+import CardIcon from './Card/CardIcon';
+import CardHeader from './Card/CardHeader';
+import CardFooter from './Card/CardFooter';
+import styles from '../assets/jss/components/optimalCardStyle';
 
 const useStyles = makeStyles(styles);
 
@@ -22,7 +22,7 @@ function OptimalCard(props) {
             <h2 className={classes.title}>{title}</h2>
           ) : (
             <div className={classes.container}>
-              <Skeleton className={classes.skeleton} variant="text" />
+              <Skeleton className={classes.skeleton} variant='text' />
             </div>
           )}
         </>
@@ -35,4 +35,4 @@ function OptimalCard(props) {
   );
 }
 
-export default React.memo(OptimalCard);
+export default OptimalCard;

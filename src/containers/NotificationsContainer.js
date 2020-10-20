@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -78,10 +78,13 @@ const useStyles = makeStyles((theme) => ({
 
 function NotificationsContainer() {
   const [selectedBatch, setSelectedBatch] = useState('None');
-  const { notifications, batchs } = useSelector((state) => ({
-    notifications: state.notifications.notifications,
-    batchs: state.batchs.batchs,
-  }));
+  const { notifications, batchs } = useSelector(
+    (state) => ({
+      notifications: state.notifications.notifications,
+      batchs: state.batchs.batchs,
+    }),
+    shallowEqual,
+  );
   const dispatch = useDispatch();
   const classes = useStyles();
 

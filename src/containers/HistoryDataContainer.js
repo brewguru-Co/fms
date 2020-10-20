@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -49,10 +49,13 @@ const buildItems = (batchDatas) => {
 function HistoryDataContainer() {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { teas, batchDatas } = useSelector((state) => ({
-    batchDatas: state.batchDatas.batchDatas,
-    teas: state.teas.teas,
-  }));
+  const { teas, batchDatas } = useSelector(
+    (state) => ({
+      batchDatas: state.batchDatas.batchDatas,
+      teas: state.teas.teas,
+    }),
+    shallowEqual,
+  );
   const [unit, setUnit] = useState();
   const [items, setItems] = useState([]);
   const [selectedBatchs, setSelectedBatchs] = useState([]);
