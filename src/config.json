@@ -2,7 +2,13 @@
   "development": {
     "api": {
       "host": "http://localhost",
-      "port": 4000
+      "port": 5000
+    }
+  },
+  "production": {
+    "api": {
+      "host": "http://ec2-15-164-102-211.ap-northeast-2.compute.amazonaws.com",
+      "port": 5000
     }
   }
 }
