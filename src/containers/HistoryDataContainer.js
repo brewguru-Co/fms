@@ -12,6 +12,7 @@ import PhHistoryChart from '../components/Chart/PhHistoryChart';
 import DoHistoryChart from '../components/Chart/DoHistoryChart';
 import TempHistoryChart from '../components/Chart/TempHistoryChart';
 import BrHistoryChart from '../components/Chart/BrHistoryChart';
+import ErrorDataDialog from '../components/Dialog/ErrorDataDialog';
 import { getBatchDatas } from '../redux/modules/batchDatas';
 import { getTeas } from '../redux/modules/teas';
 import { filterData, getOptimalData } from '../lib/chart';
@@ -29,7 +30,10 @@ const formatData = (data, key) => {
 };
 
 const getSelectedData = (batchDatas, items) => {
-  const selected = items.map((e) => e.split(' ')[1]);
+  const selected = items.map((e) => {
+    const words = e.split(' ');
+    return words[words.length - 1];
+  });
   return batchDatas
     .filter((batchData) => {
       const startedAt = moment(batchData.startedAt * 1000).format('YYYY-MM-DD');
@@ -40,8 +44,11 @@ const getSelectedData = (batchDatas, items) => {
 
 const buildItems = (batchDatas) => {
   return batchDatas.reduce((acc, batchData) => {
-    const { startedAt, teaName } = batchData;
-    acc.push(`${teaName} ${moment(startedAt * 1000).format('YYYY-MM-DD')}`);
+    const { startedAt, teaName, id, hasError } = batchData;
+    const item = hasError
+      ? `[오류] batch ${id} (${teaName}) ${moment(startedAt * 1000).format('YYYY-MM-DD')}`
+      : `batch ${id} (${teaName}) ${moment(startedAt * 1000).format('YYYY-MM-DD')}`;
+    acc.push(item);
     return acc;
   }, []);
 };
@@ -65,11 +72,15 @@ function HistoryDataContainer() {
   const [optimalData, setOptimalData] = useState();
   const [isOptimal, setIsOptimal] = useState(false);
   const [data, setData] = useState();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     dispatch(getBatchDatas());
     dispatch(getTeas());
   }, [dispatch]);
+
+  const onClose = () => setOpen(false);
+  const onOpen = () => setOpen(true);
 
   const handleSelectedBatchs = (e) => {
     const { value } = e.target;
@@ -88,8 +99,12 @@ function HistoryDataContainer() {
     setItems(buildItems(filtered));
   };
 
+  const hasErrorData = (selected) => selected.filter((item) => item.includes('오류')).length > 0;
+
   const handleData = (unit) => {
     if (!batchDatas || selectedBatchs.length < 1) return;
+    if (selectedBatchs.length > 1 && hasErrorData(selectedBatchs)) return onOpen();
+
     const optimal = getOptimalData(selectedSeriesData);
     const viewData = [...selectedSeriesData, optimal];
 
@@ -107,6 +122,7 @@ function HistoryDataContainer() {
   };
 
   const handleOptimalData = () => {
+    if (selectedBatchs.length > 1 && hasErrorData(selectedBatchs)) return onOpen();
     setData([filterData(optimalData, unit)]);
     setIsOptimal(true);
   };
@@ -119,8 +135,13 @@ function HistoryDataContainer() {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Box className={classes.box}>
-          {teas.map((tea) => (
-            <Button onClick={() => handleSeries(tea.name)} variant='contained' size='small'>
+          {teas.map((tea, index) => (
+            <Button
+              key={index}
+              onClick={() => handleSeries(tea.name)}
+              variant='contained'
+              size='small'
+            >
               {tea.name}
             </Button>
           ))}
@@ -133,6 +154,7 @@ function HistoryDataContainer() {
           items={items}
           label='제품 선택'
         />
+        <ErrorDataDialog open={open} handleClose={onClose} />
       </Grid>
       <Grid item xs={12}>
         <Box className={classes.box}>
