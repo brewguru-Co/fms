@@ -9,6 +9,15 @@ const historyDataContainerStyle = {
       marginRight: 4,
     },
   },
+  optimalContainer: {
+    paddingLeft: 40,
+  },
+  label: {
+    marginLeft: 15,
+    marginRight: 10,
+    fontWeight: 'bold',
+  },
+  value: {},
   title: {
     marginBottom: 10,
   },

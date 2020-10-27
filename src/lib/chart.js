@@ -1,4 +1,6 @@
 import moment from 'moment';
+import _ from 'lodash';
+import { findMax, findMin } from './utils';
 import { hexToRgb, getColor } from '../assets/jss';
 
 export const realtimeData = (data, color) => ({
@@ -47,8 +49,7 @@ export const realtimeOptions = (ymin, ymax, step, color) => ({
   tooltips: {
     displayColors: false,
     callbacks: {
-      title: (item) =>
-        moment(new Date(item[0].xLabel)).format('MMM D YYYY, hh:mm A'),
+      title: (item) => moment(new Date(item[0].xLabel)).format('MMM D YYYY, hh:mm A'),
     },
   },
   scales: {
@@ -113,15 +114,15 @@ export const filterData = (datas, unit) => {
 
 export const getOptimalData = (datas) => {
   const counts = datas.length;
-  const maxLengthOfItems = Math.max(...datas.map(data => data.length));
+  const maxLengthOfItems = Math.max(...datas.map((data) => data.length));
   const paddArr = [];
 
   for (let i = 0; i < counts; i += 1) {
     const arr = [];
-    for(let j=0; j < maxLengthOfItems; j+=1) {
+    for (let j = 0; j < maxLengthOfItems; j += 1) {
       let value = datas[i][j];
       if (!value && j > 0) {
-        value = arr[j-1];
+        value = arr[j - 1];
         value.timestamp += 60 * 15;
       }
       arr.push(value);
@@ -130,7 +131,7 @@ export const getOptimalData = (datas) => {
   }
 
   const avgArr = [];
-  for(let i = 0; i < maxLengthOfItems; i += 1 ) {
+  for (let i = 0; i < maxLengthOfItems; i += 1) {
     let sum = {
       temp: 0,
       ph: 0,
@@ -138,8 +139,8 @@ export const getOptimalData = (datas) => {
       brix: 0,
       timestamp: 0,
     };
-    for(let j=0; j < counts; j+=1) {
-      const value = paddArr[j][i]
+    for (let j = 0; j < counts; j += 1) {
+      const value = paddArr[j][i];
       sum.temp += value.temp;
       sum.ph += value.ph;
       sum.dox += value.dox;
@@ -152,8 +153,33 @@ export const getOptimalData = (datas) => {
       dox: parseFloat((sum.dox / counts).toFixed(2)),
       brix: parseFloat((sum.brix / counts).toFixed(2)),
       timestamp: sum.timestamp,
-    })
+    });
   }
 
   return avgArr;
-}
+};
+
+export const findMaxData = (datas) => {
+  const maxes = [];
+  datas.forEach((data) => maxes.push(findMax(data, 'y')));
+  return Math.max(...maxes);
+};
+
+export const findMinData = (datas) => {
+  const mins = [];
+  datas.forEach((data) => mins.push(findMin(data, 'y')));
+  return Math.min(...mins);
+};
+
+export const getYAxes = (max, min, alpha, divider = 8) => {
+  console.log(Math.round((max - min + 2 * alpha) / divider));
+  return [
+    {
+      ticks: {
+        min: min - alpha,
+        max: max + alpha,
+        stepSize: _.round((max - min + 2 * alpha) / divider, 1),
+      },
+    },
+  ];
+};

@@ -87,11 +87,15 @@ function HistoryDataContainer() {
     setSelectedBatchs(value);
     setSelectedSeriesData(getSelectedData(seriesData, value));
     setData();
+    setIsOptimal(false);
+    setOptimalData(null);
   };
 
   const handleSeries = (name) => {
-    setData();
     setSelectedBatchs([]);
+    setData();
+    setIsOptimal(false);
+    setOptimalData(null);
 
     const filtered = batchDatas.filter((batchData) => batchData.teaName === name);
 
@@ -123,7 +127,12 @@ function HistoryDataContainer() {
 
   const handleOptimalData = () => {
     if (selectedBatchs.length > 1 && hasErrorData(selectedBatchs)) return onOpen();
-    setData([filterData(optimalData, unit)]);
+    if (!optimalData) {
+      const optimal = getOptimalData(selectedSeriesData);
+      setData([filterData(optimal, unit)]);
+    } else {
+      setData([filterData(optimalData, unit)]);
+    }
     setIsOptimal(true);
   };
 
@@ -172,6 +181,26 @@ function HistoryDataContainer() {
           >
             최적값
           </Button>
+          {optimalData && !hasErrorData(selectedBatchs) && (
+            <span className={classes.optimalContainer}>
+              <Typography className={classes.label} component='span'>
+                Temp:{' '}
+              </Typography>
+              <Typography component='span'>{optimalData[optimalData.length - 1].temp}</Typography>
+              <Typography className={classes.label} component='span'>
+                PH:{' '}
+              </Typography>
+              <Typography component='span'>{optimalData[optimalData.length - 1].ph}</Typography>
+              <Typography className={classes.label} component='span'>
+                DO:{' '}
+              </Typography>
+              <Typography component='span'>{optimalData[optimalData.length - 1].dox}</Typography>
+              <Typography className={classes.label} component='span'>
+                BR:{' '}
+              </Typography>
+              <Typography component='span'>{optimalData[optimalData.length - 1].brix}</Typography>
+            </span>
+          )}
         </Box>
       </Grid>
       {data && (

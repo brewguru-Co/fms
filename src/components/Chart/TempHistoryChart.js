@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import Chart from 'chart.js';
+import { findMaxData, findMinData, getYAxes } from '../../lib/chart';
 import { makeStyles } from '@material-ui/core/styles';
 import { GRAY, INDIGO } from '../../assets/jss';
-import Chart from 'chart.js';
 import styles from '../../assets/jss/components/historyChartStyle';
 
 const useStyles = makeStyles(styles);
@@ -51,15 +52,21 @@ function TempHistoryChart(props) {
   const chartRef = useRef();
   const yAxisRef = useRef();
 
+  console.log(findMaxData(datas), findMinData(datas));
+
   const isOptimalData = (index) => (datas.length > 1 && index === datas.length - 1) || isOptimal;
   const gData = {
-    datasets: datas.map((data, index) => (isOptimalData(index) ? {
-      ...avgDatasetOptions,
-      data,
-    } : {
-        ...datasetOptions,
-        data,
-      })),
+    datasets: datas.map((data, index) =>
+      isOptimalData(index)
+        ? {
+            ...avgDatasetOptions,
+            data,
+          }
+        : {
+            ...datasetOptions,
+            data,
+          },
+    ),
   };
 
   useEffect(() => {
@@ -81,9 +88,7 @@ function TempHistoryChart(props) {
             const sourceCanvas = this.chart.canvas;
             const copyWidth = this.chart.scales['y-axis-0'].width - 5;
             const copyHeight =
-              this.chart.scales['y-axis-0'].height +
-              this.chart.scales['y-axis-0'].top +
-              10;
+              this.chart.scales['y-axis-0'].height + this.chart.scales['y-axis-0'].top + 10;
             const targetElementWidth = this.canvas.clientWidth;
             const targetElementHeight = this.canvas.clientHeight;
 
@@ -92,13 +97,7 @@ function TempHistoryChart(props) {
 
             yChart.canvas.style.width = `${copyWidth}px`;
             yChart.canvas.style.height = `${copyHeight}px`;
-            yChart.drawImage(
-              sourceCanvas,
-              0,
-              0,
-              targetElementWidth,
-              targetElementHeight
-            );
+            yChart.drawImage(sourceCanvas, 0, 0, targetElementWidth, targetElementHeight);
           },
         },
         legend: {
@@ -123,19 +122,11 @@ function TempHistoryChart(props) {
               },
             },
           ],
-          yAxes: [
-            {
-              ticks: {
-                min: 25,
-                max: 28,
-                stepSize: 0.5
-              }
-            }
-          ]
+          yAxes: getYAxes(findMaxData(datas), findMinData(datas), 1),
         },
       },
     });
-  }, [gData, length]);
+  }, [gData, length, datas]);
 
   return (
     <div style={{ position: 'relative' }}>

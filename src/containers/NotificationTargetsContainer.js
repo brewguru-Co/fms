@@ -61,7 +61,7 @@ function NotificationTargetContainer() {
       columns={columns}
       rows={data}
       rowsPerPage={5}
-      title='알림 세팅'
+      title='알림 대상 설정'
       subTitle='측정값이 적정 범위를 벗어날 시 알릴 대상 설정'
       onRemove={onRemove}
       onUpdate={onUpdate}

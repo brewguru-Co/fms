@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import Chart from 'chart.js';
+import { findMaxData, findMinData, getYAxes } from '../../lib/chart';
 import { makeStyles } from '@material-ui/core/styles';
 import { GRAY, ORANGE } from '../../assets/jss';
-import Chart from 'chart.js';
 import styles from '../../assets/jss/components/historyChartStyle';
 
 const useStyles = makeStyles(styles);
@@ -53,13 +54,17 @@ function BrHistoryChart(props) {
 
   const isOptimalData = (index) => (datas.length > 1 && index === datas.length - 1) || isOptimal;
   const gData = {
-    datasets: datas.map((data, index) => (isOptimalData(index) ? {
-      ...avgDatasetOptions,
-      data,
-    } : {
-        ...datasetOptions,
-        data,
-      })),
+    datasets: datas.map((data, index) =>
+      isOptimalData(index)
+        ? {
+            ...avgDatasetOptions,
+            data,
+          }
+        : {
+            ...datasetOptions,
+            data,
+          },
+    ),
   };
 
   useEffect(() => {
@@ -81,9 +86,7 @@ function BrHistoryChart(props) {
             const sourceCanvas = this.chart.canvas;
             const copyWidth = this.chart.scales['y-axis-0'].width - 5;
             const copyHeight =
-              this.chart.scales['y-axis-0'].height +
-              this.chart.scales['y-axis-0'].top +
-              10;
+              this.chart.scales['y-axis-0'].height + this.chart.scales['y-axis-0'].top + 10;
             const targetElementWidth = this.canvas.clientWidth;
             const targetElementHeight = this.canvas.clientHeight;
 
@@ -92,13 +95,7 @@ function BrHistoryChart(props) {
 
             yChart.canvas.style.width = `${copyWidth}px`;
             yChart.canvas.style.height = `${copyHeight}px`;
-            yChart.drawImage(
-              sourceCanvas,
-              0,
-              0,
-              targetElementWidth,
-              targetElementHeight
-            );
+            yChart.drawImage(sourceCanvas, 0, 0, targetElementWidth, targetElementHeight);
           },
         },
         legend: {
@@ -123,19 +120,11 @@ function BrHistoryChart(props) {
               },
             },
           ],
-          yAxes: [
-            {
-              ticks: {
-                min: 6,
-                max: 8,
-                stepSize: 0.2,
-              }
-            }
-          ]
+          yAxes: getYAxes(findMaxData(datas), findMinData(datas), 0.5),
         },
       },
     });
-  }, [gData, length]);
+  }, [gData, length, datas]);
 
   return (
     <div style={{ position: 'relative' }}>

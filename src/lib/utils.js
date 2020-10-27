@@ -22,3 +22,15 @@ export const getCurrentBatch = (batchs) => {
   const now = Date.now() / 1000;
   return batchs.find(({ startedAt, finishedAt }) => startedAt <= now && now < finishedAt);
 };
+
+export const findMax = (objArr, key) =>
+  Math.max.apply(
+    Math,
+    objArr.map((obj) => obj[key]),
+  );
+
+export const findMin = (objArr, key) =>
+  Math.min.apply(
+    Math,
+    objArr.map((obj) => obj[key]),
+  );
