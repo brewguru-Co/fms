@@ -42,7 +42,7 @@ function RealtimeChartsContainer(props) {
           <RealtimeChart
             color={'green'}
             data={realtimeData(createData(data, 'temp'), 'white')}
-            options={realtimeOptions(24, 32, 2, 'white')}
+            options={realtimeOptions(18, 28, 2, 'white')}
             title={'온도 (Temperature)'}
           />
         )}
@@ -52,7 +52,7 @@ function RealtimeChartsContainer(props) {
           <RealtimeChart
             color={'yellow'}
             data={realtimeData(createData(data, 'ph'), 'white')}
-            options={realtimeOptions(2.4, 4.2, 0.3, 'white')}
+            options={realtimeOptions(2, 8, 1, 'white')}
             title={'산도 (PH)'}
           />
         )}
@@ -72,7 +72,7 @@ function RealtimeChartsContainer(props) {
           <RealtimeChart
             color={'gray'}
             data={realtimeData(createData(data, 'dox'), 'white')}
-            options={realtimeOptions(0, 100, 20, 'white')}
+            options={realtimeOptions(0, 10, 2, 'white')}
             title={'용존산소량 (DO)'}
           />
         )}
