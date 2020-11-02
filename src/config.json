@@ -7,7 +7,7 @@
   },
   "production": {
     "api": {
-      "host": "http://ec2-15-164-102-211.ap-northeast-2.compute.amazonaws.com",
+      "host": "http://fms.brewguru.org",
       "port": 5000
     }
   }
