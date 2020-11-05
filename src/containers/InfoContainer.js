@@ -6,6 +6,7 @@ import OptimalCard from '../components/OptimalCard';
 import InfoCard from '../components/InfoCard';
 import BatchUsageDialog from '../components/Dialog/BatchUsageDialog';
 import { getTanks } from '../redux/modules/tanks';
+import { getBatchs } from '../redux/modules/batchs';
 
 function formatTime(time) {
   return time < 10 ? `0${time}` : time;
@@ -15,7 +16,7 @@ function InfoContainer(props) {
   const { handleFinish, handleStart } = props;
   const dispatch = useDispatch();
   /* (@TODO) API 연동 필요 (startedAt, finishedAt) */
-  const [startedAt, setStartedAt] = useState(new Date());
+  const [startedAt, setStartedAt] = useState();
   const [finishedAt, setFinishedAt] = useState(null);
   const [time, setTime] = useState({
     day: 0,
@@ -25,16 +26,18 @@ function InfoContainer(props) {
   });
   const [open, setOpen] = useState(false);
   const [useBatchData, setUseBatchData] = useState(false);
-  const { tanks, tankDatas } = useSelector(
+  const { tanks, tankDatas, batchs } = useSelector(
     (state) => ({
       tanks: state.tanks,
       tankDatas: state.tankDatas,
+      batchs: state.batchs,
     }),
     shallowEqual,
   );
 
   useEffect(() => {
     dispatch(getTanks());
+    dispatch(getBatchs());
   }, [dispatch]);
 
   useEffect(() => {
@@ -53,6 +56,12 @@ function InfoContainer(props) {
       if (!finishedAt) clearInterval(interval);
     };
   }, [startedAt, finishedAt]);
+
+  useEffect(() => {
+    if (batchs.batchs) {
+      setStartedAt(batchs.batchs[batchs.batchs.length - 1].startedAt * 1000);
+    }
+  }, [batchs]);
 
   const onStart = () => {
     setFinishedAt(null);
@@ -76,6 +85,7 @@ function InfoContainer(props) {
       ? {}
       : tankDatas.realtimeTankData[tankDatas.realtimeTankData.length - 1];
   const currentTank = !tanks.tanks ? {} : tanks.tanks[0];
+  const currentBatch = !batchs.batchs ? {} : batchs.batchs[batchs.batchs.length - 1];
 
   return (
     <Grid container spacing={3}>
@@ -83,7 +93,7 @@ function InfoContainer(props) {
         <InfoCard
           tank={currentTank.name}
           tea={currentTank.teaName}
-          startedAt={startedAt}
+          startedAt={currentBatch.startedAt}
           finishedAt={finishedAt}
           day={time.day}
           hour={time.hour}
