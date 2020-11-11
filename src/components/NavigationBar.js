@@ -6,6 +6,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -68,9 +69,13 @@ export default function NavigationBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography style={{ flex: '1 1 90% ' }} variant='h6' noWrap>
-            Brewguru
-          </Typography>
+          <Box style={{ flex: '1 1 90% ' }}>
+            <img
+              style={{ height: '64px' }}
+              src={require('../assets/images/brewguru_logo.png')}
+              alt='Logo'
+            />
+          </Box>
           <NotificationPopperContainer />
         </Toolbar>
       </AppBar>
@@ -90,11 +95,7 @@ export default function NavigationBar() {
         >
           <div className={classes.toolbar}>
             <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </div>
           <Divider />
@@ -105,12 +106,7 @@ export default function NavigationBar() {
               </ListItemIcon>
               <ListItemText primary={'대시보드'} />
             </ListItem>
-            <ListItem
-              button
-              component={Link}
-              to='/management'
-              key={'Management'}
-            >
+            <ListItem button component={Link} to='/management' key={'Management'}>
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
@@ -128,12 +124,7 @@ export default function NavigationBar() {
               </ListItemIcon>
               <ListItemText primary={'원료 투입 기록'} />
             </ListItem>
-            <ListItem
-              button
-              component={Link}
-              to='/notification'
-              key={'Notification'}
-            >
+            <ListItem button component={Link} to='/notification' key={'Notification'}>
               <ListItemIcon>
                 <NotificationsIcon />
               </ListItemIcon>

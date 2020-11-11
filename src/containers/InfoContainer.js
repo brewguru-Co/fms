@@ -15,7 +15,6 @@ function formatTime(time) {
 function InfoContainer(props) {
   const { handleFinish, handleStart } = props;
   const dispatch = useDispatch();
-  /* (@TODO) API 연동 필요 (startedAt, finishedAt) */
   const [startedAt, setStartedAt] = useState();
   const [finishedAt, setFinishedAt] = useState(null);
   const [time, setTime] = useState({
