@@ -135,7 +135,7 @@ function InfoContainer(props) {
           <OptimalCard
             color='gray'
             category='용존산소량 (DO)'
-            title={realtimeData.dox}
+            title={realtimeData.dox === 0 ? '0' : realtimeData.dox}
             content={`${currentTank.doxLow} ~ ${currentTank.doxHigh}`}
             icon={<Gauge />}
           />
