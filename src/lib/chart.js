@@ -27,7 +27,7 @@ export const realtimeData = (data, color) => ({
   ],
 });
 
-export const realtimeOptions = (ymin, ymax, step, color) => ({
+export const realtimeOptions = (value, step, color) => ({
   animation: {
     duration: 0,
   },
@@ -93,8 +93,8 @@ export const realtimeOptions = (ymin, ymax, step, color) => ({
           zeroLineColor: `rgba(${hexToRgb(getColor(color))}, 0.3)`,
         },
         ticks: {
-          min: ymin,
-          max: ymax,
+          min: Math.floor(value) - 2 * step,
+          max: Math.floor(value) + 2 * step,
           stepSize: step,
           padding: 10,
           fontColor: `rgba(${hexToRgb(getColor(color))}, 0.7)`,

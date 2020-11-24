@@ -18,6 +18,11 @@ function createData(tankDatas, key) {
     .slice(n, n + yCount);
 }
 
+function getRecentData(tankDatas) {
+  const len = tankDatas.length;
+  return len > 0 ? tankDatas[len - 1] : {};
+}
+
 let interval;
 
 function RealtimeChartsContainer(props) {
@@ -42,7 +47,7 @@ function RealtimeChartsContainer(props) {
           <RealtimeChart
             color={'green'}
             data={realtimeData(createData(data, 'temp'), 'white')}
-            options={realtimeOptions(18, 28, 2, 'white')}
+            options={realtimeOptions(getRecentData(data).temp, 2, 'white')}
             title={'온도 (Temperature)'}
           />
         )}
@@ -52,7 +57,7 @@ function RealtimeChartsContainer(props) {
           <RealtimeChart
             color={'yellow'}
             data={realtimeData(createData(data, 'ph'), 'white')}
-            options={realtimeOptions(2, 8, 1, 'white')}
+            options={realtimeOptions(getRecentData(data).ph, 0.5, 'white')}
             title={'산도 (PH)'}
           />
         )}
@@ -62,7 +67,7 @@ function RealtimeChartsContainer(props) {
           <RealtimeChart
             color={'red'}
             data={realtimeData(createData(data, 'brix'), 'white')}
-            options={realtimeOptions(6, 8, 0.4, 'white')}
+            options={realtimeOptions(getRecentData(data).brix, 0.5, 'white')}
             title={'당도 (BR)'}
           />
         )}
@@ -72,7 +77,7 @@ function RealtimeChartsContainer(props) {
           <RealtimeChart
             color={'gray'}
             data={realtimeData(createData(data, 'dox'), 'white')}
-            options={realtimeOptions(0, 10, 2, 'white')}
+            options={realtimeOptions(getRecentData(data).dox, 2, 'white')}
             title={'용존산소량 (DO)'}
           />
         )}
