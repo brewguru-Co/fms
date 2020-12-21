@@ -3,13 +3,12 @@ import teas, { teasSaga } from './teas';
 import tanks, { tanksSaga } from './tanks';
 import batchs, { batchsSaga } from './batchs';
 import batchDatas, { batchDatasSaga } from './batchDatas';
-import notificationTargets, {
-  notificationTargetsSaga,
-} from './notificationTargets';
+import notificationTargets, { notificationTargetsSaga } from './notificationTargets';
 import tankDatas, { tankDatasSaga } from './tankDatas';
 import notifications, { notificationsSaga } from './notifications';
 import teaOffsets, { teaOffsetsSaga } from './teaOffsets';
 import materials, { materialsSaga } from './materials';
+import auth, { authSaga } from './auth';
 import { all } from 'redux-saga/effects';
 
 const rootReducer = combineReducers({
@@ -22,6 +21,7 @@ const rootReducer = combineReducers({
   batchDatas,
   teaOffsets,
   materials,
+  auth,
 });
 export function* rootSaga() {
   yield all([
@@ -34,6 +34,7 @@ export function* rootSaga() {
     batchDatasSaga(),
     teaOffsetsSaga(),
     materialsSaga(),
+    authSaga(),
   ]);
 }
 
