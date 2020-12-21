@@ -1,4 +1,4 @@
-import { GRAY, WHITE } from '..';
+import { GRAY, WHITE, RED } from '..';
 
 const loginStyle = {
   root: {
@@ -43,6 +43,12 @@ const loginStyle = {
     textAlign: 'center',
     fontSize: '1.25rem',
     fontWeight: 500,
+  },
+  error: {
+    color: `${RED[7]}`,
+    fontWeight: 500,
+    textAlign: 'center',
+    marginBottom: '2rem',
   },
 };
 export default loginStyle;
