@@ -26,7 +26,13 @@ function Login(props) {
         <Typography className={classes.label}>아이디</Typography>
         <TextField className={classes.input} onChange={handleId} value={id} fullWidth />
         <Typography className={classes.label}>비밀번호</Typography>
-        <TextField className={classes.input} onChange={handlePwd} value={pwd} fullWidth />
+        <TextField
+          className={classes.input}
+          type='password'
+          onChange={handlePwd}
+          value={pwd}
+          fullWidth
+        />
         {props.error && <Typography className={classes.error}>{props.error}</Typography>}
         <Button className={classes.button} onClick={handleLogin}>
           로그인
